@@ -1,0 +1,155 @@
+query GetHomeHero {
+  header {
+    data {
+      attributes {
+        Header {
+          ...HeaderHeroFields
+        }
+      }
+    }
+  }
+  advertisements(pagination: { pageSize: 10 }) {
+    data {
+      id
+      attributes {
+        title
+        body
+      }
+    }
+  }
+}
+
+query GetHomePageContent {
+  homePageAbout {
+    data {
+      attributes {
+        title
+        body
+        buttonText
+        photo {
+          ...MediaFileFields
+        }
+      }
+    }
+  }
+  homePageStat {
+    data {
+      attributes {
+        stats {
+          id
+          text
+          num
+        }
+      }
+    }
+  }
+  homePageGallery {
+    data {
+      attributes {
+        title
+        GalleryItems {
+          id
+          title
+          link
+          photo {
+            ...MediaFileFields
+          }
+        }
+      }
+    }
+  }
+  homePageContact {
+    data {
+      attributes {
+        title
+        Contacts {
+          id
+          name
+          position
+          phone
+          email
+        }
+        frame_url
+      }
+    }
+  }
+}
+
+query GetHomeNews($pageSize: Int = 9) {
+  novinas(sort: "date:desc", pagination: { page: 1, pageSize: $pageSize }) {
+    meta {
+      pagination {
+        total
+        page
+        pageSize
+        pageCount
+      }
+    }
+    data {
+      id
+      attributes {
+        title
+        body
+        date
+        video_url
+        main_photo {
+          ...MediaFileFields
+        }
+        preview_photo {
+          ...MediaFileFields
+        }
+        collage_photos(pagination: { pageSize: 10 }) {
+          data {
+            ...MediaFileListItemFields
+          }
+        }
+        news_tags {
+          data {
+            id
+            attributes {
+              title
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+query GetHomeEvents {
+  events(pagination: { pageSize: 100 }, sort: ["weight:desc", "date:desc"]) {
+    data {
+      id
+      attributes {
+        title
+        date
+        weight
+        image {
+          ...MediaFileFields
+        }
+      }
+    }
+  }
+}
+
+query GetHomePartners {
+  partners(
+    filters: { not: { type: { eq: "Other" } } }
+    sort: "weight:desc"
+    pagination: { pageSize: 100 }
+  ) {
+    data {
+      id
+      attributes {
+        name
+        link
+        presentation_link
+        type
+        weight
+        logo {
+          ...MediaFileFields
+        }
+      }
+    }
+  }
+}

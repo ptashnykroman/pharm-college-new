@@ -1,0 +1,23 @@
+fragment MediaFileAttributes on UploadFile {
+  name
+  url
+  width
+  height
+  alternativeText
+  formats
+}
+
+fragment MediaFileFields on UploadFileEntityResponse {
+  data {
+    attributes {
+      ...MediaFileAttributes
+    }
+  }
+}
+
+fragment MediaFileListItemFields on UploadFileEntity {
+  id
+  attributes {
+    ...MediaFileAttributes
+  }
+}

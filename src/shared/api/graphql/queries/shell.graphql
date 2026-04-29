@@ -1,0 +1,60 @@
+query GetShellData {
+  header {
+    data {
+      attributes {
+        Header {
+          ...HeaderShellFields
+        }
+      }
+    }
+  }
+  footer {
+    data {
+      attributes {
+        logo {
+          ...MediaFileFields
+        }
+        copyright
+        map_url
+        map_photo {
+          ...MediaFileFields
+        }
+        title
+        address
+        main_phone
+        secondary_phone
+        email
+        social {
+          id
+          link
+          icon {
+            ...MediaFileFields
+          }
+        }
+      }
+    }
+  }
+}
+
+query GetHeaderSchedule {
+  groups(sort: "name:asc", pagination: { pageSize: 500 }) {
+    data {
+      attributes {
+        name
+        course_number
+      }
+    }
+  }
+  workers(
+    filters: { category: { in: ["teacher"] } }
+    sort: "name:asc"
+    pagination: { pageSize: 500 }
+  ) {
+    data {
+      attributes {
+        name
+        slug
+      }
+    }
+  }
+}

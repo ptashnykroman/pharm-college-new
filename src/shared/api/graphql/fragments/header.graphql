@@ -1,0 +1,71 @@
+fragment HeaderShellFields on ComponentHeaderHeader {
+  title
+  logo {
+    ...MediaFileFields
+  }
+  navigation(pagination: { pageSize: 30 }) {
+    id
+    text
+    link
+    submenu(pagination: { pageSize: 30 }) {
+      id
+      text
+      link
+      submenu(pagination: { pageSize: 200 }) {
+        id
+        text
+        link
+      }
+    }
+  }
+  headerIcons {
+    id
+    text
+    link
+    icon {
+      ...MediaFileFields
+    }
+  }
+  social {
+    text
+    icons {
+      id
+      text
+      link
+      icon {
+        ...MediaFileFields
+      }
+    }
+  }
+}
+
+fragment HeaderHeroFields on ComponentHeaderHeader {
+  title
+  logo {
+    ...MediaFileFields
+  }
+  headerBackground {
+    backgroundType
+    image {
+      ...MediaFileFields
+    }
+    slider(pagination: { pageSize: 10 }) {
+      data {
+        ...MediaFileListItemFields
+      }
+    }
+    video {
+      ...MediaFileFields
+    }
+    video_poster_primary {
+      ...MediaFileFields
+    }
+    video_poster_secondary {
+      ...MediaFileFields
+    }
+    iframe_url
+    frame_poster {
+      ...MediaFileFields
+    }
+  }
+}
