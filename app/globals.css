@@ -297,11 +297,11 @@
   }
 
   .rich-text h6 {
-    @apply mt-5 text-sm leading-tight uppercase tracking-[0.16em] text-foreground/70;
+    @apply mt-5 text-sm leading-tight tracking-[0.16em] text-foreground/70;
   }
 
   .rich-text p {
-    @apply !leading-5;
+    @apply !leading-[1.6];
   }
 
   .rich-text p,

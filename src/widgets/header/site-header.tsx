@@ -76,7 +76,7 @@ export function SiteHeader({ data }: { data: HeaderViewModel }) {
             <button
               onClick={() => setOpen((current) => !current)}
               className={cn(
-                'inline-flex h-10 w-10 items-center justify-center rounded-lg transition-smooth xl:hidden',
+                'cursor-pointer inline-flex h-10 w-10 items-center justify-center rounded-lg transition-smooth xl:hidden',
                 scrolled ? 'text-foreground hover:bg-accent' : 'text-primary-foreground hover:bg-white/10',
               )}
               aria-label="Меню"

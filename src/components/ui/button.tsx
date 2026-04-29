@@ -61,6 +61,7 @@ function Button({
       data-slot="button"
       data-variant={variant}
       data-size={size}
+      style={variant === 'surface' ? { transition: 'all 0.3s ease-in-out' } : {}}
       className={cn(buttonVariants({ variant, size, className }))}
       {...props}
     />

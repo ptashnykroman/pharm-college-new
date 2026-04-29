@@ -10,7 +10,10 @@ export function FooterAddressColumn({ addressHtml, mapUrl }: { addressHtml: stri
       <ul className="mt-4 space-y-3 text-sm text-primary-foreground/80">
         <li className="flex items-start gap-2">
           <MapPin className="mt-0.5 h-4 w-4 text-accent-gold" />
-          <span className="rich-text leading-2" dangerouslySetInnerHTML={{ __html: addressHtml }} />
+          <div
+            className="leading-6 !text-sm !text-primary-foreground/80 ![&>p]:my-1"
+            dangerouslySetInnerHTML={{ __html: addressHtml }}
+          />
         </li>
 
         {mapUrl ? (
