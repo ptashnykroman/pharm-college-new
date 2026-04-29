@@ -34,13 +34,13 @@ export function InnerPageHero({ title, slides }: InnerPageHeroProps) {
       <div className="absolute -right-12 -bottom-28 h-80 w-80 rounded-full bg-accent-gold/15 blur-3xl" />
 
       <div className="relative container mx-auto flex h-full items-center justify-center px-4 pt-24 text-center md:px-6">
-        <h1
+        {/* <h1
           style={{ fontFamily: '"Inter", ui-sans-serif, system-ui, sans-serif', fontWeight: 900 }}
           className="max-w-5xl text-2xl leading-[1.05] tracking-tight text-primary-foreground sm:text-3xl lg:text-4xl xl:text-5xl"
         >
           {title}
-        </h1>
-        {/* 
+        </h1> */}
+        
         <h1
           style={{ fontFamily: '"Inter", ui-sans-serif, system-ui, sans-serif', fontWeight: 900 }}
           className="text-2xl leading-[1.05] tracking-tight text-primary-foreground sm:text-3xl lg:text-4xl xl:text-5xl"
@@ -50,7 +50,7 @@ export function InnerPageHero({ title, slides }: InnerPageHeroProps) {
             фармацевтичний фаховий коледж
           </span>
         </h1>
-        */}
+       
       </div>
     </section>
   )

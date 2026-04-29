@@ -19,7 +19,7 @@ export function CmsPage({ page }: { page: CmsPageData }) {
     <section className="relative pb-20 pt-10 md:pb-24 md:pt-14">
       <div className="container mx-auto px-4 md:px-6">
         <div className="mx-auto max-w-5xl text-center">
-          {/* <h1 className="text-3xl font-black text-foreground sm:text-4xl lg:text-5xl">{page.title}</h1> */}
+          <h1 className="text-3xl font-black text-foreground sm:text-4xl lg:text-5xl">{page.title}</h1>
 
           {pageDescription ? (
             <p className="mx-auto mt-5 max-w-4xl text-lg leading-8 text-foreground/80">{pageDescription}</p>
@@ -30,12 +30,12 @@ export function CmsPage({ page }: { page: CmsPageData }) {
           <div className="mt-8">
             <div className="overflow-hidden rounded-[2rem] border border-border/80 bg-white shadow-card">
               <Image
+                priority
                 src={mainPhoto.src}
                 alt={mainPhoto.alt}
                 width={mainPhoto.width}
                 height={mainPhoto.height}
                 className="max-h-[400px] w-full object-cover"
-                priority
               />
             </div>
           </div>
