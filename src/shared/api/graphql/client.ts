@@ -20,9 +20,9 @@ type QueryOptions = {
   tags?: string[];
 };
 
-export async function executeGraphQL<TData, TVariables>(
-  document: TypedDocumentNode<TData, TVariables>,
-  variables: TVariables,
+async function executeGraphQLRequest<TData>(
+  query: string,
+  variables: unknown,
   options: QueryOptions = {},
 ) {
   const response = await fetch(STRAPI_GRAPHQL_URL, {
@@ -31,7 +31,7 @@ export async function executeGraphQL<TData, TVariables>(
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      query: print(document),
+      query,
       variables,
     }),
     next: {
@@ -58,4 +58,19 @@ export async function executeGraphQL<TData, TVariables>(
   }
 
   return payload.data;
+}
+
+export async function executeGraphQL<TData, TVariables>(
+  document: TypedDocumentNode<TData, TVariables>,
+  variables: TVariables,
+  options: QueryOptions = {},
+) {
+  return executeGraphQLRequest<TData>(print(document), variables, options);
+}
+
+export async function executeGraphQLRaw<
+  TData,
+  TVariables extends Record<string, unknown> = Record<string, unknown>,
+>(query: string, variables: TVariables, options: QueryOptions = {}) {
+  return executeGraphQLRequest<TData>(query, variables, options);
 }

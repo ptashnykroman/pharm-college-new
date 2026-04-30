@@ -2,15 +2,16 @@
 
 import { useEffect, useState } from 'react'
 
+import { SITE_FULL_NAME } from '@/shared/lib/site-config'
 import type { HeroSlide } from '@/widgets/home/hero/hero-utils'
 import { HeroBackgroundSlider } from '@/widgets/home/hero/hero-background-slider'
 
 type InnerPageHeroProps = {
-  title: string
+  title?: string
   slides: HeroSlide[]
 }
 
-export function InnerPageHero({ title, slides }: InnerPageHeroProps) {
+export function InnerPageHero({ slides }: InnerPageHeroProps) {
   const [backgroundIndex, setBackgroundIndex] = useState(0)
 
   useEffect(() => {
@@ -34,23 +35,17 @@ export function InnerPageHero({ title, slides }: InnerPageHeroProps) {
       <div className="absolute -right-12 -bottom-28 h-80 w-80 rounded-full bg-accent-gold/15 blur-3xl" />
 
       <div className="relative container mx-auto flex h-full items-center justify-center px-4 pt-24 text-center md:px-6">
-        {/* <h1
-          style={{ fontFamily: '"Inter", ui-sans-serif, system-ui, sans-serif', fontWeight: 900 }}
-          className="max-w-5xl text-2xl leading-[1.05] tracking-tight text-primary-foreground sm:text-3xl lg:text-4xl xl:text-5xl"
-        >
-          {title}
-        </h1> */}
-        
-        <h1
-          style={{ fontFamily: '"Inter", ui-sans-serif, system-ui, sans-serif', fontWeight: 900 }}
-          className="text-2xl leading-[1.05] tracking-tight text-primary-foreground sm:text-3xl lg:text-4xl xl:text-5xl"
-        >
-          Житомирський базовий{' '}
-          <span className="block bg-gradient-to-r from-accent-gold to-white bg-clip-text text-transparent">
-            фармацевтичний фаховий коледж
-          </span>
-        </h1>
-       
+        <div className="max-w-5xl">
+          <h1
+            style={{ fontFamily: '"Inter", ui-sans-serif, system-ui, sans-serif', fontWeight: 900 }}
+            className="mt-6 text-3xl leading-[1.05] tracking-tight text-primary-foreground sm:text-4xl lg:text-5xl"
+          >
+            Житомирський базовий{' '}
+            <span className="block bg-gradient-to-r from-accent-gold to-white bg-clip-text text-transparent">
+              фармацевтичний фаховий коледж
+            </span>
+          </h1>
+        </div>
       </div>
     </section>
   )

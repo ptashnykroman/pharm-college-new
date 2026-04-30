@@ -1,31 +1,31 @@
-import Image from "next/image";
-import { ArrowRight, Mail, Phone } from "lucide-react";
+import Image from 'next/image'
+import { ArrowRight, Mail, Phone } from 'lucide-react'
 
-import { AppButton } from "@/components/shared/app-button";
-import { resolveImage } from "@/shared/lib/media";
-import { SmartLink } from "@/widgets/navigation/smart-link";
-import { BlockShell } from "@/widgets/page/cms-page/components/block-shell";
-import { normalizePhone } from "@/widgets/page/cms-page/lib";
-import type { PersonBlock } from "@/widgets/page/cms-page/model";
+import { AppButton } from '@/components/shared/app-button'
+import { resolveImage } from '@/shared/lib/media'
+import { SmartLink } from '@/widgets/navigation/smart-link'
+import { BlockShell } from '@/widgets/page/cms-page/components/block-shell'
+import { normalizePhone } from '@/widgets/page/cms-page/lib'
+import type { PersonBlock } from '@/widgets/page/cms-page/model'
 
 export function PersonPageBlock({ block }: { block: PersonBlock }) {
-  const worker = block.worker?.data?.attributes;
+  const worker = block.worker?.data?.attributes
 
   if (!worker) {
-    return null;
+    return null
   }
 
-  const photo = resolveImage(worker.photo, "card", worker.name);
+  const photo = resolveImage(worker.photo, 'card', worker.name)
   const personHref =
     worker.cycle_commission?.data?.attributes?.slug && worker.slug
       ? `/structure/cmks/${worker.cycle_commission.data.attributes.slug}/${worker.slug}`
-      : null;
+      : null
 
   return (
     <BlockShell>
-      <div className="flex flex-col gap-5">
+      <div className="flex flex-col items-center gap-5">
         {photo ? (
-          <div className="overflow-hidden rounded-[1.75rem] bg-muted/30">
+          <div className="overflow-hidden rounded-[1.75rem] bg-muted/30 text-center">
             {personHref ? (
               <SmartLink href={personHref} className="block">
                 <Image
@@ -33,7 +33,7 @@ export function PersonPageBlock({ block }: { block: PersonBlock }) {
                   alt={photo.alt}
                   width={photo.width}
                   height={photo.height}
-                  className="aspect-square w-full object-cover"
+                  className="w-full object-cover max-h-[400px] max-w-[300px] mx-auto"
                 />
               </SmartLink>
             ) : (
@@ -42,15 +42,15 @@ export function PersonPageBlock({ block }: { block: PersonBlock }) {
                 alt={photo.alt}
                 width={photo.width}
                 height={photo.height}
-                className="aspect-square w-full object-cover"
+                className="w-full object-cover max-h-[360px] max-w-[300px] mx-auto"
               />
             )}
           </div>
         ) : null}
 
         <div>
-          <h3 className="text-xl font-black text-foreground">{worker.name}</h3>
-          {worker.position ? <p className="mt-2 text-sm uppercase tracking-[0.12em] text-primary">{worker.position}</p> : null}
+          <h3 className="text-xl font-black text-foreground text-center">{worker.name}</h3>
+          {worker.position ? <p className="mt-2 text-sm text-primary text-center">{worker.position}</p> : null}
         </div>
 
         <div className="space-y-3 text-sm text-foreground/80">
@@ -69,11 +69,18 @@ export function PersonPageBlock({ block }: { block: PersonBlock }) {
         </div>
 
         {personHref ? (
-          <AppButton href={personHref} icon={ArrowRight} iconPosition="right" shape="rounded" variant="surface" width="full">
+          <AppButton
+            href={personHref}
+            icon={ArrowRight}
+            iconPosition="right"
+            shape="rounded"
+            variant="surface"
+            width="full"
+          >
             Детальніше
           </AppButton>
         ) : null}
       </div>
     </BlockShell>
-  );
+  )
 }

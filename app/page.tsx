@@ -10,3 +10,5 @@ export default async function Home() {
 
   return <HomePageView data={data} />;
 }
+// libs: embla-carousel, yet-another-react-lightbox, sentry
+// test: https://live.browserstack.com/

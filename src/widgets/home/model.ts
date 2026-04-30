@@ -14,6 +14,7 @@ import {
   HERO_SECONDARY_LINK,
   NEWS_INDEX_PATH,
 } from "@/shared/lib/site-config";
+import type { NewsListItem } from "@/widgets/news/model";
 
 export type HomePageViewModel = {
   hero: {
@@ -73,15 +74,7 @@ export type HomePageViewModel = {
       email: string;
     }>;
   };
-  news: Array<{
-    id: string;
-    title: string;
-    excerpt: string;
-    href: string;
-    tag: string | null;
-    date: ReturnType<typeof formatDateParts>;
-    image: NonNullable<ReturnType<typeof resolveImage>>;
-  }>;
+  news: NewsListItem[];
   events: Array<{
     id: string;
     title: string;

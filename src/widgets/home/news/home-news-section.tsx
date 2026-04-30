@@ -2,19 +2,22 @@
 
 import Link from 'next/link'
 import { ArrowRight } from 'lucide-react'
-import { useMemo, useState } from 'react'
+import { startTransition, useMemo, useState } from 'react'
 
+import { Pagination } from "@/components/shared/pagination";
 import { NEWS_INDEX_PATH } from '@/shared/lib/site-config'
 import type { HomePageViewModel } from '@/widgets/home/model'
 import { NewsCard } from '@/widgets/home/news/news-card'
-import { NewsPagination } from '@/widgets/home/news/news-pagination'
 import { PAGE_SIZE } from '@/widgets/home/news/news-utils'
 
 export function HomeNewsSection({ items }: { items: HomePageViewModel['news'] }) {
-  const [page, setPage] = useState(0)
+  const [page, setPage] = useState(1)
   const totalPages = Math.max(1, Math.ceil(items.length / PAGE_SIZE))
 
-  const visibleItems = useMemo(() => items.slice(page * PAGE_SIZE, page * PAGE_SIZE + PAGE_SIZE), [items, page])
+  const visibleItems = useMemo(
+    () => items.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE),
+    [items, page]
+  )
 
   return (
     <section id="news" className="relative overflow-hidden bg-gradient-soft py-20 md:py-28">
@@ -37,11 +40,19 @@ export function HomeNewsSection({ items }: { items: HomePageViewModel['news'] })
 
         <div key={page} className="mt-12 grid gap-6 md:grid-cols-3">
           {visibleItems.map((item, index) => (
-            <NewsCard key={`${page}-${item.id}`} item={item} index={index} page={page} />
+            <NewsCard key={`${page}-${item.id}`} item={item} index={index} page={page - 1} isHomePage />
           ))}
         </div>
 
-        <NewsPagination page={page} totalPages={totalPages} onChange={setPage} />
+        <Pagination
+          currentPage={page}
+          totalPages={totalPages}
+          onPageChange={(nextPage) => {
+            startTransition(() => {
+              setPage(nextPage);
+            });
+          }}
+        />
       </div>
     </section>
   )

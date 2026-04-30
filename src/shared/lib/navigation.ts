@@ -60,6 +60,10 @@ export function buildNewsUrl(date: string, id: string) {
   return `/novina/${year}/${month}/${day}/${id}`;
 }
 
+export function buildNewsArchiveUrl(year: string, month: string) {
+  return `/novina/${year}/${month}`;
+}
+
 export function isKnownLegacyPath(
   pathname: string,
   knownPaths: ReadonlySet<string>,

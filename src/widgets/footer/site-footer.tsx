@@ -2,8 +2,6 @@ import type { FooterViewModel } from '@/widgets/footer/model'
 import { FooterAddressColumn } from '@/widgets/footer/components/footer-address-column'
 import { FooterBrandColumn } from '@/widgets/footer/components/footer-brand-column'
 import { FooterContactColumn } from '@/widgets/footer/components/footer-contact-column'
-import { FooterNavigationColumn } from '@/widgets/footer/components/footer-navigation-column'
-import { FooterLink } from './components/footer-link'
 import { SITE_NAME } from '@/shared/lib/site-config'
 import { AppButton } from '@/components/shared/app-button'
 
@@ -23,11 +21,11 @@ export function SiteFooter({ data }: { data: FooterViewModel }) {
           </div>
 
           <div className="flex flex-col items-start lg:items-end gap-3">
-            <AppButton variant="glass" className="w-60">
+            <AppButton href="/pro-zhbphc/contacts-and-communication/feedback" variant="glass" className="w-60">
               Задати питання
             </AppButton>
 
-            <AppButton variant="glass" className="w-60">
+            <AppButton href="/pro-zhbphc/contacts-and-communication/trust-box" variant="glass" className="w-60">
               Скринька довіри
             </AppButton>
           </div>

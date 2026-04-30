@@ -409,11 +409,15 @@
   }
 
   .rich-text table {
-    @apply min-w-full border-collapse text-left text-base leading-7;
+    @apply min-w-full border-collapse text-left text-sm;
   }
 
-  .rich-text thead {
-    @apply bg-muted/70;
+  .rich-text thead, .rich-text table tbody tr:first-of-type {
+    @apply bg-muted/70 font-bold;
+  }
+
+  .rich-text thead, .rich-text table tbody tr:first-of-type td {
+    @apply align-middle;
   }
 
   .rich-text tr {
@@ -426,6 +430,13 @@
 
   .rich-text td {
     @apply px-4 py-3 align-top text-foreground/80;
+  }
+
+  .rich-text td p {
+    @apply !m-0 !leading-5;
+  }
+  .rich-text td p + p {
+    @apply !m-0 !mt-2;
   }
 }
 
