@@ -416,14 +416,14 @@
     @apply !bg-muted/70;
   }
 
-  .rich-text thead,
+  .rich-text table thead,
   .rich-text table tbody tr:first-of-type {
-    @apply !bg-primary !text-white !font-bold;
+    @apply !bg-primary !font-bold;
   }
 
-  .rich-text thead,
+  .rich-text table thead tr td,
   .rich-text table tbody tr:first-of-type td {
-    @apply align-middle;
+    @apply align-middle !text-white;
   }
 
   .rich-text tr {
