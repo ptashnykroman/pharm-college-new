@@ -409,16 +409,16 @@
   }
 
   .rich-text table {
-    @apply min-w-full border-collapse text-left text-sm border-none;
+    @apply min-w-full border-collapse text-left text-sm !border-none;
   }
 
-  .rich-text table tbody tr:tr:nth-child(odd) {
-    @apply bg-muted/70;
+  .rich-text table tbody tr:nth-child(odd) {
+    @apply !bg-muted/70;
   }
 
   .rich-text thead,
   .rich-text table tbody tr:first-of-type {
-    @apply bg-primary font-bold;
+    @apply bg-primary text-white font-bold;
   }
 
   .rich-text thead,
