@@ -305,8 +305,8 @@
   }
 
   .rich-text p,
-  .rich-text ul,
-  .rich-text ol,
+  /* .rich-text ul,
+  .rich-text ol, */
   .rich-text blockquote,
   .rich-text pre,
   .rich-text figure,
