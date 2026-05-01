@@ -431,11 +431,11 @@
   }
 
   .rich-text th {
-    @apply px-4 py-3 font-bold text-foreground;
+    @apply px-2 py-2 font-bold text-foreground;
   }
 
   .rich-text td {
-    @apply px-4 py-3 align-top text-foreground/80 border border-white;
+    @apply px-2 py-2 align-top text-foreground/80 border border-white;
   }
 
   .rich-text td p {
