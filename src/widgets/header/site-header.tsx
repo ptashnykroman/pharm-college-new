@@ -54,7 +54,7 @@ export function SiteHeader({ data }: { data: HeaderViewModel }) {
       >
         <HeaderTopBar quickLinks={data.quickLinks} socialLinks={data.socialLinks} scrolled={scrolled} />
 
-        <div className="mx-auto flex h-16 max-w-[1500px] items-center justify-between px-4 md:px-6 lg:h-[68px]">
+        <div className="mx-auto flex h-16 container items-center justify-between px-4 md:px-6 lg:h-[68px]">
           <HeaderBrand scrolled={scrolled} />
 
           <nav className="hidden items-center gap-0.5 xl:flex">
@@ -79,7 +79,8 @@ export function SiteHeader({ data }: { data: HeaderViewModel }) {
               {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
             </button>
           </div>
-        </div>
+        </div> 
+        {/* max-w-[1500px] */}
       </header>
 
       <MobileNavigation
