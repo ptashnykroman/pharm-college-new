@@ -9,8 +9,7 @@ import buildingImg from '@/shared/assets/images/homepage/college_photo2.webp'
 const aboutFeatures = [
   'Сучасна навчально-матеріальна база',
   'Висококваліфікований професорсько-викладацький склад',
-  'Практика на провідних фармпідприємствах та в аптеках',
-  'Програми мобільності та обміну для студентів',
+  'Практика в провідних мережах аптек',
 ]
 
 export function AboutSection({ about }: { about: HomePageViewModel['about'] }) {

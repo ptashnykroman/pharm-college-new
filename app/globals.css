@@ -409,14 +409,20 @@
   }
 
   .rich-text table {
-    @apply min-w-full border-collapse text-left text-sm;
+    @apply min-w-full border-collapse text-left text-sm border-none;
   }
 
-  .rich-text thead, .rich-text table tbody tr:first-of-type {
-    @apply bg-muted/70 font-bold;
+  .rich-text table tbody tr:tr:nth-child(odd) {
+    @apply bg-muted/70;
   }
 
-  .rich-text thead, .rich-text table tbody tr:first-of-type td {
+  .rich-text thead,
+  .rich-text table tbody tr:first-of-type {
+    @apply bg-primary font-bold;
+  }
+
+  .rich-text thead,
+  .rich-text table tbody tr:first-of-type td {
     @apply align-middle;
   }
 
@@ -429,7 +435,7 @@
   }
 
   .rich-text td {
-    @apply px-4 py-3 align-top text-foreground/80;
+    @apply px-4 py-3 align-top text-foreground/80 border border-white;
   }
 
   .rich-text td p {
