@@ -18,8 +18,7 @@ export function HeaderTopBar({ quickLinks, socialLinks, scrolled }: HeaderTopBar
         scrolled ? 'border-border/60 bg-primary/80' : 'border-white/10 bg-primary-deep/30 backdrop-blur-md',
       )}
     >
-      {/* max-w-[1500px] */}
-      <div className="mx-auto flex h-9 container items-center justify-between px-4 text-xs md:px-6">
+      <div className="mx-auto flex h-9 max-w-[1500px] items-center justify-between px-4 text-xs md:px-6">
         <div className="flex items-center gap-1">
           {quickLinks.map((item, index) => {
             // const quickLinkIcon = getQuickLinkIcon(item.label)
@@ -29,7 +28,7 @@ export function HeaderTopBar({ quickLinks, socialLinks, scrolled }: HeaderTopBar
                 key={item.id}
                 href={item.href}
                 className={cn(
-                  'inline-flex items-center gap-1.5 rounded-md px-1.5 py-1 text-[12px] transition-smooth',
+                  'inline-flex items-center gap-1.5 rounded-md px-2.5 py-1 text-[12px] transition-smooth',
                   scrolled
                     ? 'text-white hover:bg-accent/10'
                     : 'text-primary-foreground/85 hover:bg-white/10 hover:text-primary-foreground',
