@@ -21,7 +21,7 @@ export function HomeNewsSection({ items }: { items: HomePageViewModel['news'] })
 
   return (
     <section id="news" className="relative overflow-hidden bg-gradient-soft py-20 md:py-28">
-      <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/20 to-transparent" />
+      {/* <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/20 to-transparent" /> */}
       <div className="container mx-auto px-4 md:px-6">
         <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
           <div className="max-w-2xl">

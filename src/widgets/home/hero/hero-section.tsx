@@ -8,6 +8,7 @@ import type { HomePageViewModel } from "@/widgets/home/model";
 import { HeroAnnouncementStrip } from "@/widgets/home/hero/hero-announcement-strip";
 import { HeroBackgroundSlider } from "@/widgets/home/hero/hero-background-slider";
 import { buildHeroSlides } from "@/widgets/home/hero/hero-utils";
+import { FloatingPromos } from "./floating-promos";
 
 export function HomeHeroSection({ hero }: { hero: HomePageViewModel["hero"] }) {
   const [announcementIndex, setAnnouncementIndex] = useState(0);
@@ -35,6 +36,8 @@ export function HomeHeroSection({ hero }: { hero: HomePageViewModel["hero"] }) {
   return (
     <section className="relative min-h-[100svh] overflow-hidden" style={{ minHeight: "100vh" }}>
       <HeroBackgroundSlider slides={slides} activeIndex={backgroundIndex} />
+
+      <FloatingPromos />
 
       <div className="animate-float-slow absolute -left-24 -top-24 h-96 w-96 rounded-full bg-primary-glow/30 blur-3xl" />
 

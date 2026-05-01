@@ -3,7 +3,7 @@ import { getHomePageViewData } from "@/widgets/home/data";
 import { HomePageView } from "@/widgets/home/home-page";
 
 export const metadata = createHomeMetadata();
-export const revalidate = 3600;
+export const revalidate = 300;
 
 export default async function Home() {
   const data = await getHomePageViewData();

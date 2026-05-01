@@ -11,7 +11,7 @@ export async function getHomePageViewData() {
   const [hero, content, news, events, partners] = await Promise.all([
     getHomeHero(),
     getHomePageContent(),
-    getHomeNews(9),
+    getHomeNews(),
     getHomeEvents(),
     getHomePartners(),
   ]);

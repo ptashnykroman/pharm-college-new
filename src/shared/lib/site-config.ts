@@ -12,7 +12,8 @@ export const SITE_DESCRIPTION =
   'Житомирський базовий фармацевтичний фаховий коледж – єдиний в Україні коледж фармацевтичного напрямку. Вступай до коледжу і отримуй справжню освіту і престижну професію.'
 export const SITE_OG_IMAGE = 'https://pharm.zt.ua/uploads/Logo_Zh_Pharm_C_415_2eef903024.png'
 
-export const DEFAULT_REVALIDATE_SECONDS = 60 * 60
+export const DEFAULT_REVALIDATE_SECONDS =
+  process.env.NODE_ENV === 'development' ? 0 : 60 * 5
 
 export const CACHE_TAGS = {
   header: 'header',
