@@ -15,7 +15,7 @@ export function PageColumn({ blocks, className, isSidebar = false }: PageColumnP
   }
 
   return (
-    <div className={cn("space-y-6", className)}>
+    <div className={cn("space-y-4", className)}>
       {blocks.map((block) => (
         <PageBlockRenderer key={`${block.component_type}-${block.id}`} block={block} isSidebar={isSidebar} />
       ))}
