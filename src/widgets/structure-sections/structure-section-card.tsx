@@ -2,9 +2,15 @@ import Image from "next/image";
 import { ArrowRight } from "lucide-react";
 
 import { SmartLink } from "@/widgets/navigation/smart-link";
-import type { CycleCommissionCardViewModel } from "@/widgets/cycle-commissions/model";
+import type { StructureSectionCardViewModel } from "@/widgets/structure-sections/model";
 
-function CycleCommissionCard({ item }: { item: CycleCommissionCardViewModel }) {
+export function StructureSectionCard({
+  item,
+  badge,
+}: {
+  item: StructureSectionCardViewModel;
+  badge: string;
+}) {
   return (
     <SmartLink
       href={item.href}
@@ -38,33 +44,5 @@ function CycleCommissionCard({ item }: { item: CycleCommissionCardViewModel }) {
         </div>
       </div>
     </SmartLink>
-  );
-}
-
-export function CycleCommissionsListPageView({
-  items,
-}: {
-  items: CycleCommissionCardViewModel[];
-}) {
-  return (
-    <section className="relative overflow-hidden bg-gradient-soft py-12 md:py-16">
-      <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/20 to-transparent" />
-      <div className="absolute left-0 top-14 h-72 w-72 rounded-full bg-primary-glow/10 blur-3xl" />
-      <div className="absolute bottom-0 right-0 h-72 w-72 rounded-full bg-accent-gold/10 blur-3xl" />
-
-      <div className="container relative mx-auto px-4 md:px-6">
-        <div className="mx-auto max-w-3xl text-center">
-          <h1 className="mt-5 text-3xl font-black text-foreground sm:text-4xl">
-            Циклові комісії
-          </h1>
-        </div>
-
-        <div className="mt-10 grid gap-3 md:gap-5 md:grid-cols-2 xl:grid-cols-4">
-          {items.map((item) => (
-            <CycleCommissionCard key={item.id} item={item} />
-          ))}
-        </div>
-      </div>
-    </section>
   );
 }

@@ -12,6 +12,7 @@ import { FloatingPromos } from "./floating-promos";
 
 export function HomeHeroSection({ hero }: { hero: HomePageViewModel["hero"] }) {
   const [announcementIndex, setAnnouncementIndex] = useState(0);
+  const [isAnnouncementDialogOpen, setIsAnnouncementDialogOpen] = useState(false);
   const [backgroundIndex, setBackgroundIndex] = useState(0);
 
   const slides = buildHeroSlides(hero);
@@ -33,8 +34,23 @@ export function HomeHeroSection({ hero }: { hero: HomePageViewModel["hero"] }) {
     return () => window.clearInterval(id);
   }, [slides.length]);
 
+  useEffect(() => {
+    if (totalAnnouncements <= 1 || isAnnouncementDialogOpen) {
+      return;
+    }
+
+    const id = window.setInterval(() => {
+      setAnnouncementIndex((current) => (current + 1) % totalAnnouncements);
+    }, 6000);
+
+    return () => window.clearInterval(id);
+  }, [isAnnouncementDialogOpen, totalAnnouncements]);
+
   return (
-    <section className="relative min-h-[100svh] overflow-hidden" style={{ minHeight: "100vh" }}>
+    <section
+      className="relative min-h-[100svh] overflow-hidden"
+      style={{ minHeight: "100vh" }}
+    >
       <HeroBackgroundSlider slides={slides} activeIndex={backgroundIndex} />
 
       <FloatingPromos />
@@ -47,8 +63,11 @@ export function HomeHeroSection({ hero }: { hero: HomePageViewModel["hero"] }) {
       >
         <div className="animate-fade-up flex max-w-[900px] flex-col items-center text-center">
           <h1
-            style={{ fontFamily: '"Inter", ui-sans-serif, system-ui, sans-serif', fontWeight: 900 }}
-            className="mt-6 text-4xl leading-[1.05] tracking-tight text-primary-foreground sm:text-5xl lg:text-6xl xl:text-7xl"
+            style={{
+              fontFamily: '"Inter", ui-sans-serif, system-ui, sans-serif',
+              fontWeight: 900,
+            }}
+            className="text-4xl sm:text-5xl lg:text-6xl 3xl:text-7xl mt-6 leading-[1.05] tracking-tight text-primary-foreground"
           >
             Житомирський базовий{" "}
             <span className="block bg-gradient-to-r from-accent-gold to-white bg-clip-text text-transparent">
@@ -79,16 +98,20 @@ export function HomeHeroSection({ hero }: { hero: HomePageViewModel["hero"] }) {
           {currentAnnouncement ? (
             <HeroAnnouncementStrip
               title={currentAnnouncement.title}
-              href={hero.newsHref}
+              body={currentAnnouncement.body}
+              isDialogOpen={isAnnouncementDialogOpen}
               currentIndex={announcementIndex}
               total={totalAnnouncements}
+              onDialogOpenChange={setIsAnnouncementDialogOpen}
               onPrevious={() =>
                 setAnnouncementIndex((current) =>
                   current === 0 ? totalAnnouncements - 1 : current - 1,
                 )
               }
               onNext={() =>
-                setAnnouncementIndex((current) => (current + 1) % totalAnnouncements)
+                setAnnouncementIndex(
+                  (current) => (current + 1) % totalAnnouncements,
+                )
               }
             />
           ) : null}
