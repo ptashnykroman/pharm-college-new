@@ -81,7 +81,7 @@ function PaginationButton({
       disabled={disabled}
       aria-label={ariaLabel}
       className={cn(
-        "inline-flex h-11 min-w-11 items-center justify-center rounded-full border px-3 text-sm font-semibold shadow-soft transition-bounce",
+        "inline-flex h-8 sm:h-11 w-8 sm:w-11 items-center justify-center rounded-full border px-3 text-[13px] sm:text-sm font-semibold shadow-soft transition-bounce",
         active
           ? "scale-110 border-primary bg-primary text-primary-foreground shadow-elegant"
           : "border-border bg-card text-muted-foreground hover:border-primary/30 hover:text-primary",
@@ -110,7 +110,7 @@ export function Pagination({
   return (
     <nav
       aria-label="Pagination"
-      className={cn("mt-12 flex flex-wrap items-center justify-center gap-2", className)}
+      className={cn("mt-12 flex flex-wrap items-center justify-center gap-1 sm:gap-2", className)}
     >
       <PaginationButton
         onClick={() => onPageChange(1)}
@@ -120,19 +120,19 @@ export function Pagination({
         <ChevronsLeft className="h-4 w-4" />
       </PaginationButton>
 
-      <PaginationButton
+      {/* <PaginationButton
         onClick={() => onPageChange(currentPage - 1)}
         disabled={currentPage === 1}
         aria-label="Попередня сторінка"
       >
         <ChevronLeft className="h-4 w-4" />
-      </PaginationButton>
+      </PaginationButton> */}
 
       {pages.map((page, index) =>
         page === "..." ? (
           <span
             key={`ellipsis-${index}`}
-            className="inline-flex h-11 min-w-11 items-center justify-center text-sm font-semibold text-muted-foreground"
+            className="inline-flex h-8 sm:h-11 w-8 sm:w-11 items-center justify-center text-[13px] sm:text-sm font-semibold text-muted-foreground"
           >
             ...
           </span>
@@ -148,13 +148,13 @@ export function Pagination({
         ),
       )}
 
-      <PaginationButton
+      {/* <PaginationButton
         onClick={() => onPageChange(currentPage + 1)}
         disabled={currentPage === totalPages}
         aria-label="Наступна сторінка"
       >
         <ChevronRight className="h-4 w-4" />
-      </PaginationButton>
+      </PaginationButton> */}
 
       <PaginationButton
         onClick={() => onPageChange(totalPages)}

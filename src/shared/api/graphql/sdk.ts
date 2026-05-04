@@ -2,17 +2,85 @@ import {
   GetHeaderScheduleDocument,
   GetHomeEventsDocument,
   GetHomeHeroDocument,
-  GetHomeNewsDocument,
   GetHomePageContentDocument,
   GetPageByPathDocument,
   GetPageSeoDocument,
   GetShellDataDocument,
+  type GetHomeNewsQuery,
   type GetHomePartnersQuery,
 } from "@/shared/api/graphql/generated";
 import { executeGraphQL, executeGraphQLRaw } from "@/shared/api/graphql/client";
 import { CACHE_TAGS, DEFAULT_REVALIDATE_SECONDS } from "@/shared/lib/site-config";
 
+const HOME_NEWS_PAGE_SIZE = 9;
 const HOME_PARTNERS_PAGE_SIZE = 100;
+
+const getHomeNewsPageQuery = /* GraphQL */ `
+  query GetHomeNewsPage($page: Int!, $pageSize: Int!) {
+    novinas(sort: "date:desc", pagination: { page: $page, pageSize: $pageSize }) {
+      meta {
+        pagination {
+          total
+          page
+          pageSize
+          pageCount
+        }
+      }
+      data {
+        id
+        attributes {
+          title
+          body
+          date
+          video_url
+          main_photo {
+            ...MediaFileFields
+          }
+          preview_photo {
+            ...MediaFileFields
+          }
+          collage_photos(pagination: { pageSize: 10 }) {
+            data {
+              ...MediaFileListItemFields
+            }
+          }
+          news_tags {
+            data {
+              id
+              attributes {
+                title
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  fragment MediaFileAttributes on UploadFile {
+    name
+    url
+    width
+    height
+    alternativeText
+    formats
+  }
+
+  fragment MediaFileFields on UploadFileEntityResponse {
+    data {
+      attributes {
+        ...MediaFileAttributes
+      }
+    }
+  }
+
+  fragment MediaFileListItemFields on UploadFileEntity {
+    id
+    attributes {
+      ...MediaFileAttributes
+    }
+  }
+`;
 
 const getHomePartnersPageQuery = /* GraphQL */ `
   query GetHomePartnersPage($page: Int!, $pageSize: Int!) {
@@ -72,6 +140,19 @@ type HomePartnersPageQuery = {
   }) | null;
 };
 
+type HomeNewsPageQuery = {
+  novinas: (NonNullable<GetHomeNewsQuery["novinas"]> & {
+    meta: {
+      pagination: {
+        total: number;
+        page: number;
+        pageSize: number;
+        pageCount: number;
+      };
+    };
+  }) | null;
+};
+
 export function getShellData() {
   return executeGraphQL(GetShellDataDocument, {}, {
     revalidate: DEFAULT_REVALIDATE_SECONDS,
@@ -100,17 +181,64 @@ export function getHomePageContent() {
   });
 }
 
-export function getHomeNews(pageSize = 9) {
-  return executeGraphQL(
-    GetHomeNewsDocument,
+export async function getHomeNews(
+  pageSize = HOME_NEWS_PAGE_SIZE,
+): Promise<GetHomeNewsQuery> {
+  const options = {
+    revalidate: DEFAULT_REVALIDATE_SECONDS,
+    tags: [CACHE_TAGS.news, CACHE_TAGS.home],
+  };
+
+  const firstPage = await executeGraphQLRaw<
+    HomeNewsPageQuery,
+    { page: number; pageSize: number }
+  >(
+    getHomeNewsPageQuery,
     {
+      page: 1,
       pageSize,
     },
-    {
-      revalidate: DEFAULT_REVALIDATE_SECONDS,
-      tags: [CACHE_TAGS.news, CACHE_TAGS.home],
-    },
+    options,
   );
+
+  const firstNewsPage = firstPage.novinas;
+
+  if (!firstNewsPage) {
+    return {
+      novinas: null,
+    };
+  }
+
+  const totalPages = firstNewsPage.meta.pagination.pageCount;
+
+  if (totalPages <= 1) {
+    return {
+      novinas: firstNewsPage,
+    };
+  }
+
+  const remainingPages = await Promise.all(
+    Array.from({ length: totalPages - 1 }, (_, index) =>
+      executeGraphQLRaw<HomeNewsPageQuery, { page: number; pageSize: number }>(
+        getHomeNewsPageQuery,
+        {
+          page: index + 2,
+          pageSize,
+        },
+        options,
+      ),
+    ),
+  );
+
+  return {
+    novinas: {
+      ...firstNewsPage,
+      data: [
+        ...firstNewsPage.data,
+        ...remainingPages.flatMap((page) => page.novinas?.data ?? []),
+      ],
+    },
+  };
 }
 
 export function getHomeEvents() {

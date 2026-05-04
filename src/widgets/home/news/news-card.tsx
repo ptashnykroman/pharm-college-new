@@ -67,7 +67,7 @@ export function NewsCard({ item, index, page, isHomePage }: NewsCardProps) {
         <Link href={item.href}>
           <h3
             className={
-              'text-lg leading-snug text-foreground transition-smooth group-hover:text-primary ' +
+              'text-lg leading-snug text-foreground transition-smooth line-clamp-3 group-hover:text-primary ' +
               (isHomePage ? 'font-extrabold' : 'font-bold leading-tight')
             }
           >

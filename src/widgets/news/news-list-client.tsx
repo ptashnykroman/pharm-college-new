@@ -6,10 +6,43 @@ import { Pagination } from '@/components/shared/pagination'
 import { NewsCard } from '@/widgets/home/news/news-card'
 import type { NewsListItem } from '@/widgets/news/model'
 
-export function NewsListClient({ items, pageSize }: { items: NewsListItem[]; pageSize: number }) {
+type NewsListClientProps = {
+  items: NewsListItem[]
+  pageSize: number
+  isHomePage?: boolean
+  gridClassName?: string
+  scrollTargetId?: string
+}
+
+export function NewsListClient({
+  items,
+  pageSize,
+  isHomePage = false,
+  gridClassName = 'grid gap-6 md:grid-cols-2 xl:grid-cols-3',
+  scrollTargetId,
+}: NewsListClientProps) {
   const [page, setPage] = useState(1)
   const totalPages = Math.max(1, Math.ceil(items.length / pageSize))
   const visibleItems = useMemo(() => items.slice((page - 1) * pageSize, page * pageSize), [items, page, pageSize])
+
+  function scrollToTarget() {
+    if (!scrollTargetId) {
+      return
+    }
+
+    const target = document.getElementById(scrollTargetId)
+
+    if (!target) {
+      return
+    }
+
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+
+    target.scrollIntoView({
+      behavior: prefersReducedMotion ? 'auto' : 'smooth',
+      block: 'start',
+    })
+  }
 
   if (!items.length) {
     return (
@@ -24,9 +57,9 @@ export function NewsListClient({ items, pageSize }: { items: NewsListItem[]; pag
 
   return (
     <>
-      <div key={page} className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+      <div key={page} className={gridClassName}>
         {visibleItems.map((item, index) => (
-          <NewsCard key={`${page}-${item.id}`} item={item} index={index} page={page - 1} />
+          <NewsCard key={`${page}-${item.id}`} item={item} index={index} page={page - 1} isHomePage={isHomePage} />
         ))}
       </div>
 
@@ -34,6 +67,12 @@ export function NewsListClient({ items, pageSize }: { items: NewsListItem[]; pag
         currentPage={page}
         totalPages={totalPages}
         onPageChange={(nextPage) => {
+          if (nextPage === page) {
+            return
+          }
+
+          scrollToTarget()
+
           startTransition(() => {
             setPage(nextPage)
           })
