@@ -446,10 +446,10 @@
   .rich-text td {
     @apply px-2 py-2 align-top text-foreground/80 border border-white;
   }
-  .rich-text td:last-of-type,
+  /* .rich-text td:last-of-type,
   .rich-text td:first-of-type {
     @apply !border-l-none;
-  }
+  } */
 
   .rich-text td p {
     @apply !m-0 !leading-5;
