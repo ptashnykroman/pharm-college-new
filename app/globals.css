@@ -448,7 +448,7 @@
   }
   .rich-text td:last-of-type,
   .rich-text td:first-of-type {
-    @apply border-l-none;
+    @apply !border-l-none;
   }
 
   .rich-text td p {
