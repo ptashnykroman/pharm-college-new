@@ -25,7 +25,7 @@ export function PersonPageBlock({ block }: { block: PersonBlock }) {
     <BlockShell>
       <div className="flex flex-col items-center gap-5">
         {photo ? (
-          <div className="overflow-hidden rounded-[1.75rem] bg-muted/30 text-center">
+          <div className="overflow-hidden rounded-[1.75rem] bg-muted/30 text-center w-full">
             {personHref ? (
               <SmartLink href={personHref} className="block">
                 <Image
@@ -33,7 +33,7 @@ export function PersonPageBlock({ block }: { block: PersonBlock }) {
                   alt={photo.alt}
                   width={photo.width}
                   height={photo.height}
-                  className="w-full object-cover max-h-[400px] max-w-[300px] mx-auto"
+                  className="w-full h-full object-cover max-h-[400px] max-w-[300px] mx-auto"
                 />
               </SmartLink>
             ) : (
@@ -42,7 +42,7 @@ export function PersonPageBlock({ block }: { block: PersonBlock }) {
                 alt={photo.alt}
                 width={photo.width}
                 height={photo.height}
-                className="w-full object-cover max-h-[360px] max-w-[300px] mx-auto"
+                className="w-full h-full object-cover max-h-[360px] max-w-[300px] mx-auto"
               />
             )}
           </div>

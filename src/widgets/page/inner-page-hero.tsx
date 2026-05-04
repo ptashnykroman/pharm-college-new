@@ -38,7 +38,7 @@ export function InnerPageHero({ slides }: InnerPageHeroProps) {
         <div className="max-w-5xl">
           <h1
             style={{ fontFamily: '"Inter", ui-sans-serif, system-ui, sans-serif', fontWeight: 900 }}
-            className="mt-6 text-3xl leading-[1.05] tracking-tight text-primary-foreground sm:text-4xl lg:text-5xl"
+            className="text-3xl leading-[1.05] tracking-tight text-primary-foreground sm:text-4xl lg:text-5xl"
           >
             Житомирський базовий{' '}
             <span className="block bg-gradient-to-r from-accent-gold to-white bg-clip-text text-transparent">

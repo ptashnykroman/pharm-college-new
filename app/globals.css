@@ -316,7 +316,7 @@
   .rich-text figure,
   .rich-text hr,
   .rich-text .rich-text__table-wrap {
-    @apply my-5;
+    @apply my-3;
   }
 
   .rich-text strong {
@@ -365,6 +365,16 @@
   .rich-text li > ul,
   .rich-text li > ol {
     @apply mt-3 mb-0;
+  }
+
+  .rich-text ul li p,
+  .rich-text ol li p {
+    @apply !my-0;
+  }
+
+  .rich-text ul li p + p,
+  .rich-text ol li p + p {
+    @apply !mt-4 !mb-0;
   }
 
   .rich-text blockquote {
