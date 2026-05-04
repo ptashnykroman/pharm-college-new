@@ -29,7 +29,7 @@ export function HeroAnnouncementStrip({
   return (
     <div className="mt-8 w-full max-w-[90vw] xs:max-w-md">
       <Dialog open={isDialogOpen} onOpenChange={onDialogOpenChange}>
-        <p className="group flex items-center gap-3 rounded-full border border-white/15 bg-primary-deep/40 py-1.5 pl-1.5 pr-2 backdrop-blur-md transition-smooth hover:border-accent-gold/50 hover:bg-primary-deep/60">
+        <p className="group flex items-center gap-3 rounded-full border border-white/15 bg-primary-deep/40 py-1 xs:py-1.5 pl-1.5 pr-2 backdrop-blur-md transition-smooth hover:border-accent-gold/50 hover:bg-primary-deep/60">
           <span className="inline-flex items-center gap-1.5 rounded-full bg-accent-gold px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-accent-gold-foreground">
             <span className="relative flex h-1.5 w-1.5">
               <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-destructive opacity-75" />
@@ -43,7 +43,7 @@ export function HeroAnnouncementStrip({
               <button
                 type="button"
                 key={currentIndex}
-                className="min-w-0 flex-1 animate-fade-up rounded-sm text-left text-sm text-primary-foreground/90 transition-smooth group-hover:text-accent-gold hover:text-accent-gold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-gold/60"
+                className="min-w-0 flex-1 animate-fade-up rounded-sm text-left text-[12px] xs:text-sm text-primary-foreground/90 transition-smooth group-hover:text-accent-gold hover:text-accent-gold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-gold/60"
               >
                 <span className="cursor-pointer block truncate decoration-white/20 underline-offset-4">{title}</span>
                 <span className="sr-only">Відкрити повний текст оголошення</span>
@@ -52,7 +52,7 @@ export function HeroAnnouncementStrip({
           ) : (
             <span
               key={currentIndex}
-              className="min-w-0 flex-1 animate-fade-up truncate text-sm text-primary-foreground/90 group-hover:text-accent-gold"
+              className="min-w-0 flex-1 animate-fade-up truncate text-[12px] xs:text-[14px] text-primary-foreground/90 group-hover:text-accent-gold"
             >
               {title}
             </span>
