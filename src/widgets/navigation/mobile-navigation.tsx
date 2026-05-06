@@ -104,7 +104,7 @@ export function MobileNavigation({
               return (
                 <div
                   key={index}
-                  className="h-full overflow-y-auto px-3 py-2"
+                  className="h-full overflow-y-auto pt-2"
                   style={{ width: `${100 / (level + 1)}%` }}
                   aria-hidden={!isActive}
                 >

@@ -20,7 +20,7 @@ export function MobileNavigationList({
   setStack,
 }: MobileNavigationListProps) {
   return (
-    <ul className="flex flex-col gap-0.5">
+    <ul className="flex flex-col gap-0.5 px-3">
       {items.map((node) => {
         const hasChildren = node.children.length > 0;
 
