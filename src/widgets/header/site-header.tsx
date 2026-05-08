@@ -2,9 +2,8 @@
 
 import Image from 'next/image'
 import Link from 'next/link'
-import { usePathname } from 'next/navigation'
 import { Menu, Search, X } from 'lucide-react'
-import { useEffect, useState } from 'react'
+import { useEffect, useEffectEvent, useState } from 'react'
 
 import EngIcon from '@/shared/assets/icons/header/United-kingdom_flag.webp'
 import type { NavigationNode } from '@/shared/lib/navigation'
@@ -15,12 +14,20 @@ import { HeaderTopBar } from '@/widgets/header/components/header-top-bar'
 import type { HeaderViewModel } from '@/widgets/header/model'
 import { DesktopNavigation } from '@/widgets/navigation/desktop-navigation'
 import { MobileNavigation } from '@/widgets/navigation/mobile-navigation'
-import { SmartLink } from '../navigation/smart-link'
+import { SiteSearchDialog } from '@/widgets/search/site-search-dialog'
+
+const SEARCH_LABEL = '\u041f\u043e\u0448\u0443\u043a'
+const MENU_LABEL = '\u041c\u0435\u043d\u044e'
 
 export function SiteHeader({ data }: { data: HeaderViewModel }) {
   const [scrolled, setScrolled] = useState(false)
   const [open, setOpen] = useState(false)
+  const [searchOpen, setSearchOpen] = useState(false)
   const [mobileStack, setMobileStack] = useState<NavigationNode[]>([])
+
+  const openSearch = useEffectEvent(() => {
+    setSearchOpen(true)
+  })
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 12)
@@ -32,18 +39,43 @@ export function SiteHeader({ data }: { data: HeaderViewModel }) {
   }, [])
 
   useEffect(() => {
-    if (!open) {
-      setMobileStack([])
-    }
-  }, [open])
-
-  useEffect(() => {
     document.body.style.overflow = open ? 'hidden' : ''
 
     return () => {
       document.body.style.overflow = ''
     }
   }, [open])
+
+  useEffect(() => {
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (!(event.ctrlKey || event.metaKey) || event.key.toLowerCase() !== 'k') {
+        return
+      }
+
+      event.preventDefault()
+      openSearch()
+    }
+
+    window.addEventListener('keydown', onKeyDown)
+
+    return () => {
+      window.removeEventListener('keydown', onKeyDown)
+    }
+  }, [])
+
+  function closeMobileNavigation() {
+    setOpen(false)
+    setMobileStack([])
+  }
+
+  function toggleMobileNavigation() {
+    if (open) {
+      closeMobileNavigation()
+      return
+    }
+
+    setOpen(true)
+  }
 
   return (
     <div className="relative">
@@ -55,8 +87,7 @@ export function SiteHeader({ data }: { data: HeaderViewModel }) {
       >
         <HeaderTopBar quickLinks={data.quickLinks} socialLinks={data.socialLinks} scrolled={scrolled} />
 
-        {/* max-w-[1500px] */}
-        <div className="mx-auto flex h-16 container items-center justify-between px-4 md:px-6 lg:h-[68px]">
+        <div className="mx-auto container flex h-16 items-center justify-between px-4 md:px-6 lg:h-[68px]">
           <HeaderBrand scrolled={scrolled} />
 
           <nav className="hidden items-center gap-0.5 xl:flex">
@@ -73,24 +104,24 @@ export function SiteHeader({ data }: { data: HeaderViewModel }) {
               </Link>
 
               <button
-                onClick={() => {}}
+                onClick={() => setSearchOpen(true)}
                 className={cn(
                   'cursor-pointer inline-flex h-10 w-10 items-center justify-center rounded-lg transition-smooth',
                   scrolled ? 'text-foreground hover:bg-accent' : 'text-primary-foreground hover:bg-white/10',
                 )}
-                aria-label="Пошук"
+                aria-label={SEARCH_LABEL}
               >
                 <Search className="h-5 w-5" />
               </button>
             </div>
 
             <button
-              onClick={() => setOpen((current) => !current)}
+              onClick={toggleMobileNavigation}
               className={cn(
                 'cursor-pointer inline-flex h-10 w-10 items-center justify-center rounded-lg transition-smooth xl:hidden',
                 scrolled ? 'text-foreground hover:bg-accent' : 'text-primary-foreground hover:bg-white/10',
               )}
-              aria-label="Меню"
+              aria-label={MENU_LABEL}
             >
               {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
             </button>
@@ -100,13 +131,14 @@ export function SiteHeader({ data }: { data: HeaderViewModel }) {
 
       <MobileNavigation
         open={open}
-        onClose={() => setOpen(false)}
+        onClose={closeMobileNavigation}
         nav={data.navigation}
         quickLinks={data.quickLinks}
         socialLinks={data.socialLinks}
         stack={mobileStack}
         setStack={setMobileStack}
       />
+      <SiteSearchDialog open={searchOpen} onOpenChange={setSearchOpen} />
     </div>
   )
 }

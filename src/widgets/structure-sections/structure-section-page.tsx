@@ -47,9 +47,6 @@ export function StructureSectionPageView({
     <section className="relative pb-20 pt-10 md:pb-24 md:pt-14">
       <div className="container mx-auto px-4 md:px-6">
         <div className="mx-auto mb-8 max-w-4xl text-center">
-          <span className="inline-flex rounded-full border border-primary/15 bg-primary/5 px-4 py-1 text-xs font-bold uppercase tracking-[0.24em] text-primary">
-            {badge}
-          </span>
           <h1 className="mt-5 text-3xl font-black text-foreground sm:text-4xl">{page.title}</h1>
         </div>
 

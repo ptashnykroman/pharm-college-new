@@ -145,7 +145,7 @@ export function CmkPeoplePanel({
             <h2 className="text-xl font-black text-primary">{title}</h2>
           </div>
 
-          <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-1 2xl:grid-cols-2">
+          <div className="grid gap-4 grid-cols-1">
             {paginatedTeachers.map((teacher) => (
               <TeacherCard key={teacher.id} teacher={teacher} />
             ))}
