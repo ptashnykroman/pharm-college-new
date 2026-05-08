@@ -35,6 +35,7 @@ export function PanoramasPageBlock({ block }: { block: PanoramasBlock }) {
           {block.title}
         </h2>
       ) : null}
+      
       <div className="mt-5 grid gap-4 md:grid-cols-2">
         {items.map((item) => (
           <a
