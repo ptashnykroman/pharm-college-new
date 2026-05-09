@@ -14,7 +14,7 @@ type MobileNavigationFooterProps = {
 
 export function MobileNavigationFooter({ quickLinks, socialLinks, onClose }: MobileNavigationFooterProps) {
   return (
-    <div className="px-3 pb-4 bg-gradient-primary">
+    <div className="px-3 pb-8 bg-gradient-primary">
       {/* border-t border-border */}
       <div className="mt-4 pt-4">
         {/* text-muted-foreground */}
@@ -29,7 +29,7 @@ export function MobileNavigationFooter({ quickLinks, socialLinks, onClose }: Mob
                 href={item.href}
                 onClick={onClose}
                 /* text-muted-foreground */
-                className="inline-flex items-center gap-2 rounded-lg px-3 py-2 text-xs font-medium text-white transition-smooth hover:bg-accent"
+                className="inline-flex items-center gap-2 rounded-lg px-3 py-2 text-xs font-medium text-white transition-smooth hover:bg-accent/20"
               >
                 {item.iconSrc ? (
                   <img src={item.iconSrc} alt="" width={20} height={20} className="h-6 w-6 object-contain" />

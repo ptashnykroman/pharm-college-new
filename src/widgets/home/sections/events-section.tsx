@@ -15,7 +15,6 @@ const ImageLightbox = dynamic(
   { ssr: false },
 );
 
-const DESKTOP_VISIBLE_CARDS = 3;
 const TABLET_BREAKPOINT = 768;
 const DESKTOP_BREAKPOINT = 1024;
 const CARD_GAP = 24;
@@ -66,7 +65,7 @@ export function EventsSection({
     return indexes;
   }, [events]);
 
-  const canSlide = events.length > DESKTOP_VISIBLE_CARDS;
+  const canSlide = events.length > visibleCards;
   const maxStartIndex = canSlide
     ? Math.max(0, events.length - visibleCards)
     : 0;
@@ -153,7 +152,7 @@ export function EventsSection({
           </div>
         </div>
 
-        <div className="mt-14 overflow-hidden">
+        <div className="mt-14">
           <div
             className="flex gap-6 transition-transform duration-500 ease-out"
             style={{ transform: translateX }}
