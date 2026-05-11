@@ -9,7 +9,9 @@ const CONTACT_TOPICS = ['Загальне питання', 'Питання до 
 function ContactCard({ person }: { person: AdministrationCardViewModel }) {
   return (
     <article className="rounded-[1.5rem] border border-border/70 bg-white p-5 shadow-soft transition-smooth hover:-translate-y-1 hover:shadow-card">
-      <p className="text-xs font-bold uppercase tracking-[0.2em] text-primary">{person.position || 'Контактна особа'}</p>
+      <p className="text-xs font-bold uppercase tracking-[0.2em] text-primary">
+        {person.position || 'Контактна особа'}
+      </p>
       <h3 className="mt-3 text-xl font-black text-foreground">{person.name}</h3>
 
       <div className="mt-4 space-y-3 text-sm text-foreground/80">
@@ -58,7 +60,9 @@ export function ContactsPageView({ people }: { people: AdministrationCardViewMod
                     <MapPin className="h-4 w-4" />
                     Основна адреса
                   </div>
-                  <h2 className="mt-4 text-2xl font-black text-foreground">Житомирський базовий фармацевтичний фаховий коледж</h2>
+                  <h2 className="mt-4 text-2xl font-black text-foreground">
+                    Житомирський базовий фармацевтичний фаховий коледж
+                  </h2>
                   <div className="mt-4 space-y-2 text-base leading-7 text-foreground/80">
                     <p>10005, м. Житомир, вул. Чуднівська, 99</p>
                     <p>
@@ -99,7 +103,6 @@ export function ContactsPageView({ people }: { people: AdministrationCardViewMod
 
           <MessageForm
             title="Поставити запитання"
-            description="Напишіть нам напряму. Повідомлення буде надіслано через форму з темою звернення."
             submitLabel="Надіслати повідомлення"
             variant="contact"
             subjectOptions={CONTACT_TOPICS}
