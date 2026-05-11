@@ -1,51 +1,39 @@
-import Image from "next/image";
-
-import { BlockShell } from "@/widgets/page/cms-page/components/block-shell";
-import type { PhotosGalleryBlock } from "@/widgets/page/cms-page/model";
-import { resolveImage } from "@/shared/lib/media";
+import { ImageLightboxGallery, type ImageLightboxGalleryItem } from '@/components/shared/image-lightbox-gallery'
+import { resolveImageWithSources } from '@/shared/lib/media'
+import { BlockShell } from '@/widgets/page/cms-page/components/block-shell'
+import type { PhotosGalleryBlock } from '@/widgets/page/cms-page/model'
 
 export function PhotosGalleryPageBlock({ block }: { block: PhotosGalleryBlock }) {
   const images = block.images.data
     .map((item) => {
-      const image = resolveImage(item, "gallery", block.title);
+      const image = resolveImageWithSources(item, 'gallery', block.title)
 
       if (!image || !item.id) {
-        return null;
+        return null
       }
 
       return {
         id: item.id,
         image,
-      };
+      } satisfies ImageLightboxGalleryItem
     })
-    .filter((item): item is NonNullable<typeof item> => Boolean(item));
+    .filter((item): item is NonNullable<typeof item> => Boolean(item))
 
   if (images.length === 0) {
-    return null;
+    return null
   }
 
   return (
     <BlockShell>
       {block.title ? <h2 className="text-2xl font-black text-foreground">{block.title}</h2> : null}
-      <div className="mt-5 grid grid-cols-2 gap-4 md:grid-cols-3">
-        {images.map((item) => (
-          <a
-            key={item.id}
-            href={item.image.src}
-            target="_blank"
-            rel="noreferrer"
-            className="group overflow-hidden rounded-[1.5rem] border border-border/70 bg-muted/30"
-          >
-            <Image
-              src={item.image.src}
-              alt={item.image.alt}
-              width={item.image.width}
-              height={item.image.height}
-              className="aspect-[4/3] h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-            />
-          </a>
-        ))}
-      </div>
+      <ImageLightboxGallery
+        items={images}
+        title={block.title}
+        gridClassName="grid-cols-2 md:grid-cols-3 xl:grid-cols-4"
+        triggerClassName="bg-muted/30 shadow-none hover:shadow-soft"
+        imageClassName="transition-transform duration-500"
+        imageSizes="(max-width: 767px) 50vw, 33vw"
+      />
     </BlockShell>
-  );
+  )
 }

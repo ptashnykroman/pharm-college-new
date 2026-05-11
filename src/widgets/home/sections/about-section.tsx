@@ -31,7 +31,7 @@ export function AboutSection({ about }: { about: HomePageViewModel['about'] }) {
               />
             </div>
             <div className="absolute -bottom-6 -right-4 hidden flex-col items-center justify-center rounded-2xl border border-border bg-card px-6 py-4 shadow-card md:flex">
-              <div className="text-3xl font-bold text-gradient-primary">1936</div>
+              <div className="text-3xl font-black text-gradient-primary">1936</div>
               <div className="text-xs text-muted-foreground">рік заснування</div>
             </div>
           </div>

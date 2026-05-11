@@ -1,5 +1,5 @@
 import { formatDateParts, getMonthStandaloneName } from "@/shared/lib/date";
-import type { ResolvedImage } from "@/shared/lib/media";
+import type { ResolvedImage, ResolvedImageWithSources } from "@/shared/lib/media";
 import { buildNewsArchiveUrl } from "@/shared/lib/navigation";
 
 export type NewsListItem = {
@@ -40,7 +40,7 @@ export type NewsArticleViewModel = {
   tags: string[];
   date: ReturnType<typeof formatDateParts>;
   image: ResolvedImage | null;
-  gallery: ResolvedImage[];
+  gallery: ResolvedImageWithSources[];
   videoEmbedUrl: string | null;
 };
 

@@ -3,6 +3,7 @@ import Image from "next/image";
 
 import { RichText } from "@/widgets/page/cms-page/components/rich-text";
 import { NewsArchive } from "@/widgets/news/news-archive";
+import { NewsArticleGallery } from "@/widgets/news/news-article-gallery";
 import { RecentNews } from "@/widgets/news/recent-news";
 import type {
   NewsArchiveYear,
@@ -61,14 +62,14 @@ export function NewsArticlePageView({
             </div>
 
             {article.image ? (
-              <div className="border-b border-border/70">
+              <div className="flex max-h-[700px] items-center justify-center overflow-hidden border-b border-border/70">
                 <Image
                   priority
                   src={article.image.src}
                   alt={article.image.alt || article.title}
                   width={article.image.width}
                   height={article.image.height}
-                  className="h-auto w-full object-cover"
+                  className="block h-auto w-full object-cover object-center"
                 />
               </div>
             ) : null}
@@ -76,30 +77,10 @@ export function NewsArticlePageView({
             <div className="px-6 py-8 md:px-8">
               <RichText html={article.bodyHtml} />
 
-              {article.gallery.length ? (
-                <section className="mt-10">
-                  <h2 className="text-2xl font-black text-foreground">Фотогалерея</h2>
-                  <div className="mt-5 grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
-                    {article.gallery.map((image) => (
-                      <a
-                        key={image.src}
-                        href={image.src}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="group overflow-hidden rounded-[1.5rem] border border-border/70 bg-white shadow-soft transition-smooth hover:-translate-y-1 hover:shadow-card"
-                      >
-                        <Image
-                          src={image.src}
-                          alt={image.alt || article.title}
-                          width={image.width}
-                          height={image.height}
-                          className="aspect-[4/3] h-full w-full object-cover transition-bounce group-hover:scale-105"
-                        />
-                      </a>
-                    ))}
-                  </div>
-                </section>
-              ) : null}
+              <NewsArticleGallery
+                images={article.gallery}
+                title={article.title}
+              />
 
               {article.videoEmbedUrl ? (
                 <section className="mt-10">
@@ -117,12 +98,16 @@ export function NewsArticlePageView({
 
           <aside className="space-y-8 lg:sticky lg:top-8 lg:self-start">
             <section>
-              <h2 className="mb-4 text-center text-2xl font-black text-foreground">Останні новини</h2>
+              <h2 className="mb-4 text-center text-2xl font-black text-foreground">
+                Останні новини
+              </h2>
               <RecentNews items={recentItems} />
             </section>
 
             <section>
-              <h2 className="mb-4 text-center text-2xl font-black text-foreground">Архів новин</h2>
+              <h2 className="mb-4 text-center text-2xl font-black text-foreground">
+                Архів новин
+              </h2>
               <NewsArchive items={archive} />
             </section>
           </aside>

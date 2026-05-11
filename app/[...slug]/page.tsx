@@ -1,50 +1,50 @@
-import { cache } from "react";
-import { notFound } from "next/navigation";
+import { cache } from 'react'
+import { notFound } from 'next/navigation'
 
-import { AppButton } from "@/components/shared/app-button";
-import { getHomeHero, getPageByPath } from "@/shared/api/graphql/sdk";
-import { buildPageMetadata, createPlaceholderMetadata } from "@/shared/lib/metadata";
-import { resolveImage } from "@/shared/lib/media";
-import { flattenNavigationPaths, isKnownLegacyPath } from "@/shared/lib/navigation";
-import { getSiteChromeData } from "@/widgets/header/data";
-import { CmsPage } from "@/widgets/page/cms-page";
-import { buildInnerPageHeroViewModel } from "@/widgets/page/inner-page-hero-data";
-import { InnerPageHero } from "@/widgets/page/inner-page-hero";
+import { CmsPage } from '@/widgets/page/cms-page'
+import { resolveImage } from '@/shared/lib/media'
+import { getSiteChromeData } from '@/widgets/header/data'
+import { AppButton } from '@/components/shared/app-button'
+import { InnerPageHero } from '@/widgets/page/inner-page-hero'
+import { getHomeHero, getPageByPath } from '@/shared/api/graphql/sdk'
+import { buildInnerPageHeroViewModel } from '@/widgets/page/inner-page-hero-data'
+import { flattenNavigationPaths, isKnownLegacyPath } from '@/shared/lib/navigation'
+import { buildPageMetadata, createPlaceholderMetadata } from '@/shared/lib/metadata'
 
 type DynamicPageProps = {
   params: Promise<{
-    slug?: string[];
-  }>;
-};
+    slug?: string[]
+  }>
+}
 
 function resolvePathname(slug: string[] | undefined) {
-  const pathname = `/${(slug ?? []).join("/")}`.replace(/\/$/, "");
+  const pathname = `/${(slug ?? []).join('/')}`.replace(/\/$/, '')
 
-  return pathname || "/";
+  return pathname || '/'
 }
 
 const getPageData = cache(async (pathname: string) => {
-  const data = await getPageByPath(pathname);
+  const data = await getPageByPath(pathname)
 
-  return data.pages?.data[0]?.attributes ?? null;
-});
+  return data.pages?.data[0]?.attributes ?? null
+})
 
 const getSharedInnerPageHero = cache(async () => {
-  const heroData = await getHomeHero();
+  const heroData = await getHomeHero()
 
-  return buildInnerPageHeroViewModel(heroData);
-});
+  return buildInnerPageHeroViewModel(heroData)
+})
 
 export async function generateMetadata({ params }: DynamicPageProps) {
-  const resolved = await params;
-  const pathname = resolvePathname(resolved.slug);
-  const page = await getPageData(pathname);
+  const resolved = await params
+  const pathname = resolvePathname(resolved.slug)
+  const page = await getPageData(pathname)
 
   if (!page) {
-    return createPlaceholderMetadata(pathname);
+    return createPlaceholderMetadata(pathname)
   }
 
-  const previewImage = resolveImage(page.main_photo, "hero", page.title);
+  const previewImage = resolveImage(page.main_photo, 'hero', page.title)
 
   return buildPageMetadata({
     title: page.SEO.title || page.title,
@@ -52,7 +52,7 @@ export async function generateMetadata({ params }: DynamicPageProps) {
     pathname,
     image: previewImage?.src,
     meta: page.SEO.meta,
-  });
+  })
 }
 
 function PlaceholderPage({ pathname }: { pathname: string }) {
@@ -62,7 +62,7 @@ function PlaceholderPage({ pathname }: { pathname: string }) {
         <div className="text-sm font-semibold uppercase tracking-[0.18em] text-primary">Сторінка в роботі</div>
         <p className="mt-5 text-lg leading-8 text-foreground/80">
           Маршрут <span className="font-semibold text-foreground">{pathname}</span> вже розпізнано, але його окрема
-          Next.js-реалізація ще переноситься зі старого сайту.
+          реалізація ще переноситься зі старого сайту.
         </p>
         <div className="mt-8 flex flex-wrap justify-center gap-3">
           <AppButton href="/" shape="rounded">
@@ -71,40 +71,39 @@ function PlaceholderPage({ pathname }: { pathname: string }) {
         </div>
       </div>
     </div>
-  );
+  )
 }
 
 export default async function DynamicPage({ params }: DynamicPageProps) {
-  const resolved = await params;
-  const pathname = resolvePathname(resolved.slug);
-  const pagePromise = getPageData(pathname);
-  const heroPromise = getSharedInnerPageHero();
-  const page = await pagePromise;
+  const resolved = await params
+  const pathname = resolvePathname(resolved.slug)
+  const pagePromise = getPageData(pathname)
+  const heroPromise = getSharedInnerPageHero()
+  const page = await pagePromise
 
   if (page) {
-    const hero = await heroPromise;
-
+    const hero = await heroPromise
     return (
       <>
         <InnerPageHero title={page.title} slides={hero.slides} />
         <CmsPage page={page} />
       </>
-    );
+    )
   }
 
-  const { header } = await getSiteChromeData();
-  const knownPaths = flattenNavigationPaths(header.navigation);
+  const { header } = await getSiteChromeData()
+  const knownPaths = flattenNavigationPaths(header.navigation)
 
   if (!isKnownLegacyPath(pathname, knownPaths)) {
-    notFound();
+    notFound()
   }
 
-  const hero = await heroPromise;
+  const hero = await heroPromise
 
   return (
     <>
       <InnerPageHero title="Сторінка в розробці" slides={hero.slides} />
       <PlaceholderPage pathname={pathname} />
     </>
-  );
+  )
 }

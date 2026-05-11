@@ -4,11 +4,11 @@ import Link from 'next/link'
 import { ArrowRight } from 'lucide-react'
 import { useEffect, useState } from 'react'
 
+import { FloatingPromos } from './floating-promos'
 import type { HomePageViewModel } from '@/widgets/home/model'
+import { buildHeroSlides } from '@/widgets/home/hero/hero-utils'
 import { HeroAnnouncementStrip } from '@/widgets/home/hero/hero-announcement-strip'
 import { HeroBackgroundSlider } from '@/widgets/home/hero/hero-background-slider'
-import { buildHeroSlides } from '@/widgets/home/hero/hero-utils'
-import { FloatingPromos } from './floating-promos'
 
 export function HomeHeroSection({ hero }: { hero: HomePageViewModel['hero'] }) {
   const [announcementIndex, setAnnouncementIndex] = useState(0)

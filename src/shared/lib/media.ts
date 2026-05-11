@@ -43,6 +43,16 @@ export type ResolvedImage = {
   alt: string;
 };
 
+export type ResolvedImageSource = {
+  src: string;
+  width: number;
+  height: number;
+};
+
+export type ResolvedImageWithSources = ResolvedImage & {
+  sources: ResolvedImageSource[];
+};
+
 type ResolvedMedia = MediaFormat & {
   alternativeText?: string | null;
   name?: string | null;
@@ -51,10 +61,12 @@ type ResolvedMedia = MediaFormat & {
 const SLOT_PRIORITY: Record<MediaSlot, MediaFormatKey[]> = {
   hero: ["original", "large", "medium", "small", "thumbnail"],
   card: ["original", "large", "medium", "small", "thumbnail"],
-  gallery: ["original", "large", "medium", "small", "thumbnail"],
+  gallery: ["large", "original", "medium", "small", "thumbnail"],
   logo: ["original", "medium", "small", "large", "thumbnail"],
   footer: ["original", "medium", "small", "large", "thumbnail"],
 };
+
+const SOURCE_ORDER: MediaFormatKey[] = ["thumbnail", "small", "medium", "large"];
 
 function asMediaAttributes(
   media: MediaEntityLike | MediaItemLike,
@@ -86,6 +98,50 @@ function parseFormats(formats: unknown) {
   }
 
   return formats as Partial<Record<MediaFormatKey, MediaFormat>>;
+}
+
+function resolveAltText(
+  candidate: Pick<ResolvedMedia, "alternativeText" | "name">,
+  fallbackAlt?: string,
+) {
+  return (
+    candidate.alternativeText?.trim() ||
+    fallbackAlt?.trim() ||
+    candidate.name?.trim() ||
+    ""
+  );
+}
+
+function collectResolvedSources(original: MediaAttributes) {
+  const parsedFormats = parseFormats(original.formats);
+  const sources = new Map<string, ResolvedImageSource>();
+
+  for (const key of SOURCE_ORDER) {
+    const candidate = parsedFormats[key];
+    const absoluteUrl = toAbsoluteMediaUrl(candidate?.url);
+
+    if (!absoluteUrl || !candidate?.width || !candidate.height) {
+      continue;
+    }
+
+    sources.set(absoluteUrl, {
+      src: absoluteUrl,
+      width: candidate.width,
+      height: candidate.height,
+    });
+  }
+
+  const originalUrl = toAbsoluteMediaUrl(original.url);
+
+  if (originalUrl && original.width && original.height) {
+    sources.set(originalUrl, {
+      src: originalUrl,
+      width: original.width,
+      height: original.height,
+    });
+  }
+
+  return Array.from(sources.values()).sort((left, right) => left.width - right.width);
 }
 
 function resolveVariant(
@@ -154,10 +210,36 @@ export function resolveImage(
     src: candidate.url,
     width: candidate.width,
     height: candidate.height,
-    alt:
-      candidate.alternativeText?.trim() ||
-      fallbackAlt?.trim() ||
-      candidate.name?.trim() ||
-      "",
+    alt: resolveAltText(candidate, fallbackAlt),
+  };
+}
+
+export function resolveImageWithSources(
+  media: MediaEntityLike | MediaItemLike,
+  slot: MediaSlot,
+  fallbackAlt?: string,
+): ResolvedImageWithSources | null {
+  const attributes = asMediaAttributes(media);
+  if (!attributes) {
+    return null;
+  }
+
+  const candidate = resolveVariant(attributes, slot);
+  if (!candidate?.url || !candidate.width || !candidate.height) {
+    return null;
+  }
+
+  const sources = collectResolvedSources(attributes);
+
+  if (!sources.length) {
+    return null;
+  }
+
+  return {
+    src: candidate.url,
+    width: candidate.width,
+    height: candidate.height,
+    alt: resolveAltText(candidate, fallbackAlt),
+    sources,
   };
 }

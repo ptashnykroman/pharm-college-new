@@ -5,17 +5,26 @@ import Lightbox from "yet-another-react-lightbox";
 import Zoom from "yet-another-react-lightbox/plugins/zoom";
 import "yet-another-react-lightbox/styles.css";
 
+export type ImageLightboxSource = {
+  src: string;
+  width: number;
+  height: number;
+};
+
+export type ImageLightboxSlide = {
+  src: string;
+  alt: string;
+  width: number;
+  height: number;
+  srcSet?: ImageLightboxSource[];
+};
+
 type ImageLightboxProps = {
   open: boolean;
   close: () => void;
-  index: number;
-  slides: Array<{
-    src: string;
-    alt: string;
-    width: number;
-    height: number;
-  }>;
-  onView: (index: number) => void;
+  index?: number;
+  slides: ImageLightboxSlide[];
+  onView?: (index: number) => void;
 };
 
 export function ImageLightbox({
@@ -54,9 +63,13 @@ export function ImageLightbox({
         maxZoomPixelRatio: 2,
         scrollToZoom: true,
       }}
-      on={{
-        view: ({ index: currentIndex }) => onView(currentIndex),
-      }}
+      on={
+        onView
+          ? {
+              view: ({ index: currentIndex }) => onView(currentIndex),
+            }
+          : undefined
+      }
       render={{
         iconPrev: () => <ChevronLeft className="h-8 w-8" />,
         iconNext: () => <ChevronRight className="h-8 w-8" />,

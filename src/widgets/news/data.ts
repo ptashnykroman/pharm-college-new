@@ -3,7 +3,7 @@ import { cache } from "react";
 import { executeGraphQLRaw } from "@/shared/api/graphql/client";
 import { CACHE_TAGS, DEFAULT_REVALIDATE_SECONDS } from "@/shared/lib/site-config";
 import { formatDateParts } from "@/shared/lib/date";
-import { resolveImage } from "@/shared/lib/media";
+import { resolveImage, resolveImageWithSources } from "@/shared/lib/media";
 import { buildNewsUrl } from "@/shared/lib/navigation";
 import { replaceCmsMediaUrls, stripHtml } from "@/shared/lib/rich-text";
 import {
@@ -269,7 +269,7 @@ function buildRecentNews(items: readonly NewsOverviewEntity[]): RecentNewsItem[]
 
 function resolveGallery(items: readonly MediaListItem[], title: string) {
   return items.flatMap((item) => {
-    const image = resolveImage(item, "gallery", title);
+    const image = resolveImageWithSources(item, "gallery", title);
 
     return image ? [image] : [];
   });

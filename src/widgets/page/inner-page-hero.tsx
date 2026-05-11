@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from 'react'
 
-import { SITE_FULL_NAME } from '@/shared/lib/site-config'
 import type { HeroSlide } from '@/widgets/home/hero/hero-utils'
 import { HeroBackgroundSlider } from '@/widgets/home/hero/hero-background-slider'
 
@@ -37,8 +36,8 @@ export function InnerPageHero({ slides }: InnerPageHeroProps) {
       <div className="relative container mx-auto flex h-full items-center justify-center px-4 pt-24 text-center md:px-6">
         <div className="max-w-5xl">
           <h1
-            style={{ fontFamily: '"Inter", ui-sans-serif, system-ui, sans-serif', fontWeight: 900 }}
-            className="text-3xl leading-[1.05] tracking-tight text-primary-foreground sm:text-4xl lg:text-5xl"
+            style={{ fontFamily: '"Inter", ui-sans-serif, system-ui, sans-serif' }}
+            className="text-2xl 2xs:text-3xl xs:text-4xl sm:text-5xl leading-[1.05] font-black tracking-tight text-primary-foreground"
           >
             Житомирський базовий{' '}
             <span className="block bg-gradient-to-r from-accent-gold to-white bg-clip-text text-transparent">

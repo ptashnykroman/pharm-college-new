@@ -3,15 +3,10 @@
 import { useState } from 'react'
 import { Loader2, Mail, Send } from 'lucide-react'
 
+import { cn } from '@/lib/utils'
 import { AppButton } from '@/components/shared/app-button'
 import { Input } from '@/components/ui/input'
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select'
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Textarea } from '@/components/ui/textarea'
 
 const EMAIL_JS_SERVICE_ID = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID || 'service_hsn7k71'
@@ -22,11 +17,12 @@ type MessageFormVariant = 'anonymous' | 'contact'
 
 type MessageFormProps = {
   title: string
-  description: string
   submitLabel: string
   variant: MessageFormVariant
+  inDialog?: boolean
   defaultSubject?: string
   subjectOptions?: string[]
+  className?: string
 }
 
 type FormState = {
@@ -99,14 +95,9 @@ async function sendMessage(state: FormState) {
   }
 }
 
-export function MessageForm({
-  title,
-  description,
-  submitLabel,
-  variant,
-  defaultSubject,
-  subjectOptions = [],
-}: MessageFormProps) {
+export function MessageForm(props: MessageFormProps) {
+  const { submitLabel, variant, defaultSubject, subjectOptions = [], className, inDialog = false } = props
+
   const [formState, setFormState] = useState<FormState>(() => buildInitialState(defaultSubject))
   const [errors, setErrors] = useState<FormErrors>({})
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -147,16 +138,14 @@ export function MessageForm({
   }
 
   return (
-    <div className="rounded-[2rem] border border-border/70 bg-white p-6 shadow-card md:p-8">
-      <div className="max-w-2xl">
-        <span className="inline-flex rounded-full border border-primary/15 bg-primary/5 px-4 py-1 text-xs font-bold uppercase tracking-[0.24em] text-primary">
-          Онлайн-звернення
-        </span>
-        <h2 className="mt-5 text-2xl font-black text-foreground sm:text-3xl">{title}</h2>
-        <p className="mt-4 text-base leading-7 text-foreground/75">{description}</p>
-      </div>
-
-      <form className="mt-8 space-y-5" onSubmit={handleSubmit}>
+    <div
+      className={cn(
+        'rounded-[2rem] border border-border/70 bg-white',
+        inDialog ? '' : 'p-6 md:p-8 shadow-card',
+        className,
+      )}
+    >
+      <form className="space-y-5" onSubmit={handleSubmit}>
         {variant === 'contact' ? (
           <div className="grid gap-5 md:grid-cols-2">
             <div>
@@ -165,7 +154,7 @@ export function MessageForm({
                 value={formState.userName}
                 onChange={(event) => updateField('userName', event.target.value)}
                 aria-invalid={Boolean(errors.userName)}
-                placeholder="Напишіть ваше ім’я"
+                placeholder="Ваше ім’я"
               />
               {errors.userName ? <p className="mt-2 text-sm text-destructive">{errors.userName}</p> : null}
             </div>
@@ -232,7 +221,10 @@ export function MessageForm({
             {submitLabel}
           </AppButton>
 
-          <a href="mailto:college@pharm.zt.ua" className="inline-flex items-center gap-2 text-sm font-semibold text-primary">
+          <a
+            href="mailto:college@pharm.zt.ua"
+            className="inline-flex items-center gap-2 text-sm font-semibold text-primary"
+          >
             <Mail className="h-4 w-4" />
             college@pharm.zt.ua
           </a>

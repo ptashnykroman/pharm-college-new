@@ -9,6 +9,8 @@ export { type CmsPageData } from '@/widgets/page/cms-page/model'
 
 export function CmsPage({ page }: { page: CmsPageData }) {
   const layout = PAGE_LAYOUTS[page.layout] ?? PAGE_LAYOUTS.col_12
+  const hasLeftColumn = Boolean(layout.leftClassName)
+  const hasRightColumn = Boolean(layout.rightClassName)
   const mainPhoto = resolveImage(page.main_photo, 'hero', page.title)
   const pageDescription = page.SEO.description?.trim()
   const leftBlocks = filterBlocks(page.left_sidebar)
@@ -42,13 +44,13 @@ export function CmsPage({ page }: { page: CmsPageData }) {
         ) : null}
 
         <div className={cn('mt-8 gap-6', layout.columnLayoutClassName)}>
-          <PageColumn blocks={leftBlocks} className={layout.leftClassName} isSidebar />
+          {hasLeftColumn ? <PageColumn blocks={leftBlocks} className={layout.leftClassName} isSidebar /> : null}
 
           <div className={cn(layout.mainClassName)}>
             <PageColumn blocks={mainBlocks} />
           </div>
 
-          <PageColumn blocks={rightBlocks} className={layout.rightClassName} isSidebar />
+          {hasRightColumn ? <PageColumn blocks={rightBlocks} className={layout.rightClassName} isSidebar /> : null}
         </div>
       </div>
     </section>
