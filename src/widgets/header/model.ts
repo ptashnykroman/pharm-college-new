@@ -43,13 +43,12 @@ type HeaderNavigationItem = NonNullable<
 
 type HeaderNavigationEntry = NonNullable<HeaderNavigationItem[number]>;
 
-type HeaderNavigationChild = NonNullable<
-  NonNullable<HeaderNavigationEntry["submenu"]>[number]
->;
-
-type HeaderNavigationLeaf = NonNullable<
-  NonNullable<HeaderNavigationChild["submenu"]>[number]
->;
+type HeaderNavigationNodeLike = {
+  id: string;
+  text: string;
+  link: string | null;
+  submenu?: ReadonlyArray<HeaderNavigationNodeLike | null> | null;
+};
 
 type GroupEntity = NonNullable<
   NonNullable<NonNullable<GetHeaderScheduleQuery["groups"]>["data"]>[number]
@@ -125,6 +124,26 @@ function buildScheduleChildren(
   return null;
 }
 
+function normalizeNavigationNode(
+  item: HeaderNavigationNodeLike,
+  schedule: GetHeaderScheduleQuery,
+): NavigationNode {
+  const href = normalizeHref(item.link);
+  const scheduleChildren = buildScheduleChildren(schedule, href);
+  const children =
+    scheduleChildren ??
+    (item.submenu ?? [])
+      .filter((child): child is HeaderNavigationNodeLike => Boolean(child))
+      .map((child) => normalizeNavigationNode(child, schedule));
+
+  return {
+    id: item.id,
+    label: item.text.trim(),
+    href,
+    children,
+  };
+}
+
 function normalizeNavigation(
   items:
     | NonNullable<
@@ -140,34 +159,7 @@ function normalizeNavigation(
 ): NavigationNode[] {
   return (items ?? [])
     .filter((item): item is HeaderNavigationEntry => Boolean(item))
-    .map((item) => {
-      const href = normalizeHref(item.link);
-      const scheduleChildren = buildScheduleChildren(schedule, href);
-      const children =
-        scheduleChildren ??
-        (item.submenu ?? [])
-          .filter((child): child is HeaderNavigationChild => Boolean(child))
-          .map((child) => ({
-            id: child.id,
-            label: child.text.trim(),
-            href: normalizeHref(child.link),
-            children: (child.submenu ?? [])
-              .filter((leaf): leaf is HeaderNavigationLeaf => Boolean(leaf))
-              .map((leaf) => ({
-                id: leaf.id,
-                label: leaf.text.trim(),
-                href: normalizeHref(leaf.link),
-                children: [],
-              })),
-          }));
-
-      return {
-        id: item.id,
-        label: item.text.trim(),
-        href,
-        children,
-      };
-    });
+    .map((item) => normalizeNavigationNode(item, schedule));
 }
 
 export function buildHeaderViewModel(

@@ -2,6 +2,7 @@ import { cache } from 'react'
 import { notFound } from 'next/navigation'
 
 import { getHomeHero } from '@/shared/api/graphql/sdk'
+import { buildNewsArchiveBreadcrumbs } from '@/shared/lib/breadcrumbs'
 import { buildPageMetadata } from '@/shared/lib/metadata'
 import { getNewsListPageData } from '@/widgets/news/data'
 import { getNewsListingTitle } from '@/widgets/news/model'
@@ -62,10 +63,11 @@ export default async function NewsArchivePage({ params }: NewsArchivePageProps) 
       pageSize: 12,
     }),
   ])
+  const breadcrumbs = buildNewsArchiveBreadcrumbs(resolved.year, resolved.month)
 
   return (
     <>
-      <InnerPageHero title={data.title} slides={hero.slides} />
+      <InnerPageHero title={data.title} breadcrumbs={breadcrumbs} slides={hero.slides} />
       <NewsListPageView {...data} />
     </>
   )

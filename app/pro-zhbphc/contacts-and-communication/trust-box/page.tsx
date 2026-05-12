@@ -1,22 +1,27 @@
 import { buildPageMetadata } from '@/shared/lib/metadata'
+import { resolveStaticBreadcrumbs } from '@/shared/lib/breadcrumbs'
 import { getSharedInnerPageHeroData } from '@/widgets/page/inner-page-hero-server'
 import { InnerPageHero } from '@/widgets/page/inner-page-hero'
 import { TrustBoxPageView } from '@/widgets/static-pages/trust-box-page'
 
+const PATHNAME = '/pro-zhbphc/contacts-and-communication/trust-box'
+
 export async function generateMetadata() {
   return buildPageMetadata({
     title: 'Скринька довіри',
-    description: 'Конфіденційна сторінка для звернень щодо безпечного освітнього середовища, академічної доброчесності та інших чутливих питань.',
-    pathname: '/pro-zhbphc/contacts-and-communication/trust-box',
+    description:
+      'Конфіденційна сторінка для звернень щодо безпечного освітнього середовища, академічної доброчесності та інших чутливих питань.',
+    pathname: PATHNAME,
   })
 }
 
 export default async function TrustBoxPage() {
   const hero = await getSharedInnerPageHeroData()
+  const breadcrumbs = resolveStaticBreadcrumbs(PATHNAME)
 
   return (
     <>
-      <InnerPageHero title="Скринька довіри" slides={hero.slides} />
+      <InnerPageHero title="Скринька довіри" breadcrumbs={breadcrumbs} slides={hero.slides} />
       <TrustBoxPageView />
     </>
   )

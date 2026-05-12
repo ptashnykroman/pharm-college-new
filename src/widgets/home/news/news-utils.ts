@@ -6,10 +6,6 @@ export const newsToneStyles = {
   deep: "bg-primary-deep text-primary-foreground",
 } as const;
 
-export function estimateReadTime(text: string) {
-  const words = text.trim().split(/\s+/).filter(Boolean).length;
-  return `${Math.max(1, Math.round(words / 35))} хв`;
-}
 
 export function getNewsTagTone(
   tag: string | null,

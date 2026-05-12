@@ -1,15 +1,23 @@
 import { cache } from 'react'
 import { notFound } from 'next/navigation'
 
-import { CmsPage } from '@/widgets/page/cms-page'
-import { resolveImage } from '@/shared/lib/media'
-import { getSiteChromeData } from '@/widgets/header/data'
 import { AppButton } from '@/components/shared/app-button'
-import { InnerPageHero } from '@/widgets/page/inner-page-hero'
-import { getHomeHero, getPageByPath } from '@/shared/api/graphql/sdk'
-import { buildInnerPageHeroViewModel } from '@/widgets/page/inner-page-hero-data'
-import { flattenNavigationPaths, isKnownLegacyPath } from '@/shared/lib/navigation'
+import { resolveBreadcrumbs } from '@/shared/lib/breadcrumbs'
 import { buildPageMetadata, createPlaceholderMetadata } from '@/shared/lib/metadata'
+import { resolveImage } from '@/shared/lib/media'
+import { flattenNavigationPaths, isKnownLegacyPath } from '@/shared/lib/navigation'
+import { getHomeHero, getPageByPath } from '@/shared/api/graphql/sdk'
+import { getSiteChromeData } from '@/widgets/header/data'
+import { CmsPage } from '@/widgets/page/cms-page'
+import { buildInnerPageHeroViewModel } from '@/widgets/page/inner-page-hero-data'
+import { InnerPageHero } from '@/widgets/page/inner-page-hero'
+
+const PLACEHOLDER_BADGE = 'Сторінка в роботі'
+const PLACEHOLDER_MESSAGE_BEFORE_PATH = 'Маршрут '
+const PLACEHOLDER_MESSAGE_AFTER_PATH =
+  ' вже розпізнано, але його окрема реалізація ще переноситься зі старого сайту.'
+const GO_HOME_LABEL = 'На головну'
+const PLACEHOLDER_HERO_TITLE = 'Сторінка в розробці'
 
 type DynamicPageProps = {
   params: Promise<{
@@ -59,14 +67,15 @@ function PlaceholderPage({ pathname }: { pathname: string }) {
   return (
     <div className="container mx-auto px-4 pb-20 pt-10 md:px-6 md:pt-14">
       <div className="mx-auto max-w-3xl rounded-[2rem] border border-border/80 bg-white p-8 text-center shadow-card md:p-12">
-        <div className="text-sm font-semibold uppercase tracking-[0.18em] text-primary">Сторінка в роботі</div>
+        <div className="text-sm font-semibold uppercase tracking-[0.18em] text-primary">{PLACEHOLDER_BADGE}</div>
         <p className="mt-5 text-lg leading-8 text-foreground/80">
-          Маршрут <span className="font-semibold text-foreground">{pathname}</span> вже розпізнано, але його окрема
-          реалізація ще переноситься зі старого сайту.
+          {PLACEHOLDER_MESSAGE_BEFORE_PATH}
+          <span className="font-semibold text-foreground">{pathname}</span>
+          {PLACEHOLDER_MESSAGE_AFTER_PATH}
         </p>
         <div className="mt-8 flex flex-wrap justify-center gap-3">
           <AppButton href="/" shape="rounded">
-            На головну
+            {GO_HOME_LABEL}
           </AppButton>
         </div>
       </div>
@@ -79,30 +88,31 @@ export default async function DynamicPage({ params }: DynamicPageProps) {
   const pathname = resolvePathname(resolved.slug)
   const pagePromise = getPageData(pathname)
   const heroPromise = getSharedInnerPageHero()
-  const page = await pagePromise
+  const chromePromise = getSiteChromeData()
+  const [page, hero, { header }] = await Promise.all([pagePromise, heroPromise, chromePromise])
+  const breadcrumbs = resolveBreadcrumbs({
+    pathname,
+    navigation: header.navigation,
+  })
 
   if (page) {
-    const hero = await heroPromise
     return (
       <>
-        <InnerPageHero title={page.title} slides={hero.slides} />
+        <InnerPageHero title={page.title} breadcrumbs={breadcrumbs} slides={hero.slides} />
         <CmsPage page={page} />
       </>
     )
   }
 
-  const { header } = await getSiteChromeData()
   const knownPaths = flattenNavigationPaths(header.navigation)
 
   if (!isKnownLegacyPath(pathname, knownPaths)) {
     notFound()
   }
 
-  const hero = await heroPromise
-
   return (
     <>
-      <InnerPageHero title="Сторінка в розробці" slides={hero.slides} />
+      <InnerPageHero title={PLACEHOLDER_HERO_TITLE} breadcrumbs={breadcrumbs} slides={hero.slides} />
       <PlaceholderPage pathname={pathname} />
     </>
   )

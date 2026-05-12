@@ -1,9 +1,19 @@
 import { notFound } from 'next/navigation'
 
-import { buildPageMetadata, createPlaceholderMetadata } from '@/shared/lib/metadata'
-import { getSharedInnerPageHeroData } from '@/widgets/page/inner-page-hero-server'
+import {
+  buildBreadcrumbTrail,
+  type BreadcrumbItem,
+} from '@/shared/lib/breadcrumbs'
+import {
+  buildPageMetadata,
+  createPlaceholderMetadata,
+} from '@/shared/lib/metadata'
 import { InnerPageHero } from '@/widgets/page/inner-page-hero'
-import { getGroupSchedulePageData } from '@/widgets/schedule/data'
+import { getSharedInnerPageHeroData } from '@/widgets/page/inner-page-hero-server'
+import {
+  decodeScheduleRouteParam,
+  getGroupSchedulePageData,
+} from '@/widgets/schedule/data'
 import { EmbeddedSchedulePageView } from '@/widgets/schedule/schedule-page'
 
 type GroupSchedulePageProps = {
@@ -14,8 +24,9 @@ type GroupSchedulePageProps = {
 
 export async function generateMetadata({ params }: GroupSchedulePageProps) {
   const resolved = await params
-  const item = await getGroupSchedulePageData(resolved.groupName)
-  const encodedGroupName = encodeURIComponent(resolved.groupName)
+  const groupName = decodeScheduleRouteParam(resolved.groupName)
+  const item = await getGroupSchedulePageData(groupName)
+  const encodedGroupName = encodeURIComponent(groupName)
 
   if (!item) {
     return createPlaceholderMetadata(`/rozklad/grupa/${encodedGroupName}`)
@@ -28,17 +39,37 @@ export async function generateMetadata({ params }: GroupSchedulePageProps) {
   })
 }
 
-export default async function GroupSchedulePage({ params }: GroupSchedulePageProps) {
+export default async function GroupSchedulePage({
+  params,
+}: GroupSchedulePageProps) {
   const resolved = await params
-  const [hero, item] = await Promise.all([getSharedInnerPageHeroData(), getGroupSchedulePageData(resolved.groupName)])
+  const groupName = decodeScheduleRouteParam(resolved.groupName)
+  const [hero, item] = await Promise.all([
+    getSharedInnerPageHeroData(),
+    getGroupSchedulePageData(groupName),
+  ])
 
   if (!item) {
     notFound()
   }
 
+  const encodedGroupName = encodeURIComponent(groupName)
+  const breadcrumbs = buildBreadcrumbTrail([
+    { label: 'Розклад', href: '/rozklad' },
+    { label: 'Групи', href: '/rozklad/grupa' },
+    {
+      label: groupName,
+      href: `/rozklad/grupa/${encodedGroupName}`,
+    },
+  ] satisfies BreadcrumbItem[])
+
   return (
     <>
-      <InnerPageHero title={item.title} slides={hero.slides} />
+      <InnerPageHero
+        title={item.title}
+        breadcrumbs={breadcrumbs}
+        slides={hero.slides}
+      />
       <EmbeddedSchedulePageView item={item} />
     </>
   )

@@ -1,13 +1,14 @@
 import { notFound } from 'next/navigation'
 
+import { buildBreadcrumbTrail, type BreadcrumbItem } from '@/shared/lib/breadcrumbs'
 import { buildPageMetadata, createPlaceholderMetadata } from '@/shared/lib/metadata'
-import { getSharedInnerPageHeroData } from '@/widgets/page/inner-page-hero-server'
-import { InnerPageHero } from '@/widgets/page/inner-page-hero'
 import {
   getCycleCommissionPageData,
   getCycleCommissionPageMetadata,
 } from '@/widgets/cycle-commissions/data'
 import { CycleCommissionPageView } from '@/widgets/cycle-commissions/cycle-commission-page'
+import { InnerPageHero } from '@/widgets/page/inner-page-hero'
+import { getSharedInnerPageHeroData } from '@/widgets/page/inner-page-hero-server'
 
 type CycleCommissionDetailPageProps = {
   params: Promise<{
@@ -37,9 +38,15 @@ export default async function CycleCommissionDetailPage({ params }: CycleCommiss
     notFound()
   }
 
+  const breadcrumbs = buildBreadcrumbTrail([
+    { label: 'Структура', href: '/structure' },
+    { label: 'Циклові комісії', href: '/structure/cmks' },
+    { label: page.title, href: `/structure/cmks/${page.slug}` },
+  ] satisfies BreadcrumbItem[])
+
   return (
     <>
-      <InnerPageHero title={page.title} slides={hero.slides} />
+      <InnerPageHero title={page.title} breadcrumbs={breadcrumbs} slides={hero.slides} />
       <CycleCommissionPageView page={page} />
     </>
   )

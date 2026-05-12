@@ -1,14 +1,14 @@
-@import '@fontsource/inter/400.css';
-@import '@fontsource/inter/500.css';
-@import '@fontsource/inter/600.css';
-@import '@fontsource/inter/700.css';
-@import '@fontsource/inter/800.css';
-@import '@fontsource/inter/900.css';
-@import '@fontsource/plus-jakarta-sans/700.css';
-@import '@fontsource/plus-jakarta-sans/800.css';
-@import 'tailwindcss';
-@import 'tw-animate-css';
-@import 'shadcn/tailwind.css';
+@import "@fontsource/inter/400.css";
+@import "@fontsource/inter/500.css";
+@import "@fontsource/inter/600.css";
+@import "@fontsource/inter/700.css";
+@import "@fontsource/inter/800.css";
+@import "@fontsource/inter/900.css";
+@import "@fontsource/plus-jakarta-sans/700.css";
+@import "@fontsource/plus-jakarta-sans/800.css";
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
 
 @custom-variant dark (&:is(.dark *));
 
@@ -45,8 +45,9 @@
   --color-accent-gold: var(--accent-gold);
   --color-accent-gold-foreground: var(--accent-gold-foreground);
   --font-sans: var(--font-sans);
-  --font-display: 'Plus Jakarta Sans', 'Inter', ui-sans-serif, system-ui, sans-serif;
-  --font-mono: 'Consolas', 'Courier New', monospace;
+  --font-display:
+    "Plus Jakarta Sans", "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "Consolas", "Courier New", monospace;
   --font-heading: var(--font-sans);
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
@@ -93,8 +94,17 @@
   --border: oklch(0.922 0 0);
   --input: oklch(0.922 0 0);
   --ring: oklch(0.708 0 0);
-  --gradient-hero: linear-gradient(135deg, #203965 0%, #345da8 50%, #6a8fda 100%);
-  --gradient-primary: linear-gradient(135deg, var(--primary) 0%, var(--primary-glow) 100%);
+  --gradient-hero: linear-gradient(
+    135deg,
+    #203965 0%,
+    #345da8 50%,
+    #6a8fda 100%
+  );
+  --gradient-primary: linear-gradient(
+    135deg,
+    var(--primary) 0%,
+    var(--primary-glow) 100%
+  );
   --gradient-soft: linear-gradient(180deg, #f8fafc 0%, #edf2fb 100%);
   --gradient-stats: linear-gradient(120deg, #223a67 0%, #436db4 100%);
   --shadow-soft: 0 4px 16px -4px rgba(52, 93, 168, 0.12);
@@ -149,9 +159,21 @@
       oklch(0.42 0.16 252) 50%,
       oklch(0.55 0.18 245) 100%
     );
-    --gradient-primary: linear-gradient(135deg, var(--primary) 0%, var(--primary-glow) 100%);
-    --gradient-soft: linear-gradient(180deg, oklch(0.99 0.005 240) 0%, oklch(0.96 0.02 245) 100%);
-    --gradient-stats: linear-gradient(120deg, oklch(0.32 0.13 258) 0%, oklch(0.45 0.17 250) 100%);
+    --gradient-primary: linear-gradient(
+      135deg,
+      var(--primary) 0%,
+      var(--primary-glow) 100%
+    );
+    --gradient-soft: linear-gradient(
+      180deg,
+      oklch(0.99 0.005 240) 0%,
+      oklch(0.96 0.02 245) 100%
+    );
+    --gradient-stats: linear-gradient(
+      120deg,
+      oklch(0.32 0.13 258) 0%,
+      oklch(0.45 0.17 250) 100%
+    );
     --shadow-soft: 0 4px 16px -4px oklch(0.42 0.16 252 / 0.12);
     --shadow-card: 0 10px 30px -12px oklch(0.3 0.13 258 / 0.18);
     --shadow-elegant: 0 20px 60px -20px oklch(0.3 0.13 258 / 0.3);
@@ -169,7 +191,7 @@
     background-color: var(--color-background);
     color: var(--color-foreground);
     font-family: var(--font-sans);
-    font-feature-settings: 'ss01', 'cv11';
+    font-feature-settings: "ss01", "cv11";
     -webkit-font-smoothing: antialiased;
     @apply bg-background text-foreground;
   }
@@ -301,7 +323,7 @@
   }
 
   .rich-text h6 {
-    @apply mt-5 text-sm leading-tight tracking-[0.16em] text-foreground/70;
+    @apply mt-5 text-sm leading-tight;
   }
 
   .rich-text p {
@@ -320,7 +342,7 @@
   }
 
   .rich-text strong {
-    @apply font-extrabold text-foreground;
+    @apply font-extrabold;
   }
 
   .rich-text em {
@@ -387,7 +409,7 @@
   }
 
   .rich-text code {
-    @apply rounded bg-muted px-1.5 py-0.5 font-mono text-[0.92em] text-foreground;
+    @apply rounded bg-muted px-1.5 py-0.5 font-mono text-[0.92em] text-foreground bg-transparent;
   }
 
   .rich-text pre code {

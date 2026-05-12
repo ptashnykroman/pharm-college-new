@@ -14,6 +14,7 @@ type DesktopNavigationProps = {
 
 const VIEWPORT_PADDING = 16
 const SUBMENU_GAP = 8
+const SCROLLABLE_MENU_ITEMS_THRESHOLD = 12
 
 export function DesktopNavigation({ items, scrolled }: DesktopNavigationProps) {
   return (
@@ -30,6 +31,7 @@ function DesktopNavigationItem({ item, scrolled }: { item: NavigationNode; scrol
   const menuRef = useRef<HTMLDivElement>(null)
   const [alignToEnd, setAlignToEnd] = useState(false)
   const hasChildren = item.children.length > 0
+  const shouldScroll = item.children.length > SCROLLABLE_MENU_ITEMS_THRESHOLD
   const linkClassName = cn(
     'inline-flex items-center gap-0.5 whitespace-nowrap rounded-lg px-2 py-1.5 text-[13px] font-medium transition-smooth',
     scrolled ? 'text-foreground hover:bg-accent/60' : 'text-primary-foreground hover:bg-white/10',
@@ -76,7 +78,12 @@ function DesktopNavigationItem({ item, scrolled }: { item: NavigationNode; scrol
           'transition-all duration-200 group-hover:visible group-hover:translate-y-0 group-hover:opacity-100',
         )}
       >
-        <div className="rounded-xl border border-border bg-popover p-2 shadow-elegant">
+        <div
+          className={cn(
+            'rounded-xl border border-border bg-popover p-2 shadow-elegant',
+            shouldScroll && 'max-h-[70vh] overflow-y-auto overflow-x-hidden',
+          )}
+        >
           {item.children.map((child) => (
             <DesktopSubNavigationItem key={child.id} item={child} />
           ))}
@@ -90,6 +97,7 @@ function DesktopSubNavigationItem({ item }: { item: NavigationNode }) {
   const itemRef = useRef<HTMLDivElement>(null)
   const menuRef = useRef<HTMLDivElement>(null)
   const [openToLeft, setOpenToLeft] = useState(false)
+  const shouldScroll = item.children.length > SCROLLABLE_MENU_ITEMS_THRESHOLD
 
   const updatePlacement = () => {
     const itemElement = itemRef.current
@@ -140,7 +148,12 @@ function DesktopSubNavigationItem({ item }: { item: NavigationNode }) {
           openToLeft ? 'translate-x-1' : '-translate-x-1',
         )}
       >
-        <div className="rounded-xl border border-border bg-popover p-2 shadow-elegant">
+        <div
+          className={cn(
+            'rounded-xl border border-border bg-popover p-2 shadow-elegant',
+            shouldScroll && 'max-h-[70vh] overflow-y-auto overflow-x-hidden',
+          )}
+        >
           {item.children.map((leaf) => (
             <SmartLink
               key={leaf.id}

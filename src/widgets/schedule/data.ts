@@ -1,7 +1,10 @@
 import { cache } from 'react'
 
 import { executeGraphQLRaw } from '@/shared/api/graphql/client'
-import { CACHE_TAGS, DEFAULT_REVALIDATE_SECONDS } from '@/shared/lib/site-config'
+import {
+  CACHE_TAGS,
+  DEFAULT_REVALIDATE_SECONDS,
+} from '@/shared/lib/site-config'
 
 type GroupNode = {
   id: string | null
@@ -189,8 +192,10 @@ const SPECIALTY_PHARMACY = 'Farmacziya_promislova_farmacziya_226'
 const SPECIALTY_LAB = 'Tehnologiyi_medichnoyi_diagnostiki_ta_likuvannya_224'
 
 const DEGREE_TITLES: Record<string, string> = {
-  OPS_Fahovij_molodshij_bakalavr_na_bazi_9_klasiv: 'ОПС Фаховий молодший бакалавр (на базі 9 класів)',
-  OPS_Fahovij_molodshij_bakalavr_na_bazi_11_klasiv: 'ОПС Фаховий молодший бакалавр (на базі 11 класів)',
+  OPS_Fahovij_molodshij_bakalavr_na_bazi_9_klasiv:
+    'ОПС Фаховий молодший бакалавр (на базі 9 класів)',
+  OPS_Fahovij_molodshij_bakalavr_na_bazi_11_klasiv:
+    'ОПС Фаховий молодший бакалавр (на базі 11 класів)',
   OR_pershij_bakalavrskij: 'ОР перший (бакалаврський)',
 }
 
@@ -247,7 +252,9 @@ function sortGroups(groups: GroupNode[]) {
       return 0
     }
 
-    const courseDiff = parseCourseNumber(leftAttributes.course_number) - parseCourseNumber(rightAttributes.course_number)
+    const courseDiff =
+      parseCourseNumber(leftAttributes.course_number) -
+      parseCourseNumber(rightAttributes.course_number)
 
     if (courseDiff !== 0) {
       return courseDiff
@@ -267,6 +274,14 @@ function formatTeacherLabel(name: string) {
   return `${parts[0]} ${parts[1][0] ?? ''}.${parts[2][0] ?? ''}.`
 }
 
+export function decodeScheduleRouteParam(value: string) {
+  try {
+    return decodeURIComponent(value)
+  } catch {
+    return value
+  }
+}
+
 const getAllGroups = cache(async () => {
   const response = await executeGraphQLRaw<GroupsResponse>(
     ALL_GROUPS_QUERY,
@@ -280,124 +295,139 @@ const getAllGroups = cache(async () => {
   return response.groups?.data ?? []
 })
 
-const getAllTeacherSections = cache(async (): Promise<ScheduleTeacherSection[]> => {
-  const response = await executeGraphQLRaw<TeachersResponse>(
-    ALL_TEACHERS_QUERY,
-    {},
-    {
-      revalidate: DEFAULT_REVALIDATE_SECONDS,
-      tags: [CACHE_TAGS.schedule, CACHE_TAGS.routes],
-    },
-  )
+const getAllTeacherSections = cache(
+  async (): Promise<ScheduleTeacherSection[]> => {
+    const response = await executeGraphQLRaw<TeachersResponse>(
+      ALL_TEACHERS_QUERY,
+      {},
+      {
+        revalidate: DEFAULT_REVALIDATE_SECONDS,
+        tags: [CACHE_TAGS.schedule, CACHE_TAGS.routes],
+      },
+    )
 
-  return (response.cycleCommissions?.data ?? []).flatMap((commission) => {
-    if (!commission.id || !commission.attributes) {
-      return []
-    }
-
-    const teachers = (commission.attributes.workers?.data ?? []).flatMap((teacher) => {
-      if (!teacher.id || !teacher.attributes?.slug) {
+    return (response.cycleCommissions?.data ?? []).flatMap((commission) => {
+      if (!commission.id || !commission.attributes) {
         return []
       }
 
-      return [
-        {
-          id: teacher.id,
-          label: formatTeacherLabel(teacher.attributes.name),
-          href: `/rozklad/vikladach/${encodeURIComponent(teacher.attributes.slug)}`,
-        },
-      ]
-    })
-
-    if (!teachers.length) {
-      return []
-    }
-
-    return [
-      {
-        id: commission.id,
-        title: commission.attributes.name,
-        teachers,
-      },
-    ]
-  })
-})
-
-export const getGroupScheduleDirectory = cache(async (): Promise<ScheduleDepartmentSection[]> => {
-  const groups = await getAllGroups()
-
-  return DEPARTMENT_CONFIGS.flatMap((department) => {
-    const departmentGroups = groups.filter(
-      (group) => group.attributes?.vidilenya?.data?.attributes?.name === department.matchName,
-    )
-
-    const specialties = department.specialties.flatMap((specialty) => {
-      const degrees = Object.entries(DEGREE_TITLES).flatMap(([degreeKey, degreeTitle]) => {
-        const degreeGroups = sortGroups(
-          departmentGroups.filter(
-            (group) =>
-              group.attributes?.specialty === specialty.specialtyKey &&
-              group.attributes?.educationalDegree === degreeKey &&
-              Boolean(group.attributes?.name),
-          ),
-        ).flatMap((group) => {
-          if (!group.id || !group.attributes?.name) {
+      const teachers = (commission.attributes.workers?.data ?? []).flatMap(
+        (teacher) => {
+          if (!teacher.id || !teacher.attributes?.slug) {
             return []
           }
 
           return [
             {
-              id: group.id,
-              name: group.attributes.name,
-              href: `/rozklad/grupa/${encodeURIComponent(group.attributes.name)}`,
+              id: teacher.id,
+              label: formatTeacherLabel(teacher.attributes.name),
+              href: `/rozklad/vikladach/${encodeURIComponent(teacher.attributes.slug)}`,
             },
           ]
-        })
+        },
+      )
 
-        if (!degreeGroups.length) {
-          return []
-        }
-
-        return [
-          {
-            id: `${specialty.id}-${degreeKey}`,
-            title: degreeTitle,
-            groups: degreeGroups,
-          },
-        ]
-      })
-
-      if (!degrees.length) {
+      if (!teachers.length) {
         return []
       }
 
       return [
         {
-          id: specialty.id,
-          title: specialty.title,
-          degrees,
+          id: commission.id,
+          title: commission.attributes.name,
+          teachers,
         },
       ]
     })
+  },
+)
 
-    if (!specialties.length) {
-      return []
-    }
+export const getGroupScheduleDirectory = cache(
+  async (): Promise<ScheduleDepartmentSection[]> => {
+    const groups = await getAllGroups()
 
-    return [
-      {
-        id: department.id,
-        title: department.title,
-        specialties,
-      },
-    ]
-  })
-})
+    return DEPARTMENT_CONFIGS.flatMap((department) => {
+      const departmentGroups = groups.filter(
+        (group) =>
+          group.attributes?.vidilenya?.data?.attributes?.name ===
+          department.matchName,
+      )
 
-export const getTeacherScheduleDirectory = cache(async () => getAllTeacherSections())
+      const specialties = department.specialties.flatMap((specialty) => {
+        const degrees = Object.entries(DEGREE_TITLES).flatMap(
+          ([degreeKey, degreeTitle]) => {
+            const degreeGroups = sortGroups(
+              departmentGroups.filter(
+                (group) =>
+                  group.attributes?.specialty === specialty.specialtyKey &&
+                  group.attributes?.educationalDegree === degreeKey &&
+                  Boolean(group.attributes?.name),
+              ),
+            ).flatMap((group) => {
+              if (!group.id || !group.attributes?.name) {
+                return []
+              }
+
+              return [
+                {
+                  id: group.id,
+                  name: group.attributes.name,
+                  href: `/rozklad/grupa/${encodeURIComponent(group.attributes.name)}`,
+                },
+              ]
+            })
+
+            if (!degreeGroups.length) {
+              return []
+            }
+
+            return [
+              {
+                id: `${specialty.id}-${degreeKey}`,
+                title: degreeTitle,
+                groups: degreeGroups,
+              },
+            ]
+          },
+        )
+
+        if (!degrees.length) {
+          return []
+        }
+
+        return [
+          {
+            id: specialty.id,
+            title: specialty.title,
+            degrees,
+          },
+        ]
+      })
+
+      if (!specialties.length) {
+        return []
+      }
+
+      return [
+        {
+          id: department.id,
+          title: department.title,
+          specialties,
+        },
+      ]
+    })
+  },
+)
+
+export const getTeacherScheduleDirectory = cache(async () =>
+  getAllTeacherSections(),
+)
 
 export const getScheduleLandingPageData = cache(async () => {
-  const [groupSections, teacherSections] = await Promise.all([getGroupScheduleDirectory(), getTeacherScheduleDirectory()])
+  const [groupSections, teacherSections] = await Promise.all([
+    getGroupScheduleDirectory(),
+    getTeacherScheduleDirectory(),
+  ])
 
   return {
     groupSections,
@@ -405,48 +435,52 @@ export const getScheduleLandingPageData = cache(async () => {
   }
 })
 
-export const getGroupSchedulePageData = cache(async (groupName: string): Promise<EmbeddedScheduleViewModel | null> => {
-  const response = await executeGraphQLRaw<GroupsResponse, { groupName: string }>(
-    GROUP_BY_NAME_QUERY,
-    { groupName },
-    {
+export const getGroupSchedulePageData = cache(
+  async (groupName: string): Promise<EmbeddedScheduleViewModel | null> => {
+    const decodedGroupName = decodeScheduleRouteParam(groupName)
+    const response = await executeGraphQLRaw<GroupsResponse, { groupName: string }>(
+      GROUP_BY_NAME_QUERY,
+      { groupName: decodedGroupName },
+      {
+        revalidate: DEFAULT_REVALIDATE_SECONDS,
+        tags: [CACHE_TAGS.schedule, CACHE_TAGS.routes],
+      },
+    )
+
+    const group = response.groups?.data[0]
+
+    if (!group?.attributes?.calendar_id) {
+      return null
+    }
+
+    return {
+      title: `Розклад групи ${group.attributes.name}`,
+      subtitle: 'Актуальний Google Calendar розклад для академічної групи.',
+      calendarUrl: buildCalendarUrl(group.attributes.calendar_id),
+    }
+  },
+)
+
+export const getTeacherSchedulePageData = cache(
+  async (teacherSlug: string): Promise<EmbeddedScheduleViewModel | null> => {
+    const response = await executeGraphQLRaw<
+      TeacherResponse,
+      { teacherSlug: string }
+    >(TEACHER_BY_SLUG_QUERY, { teacherSlug }, {
       revalidate: DEFAULT_REVALIDATE_SECONDS,
       tags: [CACHE_TAGS.schedule, CACHE_TAGS.routes],
-    },
-  )
+    })
 
-  const group = response.groups?.data[0]
+    const teacher = response.workers?.data[0]
 
-  if (!group?.attributes?.calendar_id) {
-    return null
-  }
+    if (!teacher?.attributes?.calendar_id) {
+      return null
+    }
 
-  return {
-    title: `Розклад групи ${group.attributes.name}`,
-    subtitle: 'Актуальний Google Calendar розклад для академічної групи.',
-    calendarUrl: buildCalendarUrl(group.attributes.calendar_id),
-  }
-})
-
-export const getTeacherSchedulePageData = cache(async (teacherSlug: string): Promise<EmbeddedScheduleViewModel | null> => {
-  const response = await executeGraphQLRaw<TeacherResponse, { teacherSlug: string }>(
-    TEACHER_BY_SLUG_QUERY,
-    { teacherSlug },
-    {
-      revalidate: DEFAULT_REVALIDATE_SECONDS,
-      tags: [CACHE_TAGS.schedule, CACHE_TAGS.routes],
-    },
-  )
-
-  const teacher = response.workers?.data[0]
-
-  if (!teacher?.attributes?.calendar_id) {
-    return null
-  }
-
-  return {
-    title: teacher.attributes.name,
-    subtitle: 'Актуальний Google Calendar розклад викладача.',
-    calendarUrl: buildCalendarUrl(teacher.attributes.calendar_id),
-  }
-})
+    return {
+      title: teacher.attributes.name,
+      subtitle: 'Актуальний Google Calendar розклад викладача.',
+      calendarUrl: buildCalendarUrl(teacher.attributes.calendar_id),
+    }
+  },
+)

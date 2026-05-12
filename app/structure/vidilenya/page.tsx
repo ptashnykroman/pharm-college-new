@@ -1,23 +1,27 @@
+import { resolveStaticBreadcrumbs } from '@/shared/lib/breadcrumbs'
 import { buildPageMetadata } from '@/shared/lib/metadata'
-import { getSharedInnerPageHeroData } from '@/widgets/page/inner-page-hero-server'
 import { InnerPageHero } from '@/widgets/page/inner-page-hero'
+import { getSharedInnerPageHeroData } from '@/widgets/page/inner-page-hero-server'
 import { getStructureSectionCards } from '@/widgets/structure-sections/data'
 import { StructureSectionListPageView } from '@/widgets/structure-sections/structure-section-list-page'
+
+const PATHNAME = '/structure/vidilenya'
 
 export async function generateMetadata() {
   return buildPageMetadata({
     title: 'Відділення',
     description: 'Відділення Житомирського базового фармацевтичного фахового коледжу.',
-    pathname: '/structure/vidilenya',
+    pathname: PATHNAME,
   })
 }
 
 export default async function VidilenyaPage() {
   const [hero, items] = await Promise.all([getSharedInnerPageHeroData(), getStructureSectionCards('vidilenya')])
+  const breadcrumbs = resolveStaticBreadcrumbs(PATHNAME)
 
   return (
     <>
-      <InnerPageHero title="Відділення" slides={hero.slides} />
+      <InnerPageHero title="Відділення" breadcrumbs={breadcrumbs} slides={hero.slides} />
       <StructureSectionListPageView
         badge="Відділення"
         title="Відділення"
