@@ -34,7 +34,7 @@ export function InnerPageHero({ slides }: InnerPageHeroProps) {
       <div className="absolute -right-12 -bottom-28 h-80 w-80 rounded-full bg-accent-gold/15 blur-3xl" />
 
       <div className="relative container mx-auto flex h-full items-center justify-center px-4 pt-24 text-center md:px-6">
-        <div className="max-w-5xl">
+        <div className="max-w-5xl animate-fade-up">
           <h1
             style={{ fontFamily: '"Inter", ui-sans-serif, system-ui, sans-serif' }}
             className="text-2xl 2xs:text-3xl xs:text-4xl sm:text-5xl leading-[1.05] font-black tracking-tight text-primary-foreground"
