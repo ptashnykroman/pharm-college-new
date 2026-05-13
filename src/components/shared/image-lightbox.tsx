@@ -63,6 +63,9 @@ export function ImageLightbox({
         maxZoomPixelRatio: 2,
         scrollToZoom: true,
       }}
+      controller={{
+        closeOnBackdropClick: true,
+      }}
       on={
         onView
           ? {

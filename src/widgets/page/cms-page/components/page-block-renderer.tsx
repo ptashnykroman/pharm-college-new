@@ -37,13 +37,13 @@ export function PageBlockRenderer({
 }) {
   switch (block.component_type) {
     case "body":
-      return <BodyPageBlock block={block as BodyBlock} isSidebar={isSidebar} />;
+      return <BodyPageBlock block={block as BodyBlock} />;
     case "accordion":
       return <AccordionPageBlock block={block as AccordionBlock} />;
     case "button_link":
       return <ButtonLinkPageBlock block={block as ButtonLinkBlock} isSidebar={isSidebar} />;
     case "photos_gallery":
-      return <PhotosGalleryPageBlock block={block as PhotosGalleryBlock} />;
+      return <PhotosGalleryPageBlock block={block as PhotosGalleryBlock} isSidebar={isSidebar} />;
     case "two_col_with_image":
       return <TwoColumnWithImagePageBlock block={block as TwoColumnWithImageBlock} />;
     case "person":

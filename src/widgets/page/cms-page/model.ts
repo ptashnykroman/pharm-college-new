@@ -110,20 +110,20 @@ export const PAGE_LAYOUTS: Record<Enum_Page_Layout, LayoutConfig> = {
     columnLayoutClassName:
       "lg:grid lg:grid-cols-[minmax(0,8fr)_minmax(280px,4fr)] lg:items-start",
     mainClassName: "space-y-6 mb-8 lg:mb-0",
-    rightClassName: "space-y-6",
+    rightClassName: "space-y-4",
   },
   col_9_3: {
     columnLayoutClassName:
       "lg:grid lg:grid-cols-[minmax(0,9fr)_minmax(280px,3fr)] lg:items-start",
     mainClassName: "space-y-6 mb-8 lg:mb-0",
-    rightClassName: "space-y-6",
+    rightClassName: "space-y-4",
   },
   col_12: {
     columnLayoutClassName: "",
     mainClassName: "space-y-6",
   },
   col_12_container: {
-    columnLayoutClassName: "mx-auto max-w-5xl",
+    columnLayoutClassName: "",
     mainClassName: "space-y-6",
   },
 };

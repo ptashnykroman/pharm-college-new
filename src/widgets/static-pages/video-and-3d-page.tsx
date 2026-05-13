@@ -1,17 +1,22 @@
-'use client'
+"use client";
 
-import Image from 'next/image'
-import { Play, ScanSearch } from 'lucide-react'
+import Image from "next/image";
+import { Play, ScanSearch } from "lucide-react";
 
-import { Dialog, DialogContent, DialogTitle, DialogTrigger } from '@/components/ui/dialog'
-import { cn } from '@/lib/utils'
-import type { VideoAnd3dPageData } from '@/widgets/static-pages/data'
+import {
+  Dialog,
+  DialogContent,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { cn } from "@/lib/utils";
+import type { VideoAnd3dPageData } from "@/widgets/static-pages/data";
 
 function toEmbeddedVideoUrl(url: string) {
   return url
-    .replace('https://www.youtube.com/', 'https://www.youtube.com/embed/')
-    .replace('watch?v=', '')
-    .split('&t=')[0]
+    .replace("https://www.youtube.com/", "https://www.youtube.com/embed/")
+    .replace("watch?v=", "")
+    .split("&t=")[0];
 }
 
 function MediaCard({
@@ -21,11 +26,11 @@ function MediaCard({
   embedUrl,
   kind,
 }: {
-  title: string
-  image: VideoAnd3dPageData['videos'][number]['image']
-  triggerLabel: string
-  embedUrl: string
-  kind: 'video' | 'panorama'
+  title: string;
+  image: VideoAnd3dPageData["videos"][number]["image"];
+  triggerLabel: string;
+  embedUrl: string;
+  kind: "video" | "panorama";
 }) {
   return (
     <Dialog>
@@ -47,20 +52,31 @@ function MediaCard({
 
             <div className="absolute inset-0 bg-gradient-to-t from-primary-deep/90 via-primary/20 to-transparent" />
             <div className="absolute right-5 top-5 flex h-14 w-14 items-center justify-center rounded-full bg-white/90 text-primary shadow-soft">
-              {kind === 'video' ? <Play className="h-5 w-5" /> : <ScanSearch className="h-5 w-5" />}
+              {kind === "video" ? (
+                <Play className="h-5 w-5" />
+              ) : (
+                <ScanSearch className="h-5 w-5" />
+              )}
             </div>
           </div>
 
           <div className="p-5">
-            <p className="text-xs font-bold uppercase tracking-[0.2em] text-primary">{triggerLabel}</p>
-            <h3 className="mt-3 text-xl font-black leading-tight text-foreground">{title}</h3>
+            <p className="text-xs font-bold uppercase tracking-[0.2em] text-primary">
+              {triggerLabel}
+            </p>
+            <h3 className="mt-3 text-xl font-black leading-tight text-foreground">
+              {title}
+            </h3>
           </div>
         </button>
       </DialogTrigger>
 
-      <DialogContent className="max-w-[96vw] overflow-hidden rounded-[2rem] border-0 bg-primary-deep p-0 text-white shadow-elegant sm:max-w-6xl" showCloseButton>
+      <DialogContent
+        className="max-w-[96vw] overflow-hidden rounded-[2rem] border-0 bg-primary-deep p-0 text-white shadow-elegant sm:max-w-6xl"
+        showCloseButton
+      >
         <DialogTitle className="sr-only">{title}</DialogTitle>
-        <div className={cn(kind === 'video' ? 'aspect-video' : 'h-[80vh]')}>
+        <div className={cn(kind === "video" ? "aspect-video" : "h-[80vh]")}>
           <iframe
             src={embedUrl}
             title={title}
@@ -71,7 +87,7 @@ function MediaCard({
         </div>
       </DialogContent>
     </Dialog>
-  )
+  );
 }
 
 export function VideoAnd3dPageView({ data }: { data: VideoAnd3dPageData }) {
@@ -83,13 +99,9 @@ export function VideoAnd3dPageView({ data }: { data: VideoAnd3dPageData }) {
 
       <div className="container relative mx-auto px-4 md:px-6">
         <div className="mx-auto max-w-4xl text-center">
-          <span className="inline-flex rounded-full border border-primary/15 bg-white/80 px-4 py-1 text-xs font-bold uppercase tracking-[0.24em] text-primary shadow-soft">
-            Медіапростір
-          </span>
-          <h1 className="mt-5 text-3xl font-black text-foreground sm:text-4xl">Відео та 3D-панорами</h1>
-          <p className="mt-5 text-lg leading-8 text-foreground/75">
-            Перегляньте простори коледжу у форматі 3D та добірку відеоматеріалів в окремому перегляді.
-          </p>
+          <h1 className="mt-5 text-3xl font-black text-foreground sm:text-4xl">
+            Відео та 3D-панорами
+          </h1>
         </div>
 
         <div className="mt-10 grid gap-10">
@@ -99,8 +111,12 @@ export function VideoAnd3dPageView({ data }: { data: VideoAnd3dPageData }) {
                 <ScanSearch className="h-5 w-5" />
               </div>
               <div>
-                <h2 className="text-2xl font-black text-foreground">3D-панорами</h2>
-                <p className="text-sm text-foreground/70">Відкриваються у повноекранному перегляді прямо на сторінці.</p>
+                <h2 className="text-2xl font-black text-foreground">
+                  3D-панорами
+                </h2>
+                <p className="text-sm text-foreground/70">
+                  Інтерактивний 3D-перегляд навчальних приміщень
+                </p>
               </div>
             </div>
 
@@ -125,7 +141,9 @@ export function VideoAnd3dPageView({ data }: { data: VideoAnd3dPageData }) {
               </div>
               <div>
                 <h2 className="text-2xl font-black text-foreground">Відео</h2>
-                <p className="text-sm text-foreground/70">Добірка відеоматеріалів коледжу з відкриттям у діалозі.</p>
+                <p className="text-sm text-foreground/70">
+                  Добірка відеоматеріалів коледжу з відкриттям у діалозі.
+                </p>
               </div>
             </div>
 
@@ -145,5 +163,5 @@ export function VideoAnd3dPageView({ data }: { data: VideoAnd3dPageData }) {
         </div>
       </div>
     </section>
-  )
+  );
 }

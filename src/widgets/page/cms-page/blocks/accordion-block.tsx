@@ -13,7 +13,7 @@ export function AccordionPageBlock({ block }: { block: AccordionBlock }) {
       <AccordionItem value={block.id}>
         <AccordionTrigger>{block.title}</AccordionTrigger>
         <AccordionContent>
-          <RichText html={block.body} className="text-base leading-6" />
+          <RichText html={block.body} className="!text-sm sm:!text-base leading-6" />
         </AccordionContent>
       </AccordionItem>
     </Accordion>
