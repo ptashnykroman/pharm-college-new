@@ -9,33 +9,30 @@ import { SmartLink } from '@/widgets/navigation/smart-link'
 
 type DesktopNavigationProps = {
   items: NavigationNode[]
-  scrolled: boolean
 }
 
 const VIEWPORT_PADDING = 16
 const SUBMENU_GAP = 8
 const SCROLLABLE_MENU_ITEMS_THRESHOLD = 12
 
-export function DesktopNavigation({ items, scrolled }: DesktopNavigationProps) {
+export function DesktopNavigation({ items }: DesktopNavigationProps) {
   return (
     <>
       {items.map((item) => (
-        <DesktopNavigationItem key={item.id} item={item} scrolled={scrolled} />
+        <DesktopNavigationItem key={item.id} item={item} />
       ))}
     </>
   )
 }
 
-function DesktopNavigationItem({ item, scrolled }: { item: NavigationNode; scrolled: boolean }) {
+function DesktopNavigationItem({ item }: { item: NavigationNode }) {
   const itemRef = useRef<HTMLDivElement>(null)
   const menuRef = useRef<HTMLDivElement>(null)
   const [alignToEnd, setAlignToEnd] = useState(false)
   const hasChildren = item.children.length > 0
   const shouldScroll = item.children.length > SCROLLABLE_MENU_ITEMS_THRESHOLD
-  const linkClassName = cn(
-    'inline-flex items-center gap-0.5 whitespace-nowrap rounded-lg px-2 py-1.5 text-[13px] font-medium transition-smooth',
-    scrolled ? 'text-foreground hover:bg-accent/60' : 'text-primary-foreground hover:bg-white/10',
-  )
+  const linkClassName =
+    'header-nav-link inline-flex items-center gap-0.5 whitespace-nowrap rounded-lg px-2 py-1.5 text-[13px] font-medium'
 
   const updatePlacement = () => {
     const itemElement = itemRef.current

@@ -218,6 +218,89 @@
   }
 }
 
+@layer components {
+  .header-shell {
+    @apply fixed inset-x-0 top-0 z-50 bg-transparent;
+  }
+
+  html[data-header-scroll-ready="true"] .header-shell,
+  html[data-header-scroll-ready="true"] .header-top-bar,
+  html[data-header-scroll-ready="true"] .header-brand-title,
+  html[data-header-scroll-ready="true"] .header-brand-subtitle,
+  html[data-header-scroll-ready="true"] .header-nav-link,
+  html[data-header-scroll-ready="true"] .header-action-button,
+  html[data-header-scroll-ready="true"] .header-quick-link,
+  html[data-header-scroll-ready="true"] .header-social-link {
+    transition:
+      background-color 180ms cubic-bezier(0.4, 0, 0.2, 1),
+      border-color 180ms cubic-bezier(0.4, 0, 0.2, 1),
+      color 180ms cubic-bezier(0.4, 0, 0.2, 1),
+      box-shadow 180ms cubic-bezier(0.4, 0, 0.2, 1),
+      backdrop-filter 180ms cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  html[data-header-scrolled="true"] .header-shell {
+    @apply border-b border-border bg-background/85 backdrop-blur-xl;
+    box-shadow: var(--shadow-soft);
+  }
+
+  .header-top-bar {
+    @apply border-b border-white/10 bg-primary-deep/30 backdrop-blur-md;
+  }
+
+  html[data-header-scrolled="true"] .header-top-bar {
+    @apply border-border/60 bg-primary/80;
+  }
+
+  .header-brand-title {
+    @apply text-base font-bold leading-tight text-primary-foreground;
+  }
+
+  html[data-header-scrolled="true"] .header-brand-title {
+    @apply text-foreground;
+  }
+
+  .header-brand-subtitle {
+    @apply text-sm uppercase tracking-wider text-primary-foreground/75;
+  }
+
+  html[data-header-scrolled="true"] .header-brand-subtitle {
+    @apply text-muted-foreground;
+  }
+
+  .header-nav-link {
+    @apply text-primary-foreground hover:bg-white/10;
+  }
+
+  html[data-header-scrolled="true"] .header-nav-link {
+    @apply text-foreground hover:bg-accent/60;
+  }
+
+  .header-action-button {
+    @apply text-primary-foreground hover:bg-white/10;
+  }
+
+  html[data-header-scrolled="true"] .header-action-button {
+    @apply text-foreground hover:bg-accent;
+  }
+
+  .header-quick-link {
+    @apply text-primary-foreground/85 hover:bg-white/10 hover:text-primary-foreground;
+  }
+
+  html[data-header-scrolled="true"] .header-quick-link {
+    @apply text-white hover:bg-accent/10;
+  }
+
+  .header-social-link {
+    @apply text-primary-foreground/85 hover:bg-white/10 hover:text-primary-foreground;
+  }
+
+  html[data-header-scrolled="true"] .header-social-link {
+    @apply text-muted-foreground hover:bg-accent/10 hover:text-foreground;
+  }
+}
+
 @supports (color: oklch(0 0 0)) {
   @layer base {
     ::selection {

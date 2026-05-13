@@ -3,13 +3,29 @@ import { Suspense } from 'react'
 import { createHomeMetadata } from '@/shared/lib/metadata'
 import { getHomeHeroViewData, getHomeMainSectionsViewData } from '@/widgets/home/data'
 import { HomeMainSections, HomeMainSectionsFallback, HomePageView } from '@/widgets/home/home-page'
+import { HomePageLoading } from '@/widgets/home/home-page-loading'
 
 export const metadata = createHomeMetadata()
 export const revalidate = 300
 
-export default async function Home() {
+type HomePageContentProps = {
+  heroPromise: ReturnType<typeof getHomeHeroViewData>
+  sectionsPromise: ReturnType<typeof getHomeMainSectionsViewData>
+}
+
+export default function Home() {
+  const heroPromise = getHomeHeroViewData()
   const sectionsPromise = getHomeMainSectionsViewData()
-  const hero = await getHomeHeroViewData()
+
+  return (
+    <Suspense fallback={<HomePageLoading />}>
+      <HomePageContent heroPromise={heroPromise} sectionsPromise={sectionsPromise} />
+    </Suspense>
+  )
+}
+
+async function HomePageContent({ heroPromise, sectionsPromise }: HomePageContentProps) {
+  const hero = await heroPromise
 
   return (
     <HomePageView hero={hero}>
@@ -24,7 +40,6 @@ export default async function Home() {
 // test: https://live.browserstack.com/
 
 // TODO:
-// При повільному інтернеті background для header завантажується з затримкою
 // Адаптація під старі браузери
 // Підключити sentry
 // Зробити статичну сторінку "Розклад екзаменів"

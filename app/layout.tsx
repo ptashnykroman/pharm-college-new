@@ -11,6 +11,41 @@ import { cn } from '@/lib/utils'
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-sans' })
 
+const HEADER_SCROLL_BOOTSTRAP = `(() => {
+  const root = document.documentElement;
+  const threshold = 12;
+  let ticking = false;
+  let lastState = root.dataset.headerScrolled;
+
+  const syncHeaderState = () => {
+    ticking = false;
+    const nextState = window.scrollY > threshold ? 'true' : 'false';
+
+    if (nextState !== lastState) {
+      root.dataset.headerScrolled = nextState;
+      lastState = nextState;
+    }
+
+    if (root.dataset.headerScrollReady !== 'true') {
+      root.dataset.headerScrollReady = 'true';
+    }
+  };
+
+  const scheduleSync = () => {
+    if (ticking) {
+      return;
+    }
+
+    ticking = true;
+    window.requestAnimationFrame(syncHeaderState);
+  };
+
+  syncHeaderState();
+  window.addEventListener('scroll', scheduleSync, { passive: true });
+  window.addEventListener('resize', scheduleSync, { passive: true });
+  window.addEventListener('pageshow', scheduleSync);
+})();`
+
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
@@ -34,7 +69,16 @@ export default async function RootLayout({
   const chrome = await getSiteChromeData()
 
   return (
-    <html lang="uk" className={cn('h-full antialiased', 'font-sans', inter.variable)}>
+    <html
+      lang="uk"
+      className={cn('h-full antialiased', 'font-sans', inter.variable)}
+      data-header-scroll-ready="false"
+      data-header-scrolled="false"
+      suppressHydrationWarning
+    >
+      <head>
+        <script id="header-scroll-state" dangerouslySetInnerHTML={{ __html: HEADER_SCROLL_BOOTSTRAP }} />
+      </head>
       <body className="min-h-full">
         <div className="flex min-h-[100dvh] flex-col bg-background text-foreground">
           <SiteHeader data={chrome.header} />

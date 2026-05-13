@@ -1,6 +1,5 @@
 import { Send } from "lucide-react";
 
-import { cn } from "@/shared/lib/utils";
 import { SmartLink } from "@/widgets/navigation/smart-link";
 import type {
   NavigationQuickLinkItem,
@@ -10,23 +9,11 @@ import type {
 type HeaderTopBarProps = {
   quickLinks: NavigationQuickLinkItem[];
   socialLinks: NavigationSocialLinkItem[];
-  scrolled: boolean;
 };
 
-export function HeaderTopBar({
-  quickLinks,
-  socialLinks,
-  scrolled,
-}: HeaderTopBarProps) {
+export function HeaderTopBar({ quickLinks, socialLinks }: HeaderTopBarProps) {
   return (
-    <div
-      className={cn(
-        "border-b transition-smooth",
-        scrolled
-          ? "border-border/60 bg-primary/80"
-          : "border-white/10 bg-primary-deep/30 backdrop-blur-md",
-      )}
-    >
+    <div className="header-top-bar">
       {/* max-w-[1500px] */}
       <div className="mx-auto flex h-9 container items-center justify-between px-4 text-xs md:px-6">
         <div className="flex items-center gap-1">
@@ -37,13 +24,9 @@ export function HeaderTopBar({
               <SmartLink
                 key={item.id}
                 href={item.href}
-                className={cn(
-                  "inline-flex items-center gap-1.5 rounded-md px-2.5 py-1 text-[12px] transition-smooth",
-                  scrolled
-                    ? "text-white hover:bg-accent/10"
-                    : "text-primary-foreground/85 hover:bg-white/10 hover:text-primary-foreground",
-                  index > 2 && "hidden sm:inline-flex",
-                )}
+                className={`header-quick-link inline-flex items-center gap-1.5 rounded-md px-2.5 py-1 text-[12px] ${
+                  index > 2 ? "hidden sm:inline-flex" : ""
+                }`}
               >
                 {item.iconSrc ? (
                   <img
@@ -71,12 +54,7 @@ export function HeaderTopBar({
               key={item.id}
               href={item.href}
               ariaLabel={item.label}
-              className={cn(
-                "inline-flex h-7 w-7 items-center justify-center rounded-md transition-smooth",
-                scrolled
-                  ? "text-muted-foreground hover:bg-accent/10 hover:text-foreground"
-                  : "text-primary-foreground/85 hover:bg-white/10 hover:text-primary-foreground",
-              )}
+              className="header-social-link inline-flex h-7 w-7 items-center justify-center rounded-md"
             >
               {item.iconSrc ? (
                 <img
