@@ -1,7 +1,6 @@
 import { buildPageMetadata } from '@/shared/lib/metadata'
 import { resolveStaticBreadcrumbs } from '@/shared/lib/breadcrumbs'
 import { InnerPageHero } from '@/widgets/page/inner-page-hero'
-import { getSharedInnerPageHeroData } from '@/widgets/page/inner-page-hero-server'
 import { getTeacherScheduleDirectory } from '@/widgets/schedule/data'
 import { TeacherScheduleDirectoryPageView } from '@/widgets/schedule/schedule-page'
 
@@ -17,10 +16,7 @@ export async function generateMetadata() {
 }
 
 export default async function TeacherScheduleDirectoryPage() {
-  const [hero, sections] = await Promise.all([
-    getSharedInnerPageHeroData(),
-    getTeacherScheduleDirectory(),
-  ])
+  const sections = await getTeacherScheduleDirectory()
   const breadcrumbs = resolveStaticBreadcrumbs(PATHNAME)
 
   return (
@@ -28,7 +24,6 @@ export default async function TeacherScheduleDirectoryPage() {
       <InnerPageHero
         title="Викладачі"
         breadcrumbs={breadcrumbs}
-        slides={hero.slides}
       />
       <TeacherScheduleDirectoryPageView sections={sections} />
     </>

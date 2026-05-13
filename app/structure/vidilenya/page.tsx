@@ -1,7 +1,6 @@
 import { resolveStaticBreadcrumbs } from '@/shared/lib/breadcrumbs'
 import { buildPageMetadata } from '@/shared/lib/metadata'
 import { InnerPageHero } from '@/widgets/page/inner-page-hero'
-import { getSharedInnerPageHeroData } from '@/widgets/page/inner-page-hero-server'
 import { getStructureSectionCards } from '@/widgets/structure-sections/data'
 import { StructureSectionListPageView } from '@/widgets/structure-sections/structure-section-list-page'
 
@@ -16,12 +15,12 @@ export async function generateMetadata() {
 }
 
 export default async function VidilenyaPage() {
-  const [hero, items] = await Promise.all([getSharedInnerPageHeroData(), getStructureSectionCards('vidilenya')])
+  const items = await getStructureSectionCards('vidilenya')
   const breadcrumbs = resolveStaticBreadcrumbs(PATHNAME)
 
   return (
     <>
-      <InnerPageHero title="Відділення" breadcrumbs={breadcrumbs} slides={hero.slides} />
+      <InnerPageHero title="Відділення" breadcrumbs={breadcrumbs} />
       <StructureSectionListPageView
         badge="Відділення"
         title="Відділення"

@@ -20,31 +20,54 @@ type QueryOptions = {
   tags?: string[];
 };
 
+const RETRYABLE_STATUS_CODES = new Set([408, 429, 500, 502, 503, 504]);
+const GRAPHQL_REQUEST_RETRIES = 2;
+
+function wait(ms: number) {
+  return new Promise((resolve) => {
+    setTimeout(resolve, ms);
+  });
+}
+
 async function executeGraphQLRequest<TData>(
   query: string,
   variables: unknown,
   options: QueryOptions = {},
 ) {
-  const response = await fetch(STRAPI_GRAPHQL_URL, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      query,
-      variables,
-    }),
-    next: {
-      revalidate:
-        options.revalidate === undefined
-          ? DEFAULT_REVALIDATE_SECONDS
-          : options.revalidate,
-      tags: options.tags,
-    },
-  });
+  let response: Response | null = null;
 
-  if (!response.ok) {
-    throw new Error(`GraphQL request failed with status ${response.status}`);
+  for (let attempt = 0; attempt <= GRAPHQL_REQUEST_RETRIES; attempt += 1) {
+    response = await fetch(STRAPI_GRAPHQL_URL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        query,
+        variables,
+      }),
+      next: {
+        revalidate:
+          options.revalidate === undefined
+            ? DEFAULT_REVALIDATE_SECONDS
+            : options.revalidate,
+        tags: options.tags,
+      },
+    });
+
+    if (
+      response.ok ||
+      !RETRYABLE_STATUS_CODES.has(response.status) ||
+      attempt === GRAPHQL_REQUEST_RETRIES
+    ) {
+      break;
+    }
+
+    await wait(400 * (attempt + 1));
+  }
+
+  if (!response?.ok) {
+    throw new Error(`GraphQL request failed with status ${response?.status ?? "unknown"}`);
   }
 
   const payload = (await response.json()) as GraphQLResponse<TData>;

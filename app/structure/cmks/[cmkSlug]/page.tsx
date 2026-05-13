@@ -5,15 +5,19 @@ import { buildPageMetadata, createPlaceholderMetadata } from '@/shared/lib/metad
 import {
   getCycleCommissionPageData,
   getCycleCommissionPageMetadata,
+  getCycleCommissionStaticParams,
 } from '@/widgets/cycle-commissions/data'
-import { CycleCommissionPageView } from '@/widgets/cycle-commissions/cycle-commission-page'
 import { InnerPageHero } from '@/widgets/page/inner-page-hero'
-import { getSharedInnerPageHeroData } from '@/widgets/page/inner-page-hero-server'
+import { CycleCommissionPageView } from '@/widgets/cycle-commissions/cycle-commission-page'
 
 type CycleCommissionDetailPageProps = {
   params: Promise<{
     cmkSlug: string
   }>
+}
+
+export async function generateStaticParams() {
+  return getCycleCommissionStaticParams()
 }
 
 export async function generateMetadata({ params }: CycleCommissionDetailPageProps) {
@@ -29,10 +33,7 @@ export async function generateMetadata({ params }: CycleCommissionDetailPageProp
 
 export default async function CycleCommissionDetailPage({ params }: CycleCommissionDetailPageProps) {
   const resolved = await params
-  const [hero, page] = await Promise.all([
-    getSharedInnerPageHeroData(),
-    getCycleCommissionPageData(resolved.cmkSlug),
-  ])
+  const page = await getCycleCommissionPageData(resolved.cmkSlug)
 
   if (!page) {
     notFound()
@@ -46,7 +47,7 @@ export default async function CycleCommissionDetailPage({ params }: CycleCommiss
 
   return (
     <>
-      <InnerPageHero title={page.title} breadcrumbs={breadcrumbs} slides={hero.slides} />
+      <InnerPageHero title={page.title} breadcrumbs={breadcrumbs} />
       <CycleCommissionPageView page={page} />
     </>
   )

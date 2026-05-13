@@ -1,13 +1,13 @@
-import { cn } from '@/lib/utils'
-import type { RenderablePageBlock } from '@/widgets/page/cms-page/model'
-import { PageBlockRenderer } from '@/widgets/page/cms-page/components/page-block-renderer'
-import { CmkMainPhotoGallery } from '@/widgets/cycle-commissions/cmk-main-photo-gallery'
-import { CmkPeoplePanel } from '@/widgets/cycle-commissions/cmk-people-panel'
 import {
   CYCLE_COMMISSION_LAYOUTS,
   type CycleCommissionPageViewModel,
   type RenderableCycleCommissionBlock,
 } from '@/widgets/cycle-commissions/model'
+import { cn } from '@/lib/utils'
+import type { RenderablePageBlock } from '@/widgets/page/cms-page/model'
+import { CmkPeoplePanel } from '@/widgets/cycle-commissions/cmk-people-panel'
+import { CmkMainPhotoGallery } from '@/widgets/cycle-commissions/cmk-main-photo-gallery'
+import { PageBlockRenderer } from '@/widgets/page/cms-page/components/page-block-renderer'
 
 function CycleCommissionColumn({
   blocks,

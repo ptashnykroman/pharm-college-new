@@ -1,19 +1,35 @@
+import { Suspense } from 'react'
+
 import { createHomeMetadata } from '@/shared/lib/metadata'
-import { getHomePageViewData } from '@/widgets/home/data'
-import { HomePageView } from '@/widgets/home/home-page'
+import { getHomeHeroViewData, getHomeMainSectionsViewData } from '@/widgets/home/data'
+import { HomeMainSections, HomeMainSectionsFallback, HomePageView } from '@/widgets/home/home-page'
 
 export const metadata = createHomeMetadata()
 export const revalidate = 300
 
 export default async function Home() {
-  const data = await getHomePageViewData()
+  const sectionsPromise = getHomeMainSectionsViewData()
+  const hero = await getHomeHeroViewData()
 
-  return <HomePageView data={data} />
+  return (
+    <HomePageView hero={hero}>
+      <Suspense fallback={<HomeMainSectionsFallback />}>
+        <HomeMainSections sectionsPromise={sectionsPromise} />
+      </Suspense>
+    </HomePageView>
+  )
 }
+
 // libs: embla-carousel, yet-another-react-lightbox, sentry
 // test: https://live.browserstack.com/
 
 // TODO:
-// Оптимізувати слайдер на сторінці ЦК
-// На сторінці ЦК, голову ЦК зробити PersonCard
-// В галереї новин на фото додати "Розширити/Детальніше"
+// При повільному інтернеті background для header завантажується з затримкою
+// Адаптація під старі браузери
+// Підключити sentry
+// Зробити статичну сторінку "Розклад екзаменів"
+// Перевірити rich-text елементи в акордіоні
+// Виправити education book компонент
+// Перевірити чи генерується сторінка адміністрації
+// Зробити сторінки "Матеріально-технічна база" та "Відео і 3д"
+// Переробити картки на сторінці "Відомі випускники"

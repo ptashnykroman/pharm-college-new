@@ -9,14 +9,20 @@ import {
   createPlaceholderMetadata,
 } from '@/shared/lib/metadata'
 import { InnerPageHero } from '@/widgets/page/inner-page-hero'
-import { getSharedInnerPageHeroData } from '@/widgets/page/inner-page-hero-server'
-import { getTeacherSchedulePageData } from '@/widgets/schedule/data'
+import {
+  getTeacherSchedulePageData,
+  getTeacherScheduleStaticParams,
+} from '@/widgets/schedule/data'
 import { EmbeddedSchedulePageView } from '@/widgets/schedule/schedule-page'
 
 type TeacherSchedulePageProps = {
   params: Promise<{
     teacherSlug: string
   }>
+}
+
+export async function generateStaticParams() {
+  return getTeacherScheduleStaticParams()
 }
 
 export async function generateMetadata({ params }: TeacherSchedulePageProps) {
@@ -38,10 +44,7 @@ export default async function TeacherSchedulePage({
   params,
 }: TeacherSchedulePageProps) {
   const resolved = await params
-  const [hero, item] = await Promise.all([
-    getSharedInnerPageHeroData(),
-    getTeacherSchedulePageData(resolved.teacherSlug),
-  ])
+  const item = await getTeacherSchedulePageData(resolved.teacherSlug)
 
   if (!item) {
     notFound()
@@ -61,7 +64,6 @@ export default async function TeacherSchedulePage({
       <InnerPageHero
         title={item.title}
         breadcrumbs={breadcrumbs}
-        slides={hero.slides}
       />
       <EmbeddedSchedulePageView item={item} />
     </>

@@ -17,6 +17,20 @@ import {
 
 const DEFAULT_NEWS_PAGE_SIZE = 9;
 const NEWS_OVERVIEW_PAGE_SIZE = 50000;
+const NEWS_ARCHIVE_STATIC_MONTH_LIMIT = 12;
+const NEWS_ARTICLE_STATIC_LIMIT = 24;
+
+type NewsMonthFilters = {
+  date: {
+    gte: string;
+    lt: string;
+  };
+};
+
+type NewsOverviewVariables = {
+  pageSize: number;
+  filters?: NewsMonthFilters;
+};
 
 type NewsTagNode = {
   id: string | null;
@@ -65,6 +79,20 @@ type NewsOverviewResponse = {
   } | null;
 };
 
+type NewsNavigationEntity = {
+  id: string | null;
+  attributes: {
+    title: string;
+    date: string;
+  } | null;
+};
+
+type NewsNavigationResponse = {
+  novinas: {
+    data: NewsNavigationEntity[];
+  } | null;
+};
+
 type NewsArticleEntity = {
   id: string | null;
   attributes: {
@@ -90,8 +118,12 @@ type NewsArticleResponse = {
 };
 
 const NEWS_OVERVIEW_QUERY = `
-  query GetNewsOverview($pageSize: Int = 50000) {
-    novinas(sort: "date:desc", pagination: { page: 1, pageSize: $pageSize }) {
+  query GetNewsOverview($pageSize: Int = 50000, $filters: NovinaFiltersInput) {
+    novinas(
+      sort: "date:desc"
+      filters: $filters
+      pagination: { page: 1, pageSize: $pageSize }
+    ) {
       data {
         id
         attributes {
@@ -106,7 +138,6 @@ const NEWS_OVERVIEW_QUERY = `
                 width
                 height
                 alternativeText
-                formats
               }
             }
           }
@@ -118,7 +149,6 @@ const NEWS_OVERVIEW_QUERY = `
                 width
                 height
                 alternativeText
-                formats
               }
             }
           }
@@ -130,6 +160,20 @@ const NEWS_OVERVIEW_QUERY = `
               }
             }
           }
+        }
+      }
+    }
+  }
+`;
+
+const NEWS_NAVIGATION_QUERY = `
+  query GetNewsNavigation($pageSize: Int = 50000) {
+    novinas(sort: "date:desc", pagination: { page: 1, pageSize: $pageSize }) {
+      data {
+        id
+        attributes {
+          title
+          date
         }
       }
     }
@@ -211,6 +255,39 @@ function trimExcerpt(body: string | null | undefined) {
   return `${previewText.slice(0, 180).trim()}${previewText.length > 180 ? "..." : ""}`;
 }
 
+function readNewsDateSegments(date: string | null | undefined) {
+  const match = date?.match(/^(\d{4})-(\d{2})-(\d{2})/);
+
+  if (!match) {
+    return null;
+  }
+
+  return {
+    year: match[1],
+    month: match[2],
+    day: match[3],
+  };
+}
+
+function buildNewsMonthFilters(year: string | undefined, month: string | undefined) {
+  if (!year || !month || !/^\d{4}$/.test(year) || !/^(0[1-9]|1[0-2])$/.test(month)) {
+    return undefined;
+  }
+
+  const monthStart = `${year}-${month}-01`;
+  const nextMonthDate = new Date(Date.UTC(Number(year), Number(month), 1));
+  const nextMonthStart = `${nextMonthDate.getUTCFullYear()}-${String(
+    nextMonthDate.getUTCMonth() + 1,
+  ).padStart(2, "0")}-01`;
+
+  return {
+    date: {
+      gte: monthStart,
+      lt: nextMonthStart,
+    },
+  } satisfies NewsMonthFilters;
+}
+
 function resolveNewsCardImage(
   previewPhoto: MediaResponse,
   mainPhoto: MediaResponse,
@@ -248,7 +325,7 @@ function mapOverviewItem(item: NewsOverviewEntity): NewsListItem | null {
   };
 }
 
-function buildRecentNews(items: readonly NewsOverviewEntity[]): RecentNewsItem[] {
+function buildRecentNewsFromNavigation(items: readonly NewsNavigationEntity[]): RecentNewsItem[] {
   return items.slice(0, 5).flatMap((item) => {
     if (!item.id || !item.attributes) {
       return [];
@@ -275,12 +352,19 @@ function resolveGallery(items: readonly MediaListItem[], title: string) {
   });
 }
 
-const getNewsOverviewData = cache(async () => {
+const getNewsOverviewData = cache(async (year?: string, month?: string) => {
+  const filters = buildNewsMonthFilters(year, month);
+  const variables: NewsOverviewVariables = {
+    pageSize: NEWS_OVERVIEW_PAGE_SIZE,
+  };
+
+  if (filters) {
+    variables.filters = filters;
+  }
+
   const response = await executeGraphQLRaw<NewsOverviewResponse>(
     NEWS_OVERVIEW_QUERY,
-    {
-      pageSize: NEWS_OVERVIEW_PAGE_SIZE,
-    },
+    variables,
     {
       revalidate: DEFAULT_REVALIDATE_SECONDS,
       tags: [CACHE_TAGS.news],
@@ -294,14 +378,33 @@ const getNewsOverviewData = cache(async () => {
     items: rawItems
       .map(mapOverviewItem)
       .filter((item): item is NewsListItem => Boolean(item)),
-    recentItems: buildRecentNews(rawItems),
+  };
+});
+
+const getNewsNavigationData = cache(async () => {
+  const response = await executeGraphQLRaw<NewsNavigationResponse>(
+    NEWS_NAVIGATION_QUERY,
+    {
+      pageSize: NEWS_OVERVIEW_PAGE_SIZE,
+    },
+    {
+      revalidate: DEFAULT_REVALIDATE_SECONDS,
+      tags: [CACHE_TAGS.news, CACHE_TAGS.routes],
+    },
+  );
+
+  const rawItems = response.novinas?.data ?? [];
+
+  return {
+    rawItems,
+    recentItems: buildRecentNewsFromNavigation(rawItems),
     archive: buildNewsArchive(
       rawItems.flatMap((item) => (item.attributes?.date ? [item.attributes.date] : [])),
     ),
   };
 });
 
-async function getNewsArticleById(newsId: string) {
+const getNewsArticleById = cache(async (newsId: string) => {
   const response = await executeGraphQLRaw<NewsArticleResponse>(
     NEWS_ARTICLE_QUERY,
     {
@@ -338,7 +441,7 @@ async function getNewsArticleById(newsId: string) {
     gallery: resolveGallery(attributes.collage_photos?.data ?? [], attributes.title),
     videoEmbedUrl: toEmbeddedVideoUrl(attributes.video_url),
   } satisfies NewsArticleViewModel;
-}
+});
 
 export async function getNewsListPageData({
   year,
@@ -349,32 +452,79 @@ export async function getNewsListPageData({
   month?: string;
   pageSize?: number;
 }) {
-  const overview = await getNewsOverviewData();
+  const [overview, navigation] = await Promise.all([
+    getNewsOverviewData(year, month),
+    getNewsNavigationData(),
+  ]);
   const title = getNewsListingTitle(year, month);
-  const items =
-    year && month
-      ? overview.items.filter((item) => item.date.iso.startsWith(`${year}-${month}-`))
-      : overview.items;
 
   return {
     title,
     pageSize,
-    items,
-    recentItems: overview.recentItems,
-    archive: overview.archive,
+    items: overview.items,
+    recentItems: navigation.recentItems,
+    archive: navigation.archive,
   };
 }
 
+export async function getNewsArchiveStaticParams(limit = NEWS_ARCHIVE_STATIC_MONTH_LIMIT) {
+  const overview = await getNewsNavigationData();
+  const months = new Set<string>();
+  const params: Array<{ year: string; month: string }> = [];
+
+  for (const item of overview.rawItems) {
+    const date = readNewsDateSegments(item.attributes?.date);
+    const monthKey = date ? `${date.year}-${date.month}` : null;
+
+    if (!date || !monthKey || months.has(monthKey)) {
+      continue;
+    }
+
+    months.add(monthKey);
+    params.push({
+      year: date.year,
+      month: date.month,
+    });
+
+    if (params.length >= limit) {
+      break;
+    }
+  }
+
+  return params;
+}
+
+export async function getNewsArticleStaticParams(limit = NEWS_ARTICLE_STATIC_LIMIT) {
+  const overview = await getNewsNavigationData();
+
+  return overview.rawItems.slice(0, limit).flatMap((item) => {
+    const date = readNewsDateSegments(item.attributes?.date);
+
+    if (!item.id || !date) {
+      return [];
+    }
+
+    return [
+      {
+        year: date.year,
+        month: date.month,
+        day: date.day,
+        id: item.id,
+      },
+    ];
+  });
+}
+
 export async function getNewsArticlePageData(newsId: string) {
-  const [overview, article] = await Promise.all([
-    getNewsOverviewData(),
+  const [navigation, article] = await Promise.all([
+    getNewsNavigationData(),
     getNewsArticleById(newsId),
   ]);
 
   return {
     article,
-    recentItems: overview.recentItems,
-    archive: overview.archive,
+    recentItems: navigation.recentItems,
+    archive: navigation.archive,
   };
 }
 

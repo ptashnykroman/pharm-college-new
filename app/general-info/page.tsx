@@ -3,7 +3,6 @@ import { buildPageMetadata } from '@/shared/lib/metadata'
 import { getPrimaryAdministrationContact } from '@/widgets/static-pages/data'
 import { GeneralInfoPageView } from '@/widgets/static-pages/general-info-page'
 import { InnerPageHero } from '@/widgets/page/inner-page-hero'
-import { getSharedInnerPageHeroData } from '@/widgets/page/inner-page-hero-server'
 
 const PATHNAME = '/general-info'
 
@@ -16,12 +15,12 @@ export async function generateMetadata() {
 }
 
 export default async function GeneralInfoPage() {
-  const [hero, principal] = await Promise.all([getSharedInnerPageHeroData(), getPrimaryAdministrationContact()])
+  const principal = await getPrimaryAdministrationContact()
   const breadcrumbs = resolveStaticBreadcrumbs(PATHNAME)
 
   return (
     <>
-      <InnerPageHero title="General Information" breadcrumbs={breadcrumbs} slides={hero.slides} />
+      <InnerPageHero title="General Information" breadcrumbs={breadcrumbs} />
       <GeneralInfoPageView principal={principal} />
     </>
   )

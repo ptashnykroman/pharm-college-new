@@ -2,7 +2,6 @@ import { buildPageMetadata } from '@/shared/lib/metadata'
 import { resolveStaticBreadcrumbs } from '@/shared/lib/breadcrumbs'
 import { TeacherDirectoryPageView } from '@/widgets/personnel/teacher-directory-page'
 import { InnerPageHero } from '@/widgets/page/inner-page-hero'
-import { getSharedInnerPageHeroData } from '@/widgets/page/inner-page-hero-server'
 import { getTeacherDirectoryPageData } from '@/widgets/personnel/data'
 
 const PATHNAME = '/pro-zhbphc/viklad-sklad'
@@ -16,12 +15,12 @@ export async function generateMetadata() {
 }
 
 export default async function TeacherDirectoryPage() {
-  const [hero, data] = await Promise.all([getSharedInnerPageHeroData(), getTeacherDirectoryPageData()])
+  const data = await getTeacherDirectoryPageData()
   const breadcrumbs = resolveStaticBreadcrumbs(PATHNAME)
 
   return (
     <>
-      <InnerPageHero title="Викладацький склад" breadcrumbs={breadcrumbs} slides={hero.slides} />
+      <InnerPageHero title="Викладацький склад" breadcrumbs={breadcrumbs} />
       <TeacherDirectoryPageView commissions={data.commissions} teachers={data.teachers} />
     </>
   )

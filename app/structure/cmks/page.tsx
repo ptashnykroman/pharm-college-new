@@ -3,7 +3,6 @@ import { buildPageMetadata } from '@/shared/lib/metadata'
 import { getCycleCommissionCards } from '@/widgets/cycle-commissions/data'
 import { CycleCommissionsListPageView } from '@/widgets/cycle-commissions/cycle-commissions-list-page'
 import { InnerPageHero } from '@/widgets/page/inner-page-hero'
-import { getSharedInnerPageHeroData } from '@/widgets/page/inner-page-hero-server'
 
 const PATHNAME = '/structure/cmks'
 
@@ -16,12 +15,12 @@ export async function generateMetadata() {
 }
 
 export default async function CycleCommissionsPage() {
-  const [hero, items] = await Promise.all([getSharedInnerPageHeroData(), getCycleCommissionCards()])
+  const items = await getCycleCommissionCards()
   const breadcrumbs = resolveStaticBreadcrumbs(PATHNAME)
 
   return (
     <>
-      <InnerPageHero title="Циклові комісії" breadcrumbs={breadcrumbs} slides={hero.slides} />
+      <InnerPageHero title="Циклові комісії" breadcrumbs={breadcrumbs} />
       <CycleCommissionsListPageView items={items} />
     </>
   )

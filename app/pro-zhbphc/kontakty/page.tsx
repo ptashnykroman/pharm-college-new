@@ -1,6 +1,5 @@
 import { buildPageMetadata } from '@/shared/lib/metadata'
 import { resolveStaticBreadcrumbs } from '@/shared/lib/breadcrumbs'
-import { getSharedInnerPageHeroData } from '@/widgets/page/inner-page-hero-server'
 import { InnerPageHero } from '@/widgets/page/inner-page-hero'
 import { getAdministrationPageData } from '@/widgets/personnel/data'
 import { ContactsPageView } from '@/widgets/static-pages/contacts-page'
@@ -16,12 +15,12 @@ export async function generateMetadata() {
 }
 
 export default async function ContactsPage() {
-  const [hero, people] = await Promise.all([getSharedInnerPageHeroData(), getAdministrationPageData()])
+  const people = await getAdministrationPageData()
   const breadcrumbs = resolveStaticBreadcrumbs(PATHNAME)
 
   return (
     <>
-      <InnerPageHero title="Контакти" breadcrumbs={breadcrumbs} slides={hero.slides} />
+      <InnerPageHero title="Контакти" breadcrumbs={breadcrumbs} />
       <ContactsPageView people={people} />
     </>
   )

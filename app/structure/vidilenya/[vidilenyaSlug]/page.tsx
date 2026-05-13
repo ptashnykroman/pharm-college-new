@@ -3,10 +3,10 @@ import { notFound } from 'next/navigation'
 import { buildBreadcrumbTrail, type BreadcrumbItem } from '@/shared/lib/breadcrumbs'
 import { buildPageMetadata, createPlaceholderMetadata } from '@/shared/lib/metadata'
 import { InnerPageHero } from '@/widgets/page/inner-page-hero'
-import { getSharedInnerPageHeroData } from '@/widgets/page/inner-page-hero-server'
 import {
   getStructureSectionPageData,
   getStructureSectionPageMetadata,
+  getStructureSectionStaticParams,
 } from '@/widgets/structure-sections/data'
 import { StructureSectionPageView } from '@/widgets/structure-sections/structure-section-page'
 
@@ -14,6 +14,12 @@ type VidilenyaDetailPageProps = {
   params: Promise<{
     vidilenyaSlug: string
   }>
+}
+
+export async function generateStaticParams() {
+  const slugs = await getStructureSectionStaticParams('vidilenya')
+
+  return slugs.map((vidilenyaSlug) => ({ vidilenyaSlug }))
 }
 
 export async function generateMetadata({ params }: VidilenyaDetailPageProps) {
@@ -29,10 +35,7 @@ export async function generateMetadata({ params }: VidilenyaDetailPageProps) {
 
 export default async function VidilenyaDetailPage({ params }: VidilenyaDetailPageProps) {
   const resolved = await params
-  const [hero, page] = await Promise.all([
-    getSharedInnerPageHeroData(),
-    getStructureSectionPageData('vidilenya', resolved.vidilenyaSlug),
-  ])
+  const page = await getStructureSectionPageData('vidilenya', resolved.vidilenyaSlug)
 
   if (!page) {
     notFound()
@@ -46,7 +49,7 @@ export default async function VidilenyaDetailPage({ params }: VidilenyaDetailPag
 
   return (
     <>
-      <InnerPageHero title={page.title} breadcrumbs={breadcrumbs} slides={hero.slides} />
+      <InnerPageHero title={page.title} breadcrumbs={breadcrumbs} />
       <StructureSectionPageView page={page} badge="Відділення" />
     </>
   )

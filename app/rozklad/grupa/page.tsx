@@ -1,7 +1,6 @@
 import { buildPageMetadata } from '@/shared/lib/metadata'
 import { resolveStaticBreadcrumbs } from '@/shared/lib/breadcrumbs'
 import { InnerPageHero } from '@/widgets/page/inner-page-hero'
-import { getSharedInnerPageHeroData } from '@/widgets/page/inner-page-hero-server'
 import { getGroupScheduleDirectory } from '@/widgets/schedule/data'
 import { GroupScheduleDirectoryPageView } from '@/widgets/schedule/schedule-page'
 
@@ -17,10 +16,7 @@ export async function generateMetadata() {
 }
 
 export default async function GroupScheduleDirectoryPage() {
-  const [hero, sections] = await Promise.all([
-    getSharedInnerPageHeroData(),
-    getGroupScheduleDirectory(),
-  ])
+  const sections = await getGroupScheduleDirectory()
   const breadcrumbs = resolveStaticBreadcrumbs(PATHNAME)
 
   return (
@@ -28,7 +24,6 @@ export default async function GroupScheduleDirectoryPage() {
       <InnerPageHero
         title="Групи"
         breadcrumbs={breadcrumbs}
-        slides={hero.slides}
       />
       <GroupScheduleDirectoryPageView sections={sections} />
     </>

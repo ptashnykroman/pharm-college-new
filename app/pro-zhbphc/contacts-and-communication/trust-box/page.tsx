@@ -1,6 +1,5 @@
 import { buildPageMetadata } from '@/shared/lib/metadata'
 import { resolveStaticBreadcrumbs } from '@/shared/lib/breadcrumbs'
-import { getSharedInnerPageHeroData } from '@/widgets/page/inner-page-hero-server'
 import { InnerPageHero } from '@/widgets/page/inner-page-hero'
 import { TrustBoxPageView } from '@/widgets/static-pages/trust-box-page'
 
@@ -16,12 +15,11 @@ export async function generateMetadata() {
 }
 
 export default async function TrustBoxPage() {
-  const hero = await getSharedInnerPageHeroData()
   const breadcrumbs = resolveStaticBreadcrumbs(PATHNAME)
 
   return (
     <>
-      <InnerPageHero title="Скринька довіри" breadcrumbs={breadcrumbs} slides={hero.slides} />
+      <InnerPageHero title="Скринька довіри" breadcrumbs={breadcrumbs} />
       <TrustBoxPageView />
     </>
   )

@@ -3,62 +3,11 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { useMemo, useRef, useState } from 'react'
-import { Mail, Phone } from 'lucide-react'
 
 import { cn } from '@/lib/utils'
-import { normalizePhone } from '@/widgets/page/cms-page/lib'
 import type { CycleCommissionTeacherViewModel } from '@/widgets/cycle-commissions/model'
-
-function HeadCard({ teacher }: { teacher: CycleCommissionTeacherViewModel }) {
-  return (
-    <article className="rounded-[2rem] border border-border/70 bg-white p-5 shadow-soft">
-      <div className="grid gap-5 sm:grid-cols-[120px_minmax(0,1fr)] sm:items-start">
-        <Link href={teacher.href} className="overflow-hidden rounded-[1.5rem] bg-muted/30 shadow-soft">
-          {teacher.photo ? (
-            <Image
-              src={teacher.photo.src}
-              alt={teacher.photo.alt}
-              width={teacher.photo.width}
-              height={teacher.photo.height}
-              className="h-full w-full object-cover transition duration-500 hover:scale-[1.04]"
-            />
-          ) : (
-            <div className="flex aspect-[3/4] items-center justify-center bg-gradient-primary text-3xl font-black text-white">
-              {teacher.name
-                .split(' ')
-                .filter(Boolean)
-                .slice(0, 2)
-                .map((part) => part[0]?.toUpperCase() ?? '')
-                .join('')}
-            </div>
-          )}
-        </Link>
-
-        <div>
-          <Link href={teacher.href} className="text-xl font-black text-foreground transition-colors hover:text-primary">
-            {teacher.name}
-          </Link>
-          {teacher.position ? <p className="mt-2 text-sm leading-6 text-primary">{teacher.position}</p> : null}
-
-          <div className="mt-4 space-y-2 text-sm text-foreground/80">
-            {teacher.phone ? (
-              <a href={`tel:${normalizePhone(teacher.phone)}`} className="flex items-center gap-2 hover:text-primary">
-                <Phone className="h-4 w-4" />
-                <span>{teacher.phone}</span>
-              </a>
-            ) : null}
-            {teacher.email ? (
-              <a href={`mailto:${teacher.email}`} className="flex items-center gap-2 hover:text-primary">
-                <Mail className="h-4 w-4" />
-                <span className="break-all">{teacher.email}</span>
-              </a>
-            ) : null}
-          </div>
-        </div>
-      </div>
-    </article>
-  )
-}
+import { PersonPageBlock } from '../page/cms-page/blocks/person-block'
+import type { PersonBlock } from '../page/cms-page/model'
 
 function TeacherCard({ teacher }: { teacher: CycleCommissionTeacherViewModel }) {
   const nameLines = teacher.name.split(' ').filter(Boolean)
@@ -86,7 +35,10 @@ function TeacherCard({ teacher }: { teacher: CycleCommissionTeacherViewModel }) 
         </Link>
 
         <div className="min-w-0">
-          <Link href={teacher.href} className="text-xl font-black leading-tight text-foreground transition-colors hover:text-primary">
+          <Link
+            href={teacher.href}
+            className="text-xl font-black leading-tight text-foreground transition-colors hover:text-primary"
+          >
             {nameLines.map((part, index) => (
               <span key={`${part}-${index}`} className="block">
                 {part}
@@ -97,7 +49,7 @@ function TeacherCard({ teacher }: { teacher: CycleCommissionTeacherViewModel }) 
       </div>
 
       {teacher.subjects.length ? (
-        <ul className="mt-4 space-y-2 text-sm leading-6 text-foreground/75">
+        <ul className="mt-4 text-sm leading-6 text-foreground/75">
           {teacher.subjects.map((subject) => (
             <li key={subject}>«{subject}»</li>
           ))}
@@ -105,6 +57,47 @@ function TeacherCard({ teacher }: { teacher: CycleCommissionTeacherViewModel }) 
       ) : null}
     </article>
   )
+}
+
+function buildPersonBlockFromTeacher(teacher: CycleCommissionTeacherViewModel): PersonBlock {
+  const [, , cmkSlug] = teacher.href.split('/').filter(Boolean)
+
+  return {
+    worker: {
+      data: {
+        attributes: {
+          name: teacher.name,
+          slug: teacher.slug,
+          position: teacher.position,
+          phone: teacher.phone,
+          email: teacher.email,
+          photo: {
+            data: teacher.photo
+              ? {
+                  attributes: {
+                    name: teacher.name,
+                    url: teacher.photo.src,
+                    width: teacher.photo.width,
+                    height: teacher.photo.height,
+                    alternativeText: teacher.photo.alt,
+                    formats: null,
+                  },
+                }
+              : null,
+          },
+          cycle_commission: {
+            data: cmkSlug
+              ? {
+                  attributes: {
+                    slug: cmkSlug,
+                  },
+                }
+              : null,
+          },
+        },
+      },
+    },
+  } as PersonBlock
 }
 
 export function CmkPeoplePanel({
@@ -137,7 +130,11 @@ export function CmkPeoplePanel({
 
   return (
     <div ref={sectionRef} className={cn('space-y-6', className)}>
-      {head ? <HeadCard teacher={head} /> : null}
+      {head ? (
+        <PersonPageBlock
+          block={buildPersonBlockFromTeacher(head)}
+        />
+      ) : null}
 
       {teachers.length ? (
         <>

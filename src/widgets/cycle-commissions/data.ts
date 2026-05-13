@@ -451,6 +451,18 @@ export const getCycleCommissionCards = cache(async () => {
     .filter((item): item is CycleCommissionCardViewModel => Boolean(item))
 })
 
+export async function getCycleCommissionStaticParams() {
+  const cards = await getCycleCommissionCards()
+
+  return cards
+    .flatMap((card) => {
+      const cmkSlug = card.href.split('/').filter(Boolean).at(-1)
+
+      return cmkSlug ? [{ cmkSlug }] : []
+    })
+    .sort((left, right) => left.cmkSlug.localeCompare(right.cmkSlug, 'uk'))
+}
+
 const getCycleCommissionByPath = cache(async (pageUrl: string) => {
   const response = await executeGraphQLRaw<CycleCommissionDetailResponse>(
     CYCLE_COMMISSION_DETAIL_QUERY,
@@ -470,7 +482,7 @@ const getCycleCommissionByPath = cache(async (pageUrl: string) => {
   }
 
   const mainPhotos = entry.attributes.main_photo.data
-    .map((item) => resolveImage(item, 'hero', entry.attributes?.name))
+    .map((item) => resolveImage(item, 'gallery', entry.attributes?.name))
     .filter((item): item is NonNullable<typeof item> => Boolean(item))
 
   const allTeachers = (entry.attributes.workers?.data ?? [])

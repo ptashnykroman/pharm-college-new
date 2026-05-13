@@ -145,6 +145,7 @@ const ALL_TEACHERS_QUERY = `
               attributes {
                 name
                 slug
+                calendar_id
               }
             }
           }
@@ -317,6 +318,10 @@ const getAllTeacherSections = cache(
             return []
           }
 
+          if (!teacher.attributes.calendar_id) {
+            return []
+          }
+
           return [
             {
               id: teacher.id,
@@ -434,6 +439,40 @@ export const getScheduleLandingPageData = cache(async () => {
     teacherSections,
   }
 })
+
+export async function getGroupScheduleStaticParams() {
+  const groups = await getAllGroups()
+  const groupNames = new Set<string>()
+
+  groups.forEach((group) => {
+    if (group.attributes?.name && group.attributes.calendar_id) {
+      groupNames.add(group.attributes.name)
+    }
+  })
+
+  return Array.from(groupNames)
+    .sort((left, right) => left.localeCompare(right, 'uk'))
+    .map((groupName) => ({ groupName }))
+}
+
+export async function getTeacherScheduleStaticParams() {
+  const sections = await getAllTeacherSections()
+  const teacherSlugs = new Set<string>()
+
+  sections.forEach((section) => {
+    section.teachers.forEach((teacher) => {
+      const slug = teacher.href.split('/').filter(Boolean).at(-1)
+
+      if (slug) {
+        teacherSlugs.add(decodeScheduleRouteParam(slug))
+      }
+    })
+  })
+
+  return Array.from(teacherSlugs)
+    .sort((left, right) => left.localeCompare(right, 'uk'))
+    .map((teacherSlug) => ({ teacherSlug }))
+}
 
 export const getGroupSchedulePageData = cache(
   async (groupName: string): Promise<EmbeddedScheduleViewModel | null> => {

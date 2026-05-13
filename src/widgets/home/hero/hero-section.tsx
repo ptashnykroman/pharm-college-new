@@ -1,35 +1,69 @@
 'use client'
 
+import Image from 'next/image'
 import Link from 'next/link'
 import { ArrowRight } from 'lucide-react'
 import { useEffect, useState } from 'react'
 
 import { FloatingPromos } from './floating-promos'
+import collegePhoto3 from '@/shared/assets/images/homepage/college_photo3.webp'
 import type { HomePageViewModel } from '@/widgets/home/model'
 import { buildHeroSlides } from '@/widgets/home/hero/hero-utils'
 import { HeroAnnouncementStrip } from '@/widgets/home/hero/hero-announcement-strip'
 import { HeroBackgroundSlider } from '@/widgets/home/hero/hero-background-slider'
 
+const DESKTOP_HERO_QUERY = '(min-width: 768px)'
+const SLIDE_INTERVAL_MS = 10000
+
+type SliderState = {
+  activeIndex: number
+  renderedIndexes: number[]
+}
+
 export function HomeHeroSection({ hero }: { hero: HomePageViewModel['hero'] }) {
   const [announcementIndex, setAnnouncementIndex] = useState(0)
   const [isAnnouncementDialogOpen, setIsAnnouncementDialogOpen] = useState(false)
-  const [backgroundIndex, setBackgroundIndex] = useState(0)
+  const [isDesktopHero, setIsDesktopHero] = useState(false)
+  const [sliderState, setSliderState] = useState<SliderState>({
+    activeIndex: 0,
+    renderedIndexes: [0],
+  })
 
   const slides = buildHeroSlides(hero)
   const totalAnnouncements = hero.announcements.length
   const currentAnnouncement = totalAnnouncements > 0 ? hero.announcements[announcementIndex % totalAnnouncements] : null
 
   useEffect(() => {
-    if (slides.length <= 1) {
+    const mediaQuery = window.matchMedia(DESKTOP_HERO_QUERY)
+    const syncDesktopState = () => setIsDesktopHero(mediaQuery.matches)
+
+    syncDesktopState()
+    mediaQuery.addEventListener('change', syncDesktopState)
+
+    return () => mediaQuery.removeEventListener('change', syncDesktopState)
+  }, [])
+
+  useEffect(() => {
+    if (!isDesktopHero || slides.length <= 1) {
       return
     }
 
     const id = window.setInterval(() => {
-      setBackgroundIndex((current) => (current + 1) % slides.length)
-    }, 10000)
+      setSliderState((current) => {
+        const activeIndex = (current.activeIndex + 1) % slides.length
+        const renderedIndexes = current.renderedIndexes.includes(activeIndex)
+          ? current.renderedIndexes
+          : [...current.renderedIndexes, activeIndex]
+
+        return {
+          activeIndex,
+          renderedIndexes,
+        }
+      })
+    }, SLIDE_INTERVAL_MS)
 
     return () => window.clearInterval(id)
-  }, [slides.length])
+  }, [isDesktopHero, slides.length])
 
   useEffect(() => {
     if (totalAnnouncements <= 1 || isAnnouncementDialogOpen) {
@@ -45,7 +79,29 @@ export function HomeHeroSection({ hero }: { hero: HomePageViewModel['hero'] }) {
 
   return (
     <section className="relative min-h-[100svh] overflow-hidden" style={{ minHeight: '100vh' }}>
-      <HeroBackgroundSlider slides={slides} activeIndex={backgroundIndex} />
+      <Image
+        src={collegePhoto3}
+        alt=""
+        fill
+        preload
+        quality={90}
+        sizes="100vw"
+        className="object-cover object-center"
+      />
+
+      {isDesktopHero ? (
+        <HeroBackgroundSlider
+          slides={slides}
+          activeIndex={sliderState.activeIndex}
+          preloadFirst={false}
+          quality={90}
+          renderedIndexes={sliderState.renderedIndexes}
+          showOverlays={false}
+        />
+      ) : null}
+
+      <div className="absolute inset-0 bg-gradient-hero opacity-60" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_oklch(0.62_0.18_245_/_0.35),_transparent_60%)]" />
 
       <FloatingPromos />
 

@@ -1,14 +1,15 @@
-import { cache } from 'react'
 import { notFound, redirect } from 'next/navigation'
 
-import { getHomeHero } from '@/shared/api/graphql/sdk'
 import { buildNewsArticleBreadcrumbs } from '@/shared/lib/breadcrumbs'
 import { buildPageMetadata } from '@/shared/lib/metadata'
 import { buildNewsUrl } from '@/shared/lib/navigation'
-import { getNewsArticleMetadata, getNewsArticlePageData } from '@/widgets/news/data'
+import {
+  getNewsArticleMetadata,
+  getNewsArticlePageData,
+  getNewsArticleStaticParams,
+} from '@/widgets/news/data'
 import { NewsArticlePageView } from '@/widgets/news/news-article-page'
 import { InnerPageHero } from '@/widgets/page/inner-page-hero'
-import { buildInnerPageHeroViewModel } from '@/widgets/page/inner-page-hero-data'
 
 type FullNewsPageProps = {
   params: Promise<{
@@ -19,11 +20,9 @@ type FullNewsPageProps = {
   }>
 }
 
-const getSharedHero = cache(async () => {
-  const heroData = await getHomeHero()
-
-  return buildInnerPageHeroViewModel(heroData)
-})
+export async function generateStaticParams() {
+  return getNewsArticleStaticParams()
+}
 
 export async function generateMetadata({ params }: FullNewsPageProps) {
   const resolved = await params
@@ -43,7 +42,7 @@ export async function generateMetadata({ params }: FullNewsPageProps) {
 
 export default async function FullNewsPage({ params }: FullNewsPageProps) {
   const resolved = await params
-  const [hero, data] = await Promise.all([getSharedHero(), getNewsArticlePageData(resolved.id)])
+  const data = await getNewsArticlePageData(resolved.id)
 
   if (!data.article) {
     notFound()
@@ -60,7 +59,7 @@ export default async function FullNewsPage({ params }: FullNewsPageProps) {
 
   return (
     <>
-      <InnerPageHero title={data.article.title} breadcrumbs={breadcrumbs} slides={hero.slides} />
+      <InnerPageHero title={data.article.title} breadcrumbs={breadcrumbs} />
       <NewsArticlePageView article={data.article} recentItems={data.recentItems} archive={data.archive} />
     </>
   )

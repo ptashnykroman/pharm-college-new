@@ -3,15 +3,22 @@ import { notFound } from 'next/navigation'
 import { buildBreadcrumbTrail, type BreadcrumbItem } from '@/shared/lib/breadcrumbs'
 import { buildPageMetadata, createPlaceholderMetadata } from '@/shared/lib/metadata'
 import { TeacherProfilePageView } from '@/widgets/personnel/teacher-profile-page'
-import { getTeacherProfileMetadata, getTeacherProfilePageData } from '@/widgets/personnel/data'
+import {
+  getTeacherProfileMetadata,
+  getTeacherProfilePageData,
+  getTeacherProfileStaticParams,
+} from '@/widgets/personnel/data'
 import { InnerPageHero } from '@/widgets/page/inner-page-hero'
-import { getSharedInnerPageHeroData } from '@/widgets/page/inner-page-hero-server'
 
 type TeacherProfilePageProps = {
   params: Promise<{
     cmkSlug: string
     teacherSlug: string
   }>
+}
+
+export async function generateStaticParams() {
+  return getTeacherProfileStaticParams()
 }
 
 export async function generateMetadata({ params }: TeacherProfilePageProps) {
@@ -27,10 +34,7 @@ export async function generateMetadata({ params }: TeacherProfilePageProps) {
 
 export default async function TeacherProfilePage({ params }: TeacherProfilePageProps) {
   const resolved = await params
-  const [hero, teacher] = await Promise.all([
-    getSharedInnerPageHeroData(),
-    getTeacherProfilePageData(resolved.cmkSlug, resolved.teacherSlug),
-  ])
+  const teacher = await getTeacherProfilePageData(resolved.cmkSlug, resolved.teacherSlug)
 
   if (!teacher) {
     notFound()
@@ -45,7 +49,7 @@ export default async function TeacherProfilePage({ params }: TeacherProfilePageP
 
   return (
     <>
-      <InnerPageHero title={teacher.name} breadcrumbs={breadcrumbs} slides={hero.slides} />
+      <InnerPageHero title={teacher.name} breadcrumbs={breadcrumbs} />
       <TeacherProfilePageView teacher={teacher} />
     </>
   )

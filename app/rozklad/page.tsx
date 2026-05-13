@@ -1,7 +1,6 @@
 import { buildPageMetadata } from '@/shared/lib/metadata'
 import { resolveStaticBreadcrumbs } from '@/shared/lib/breadcrumbs'
 import { InnerPageHero } from '@/widgets/page/inner-page-hero'
-import { getSharedInnerPageHeroData } from '@/widgets/page/inner-page-hero-server'
 import { getScheduleLandingPageData } from '@/widgets/schedule/data'
 import { ScheduleLandingPageView } from '@/widgets/schedule/schedule-page'
 
@@ -17,10 +16,7 @@ export async function generateMetadata() {
 }
 
 export default async function SchedulePage() {
-  const [hero, data] = await Promise.all([
-    getSharedInnerPageHeroData(),
-    getScheduleLandingPageData(),
-  ])
+  const data = await getScheduleLandingPageData()
   const breadcrumbs = resolveStaticBreadcrumbs(PATHNAME)
 
   return (
@@ -28,7 +24,6 @@ export default async function SchedulePage() {
       <InnerPageHero
         title="Розклад"
         breadcrumbs={breadcrumbs}
-        slides={hero.slides}
       />
       <ScheduleLandingPageView
         groupSections={data.groupSections}

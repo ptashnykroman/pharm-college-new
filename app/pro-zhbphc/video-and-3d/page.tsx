@@ -1,6 +1,5 @@
 import { buildPageMetadata } from '@/shared/lib/metadata'
 import { resolveStaticBreadcrumbs } from '@/shared/lib/breadcrumbs'
-import { getSharedInnerPageHeroData } from '@/widgets/page/inner-page-hero-server'
 import { InnerPageHero } from '@/widgets/page/inner-page-hero'
 import { getVideoAnd3dPageData } from '@/widgets/static-pages/data'
 import { VideoAnd3dPageView } from '@/widgets/static-pages/video-and-3d-page'
@@ -16,12 +15,12 @@ export async function generateMetadata() {
 }
 
 export default async function VideoAnd3dPage() {
-  const [hero, data] = await Promise.all([getSharedInnerPageHeroData(), getVideoAnd3dPageData()])
+  const data = await getVideoAnd3dPageData()
   const breadcrumbs = resolveStaticBreadcrumbs(PATHNAME)
 
   return (
     <>
-      <InnerPageHero title="Відео та 3D-панорами" breadcrumbs={breadcrumbs} slides={hero.slides} />
+      <InnerPageHero title="Відео та 3D-панорами" breadcrumbs={breadcrumbs} />
       <VideoAnd3dPageView data={data} />
     </>
   )

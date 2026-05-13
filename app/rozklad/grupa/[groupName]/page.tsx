@@ -9,10 +9,10 @@ import {
   createPlaceholderMetadata,
 } from '@/shared/lib/metadata'
 import { InnerPageHero } from '@/widgets/page/inner-page-hero'
-import { getSharedInnerPageHeroData } from '@/widgets/page/inner-page-hero-server'
 import {
   decodeScheduleRouteParam,
   getGroupSchedulePageData,
+  getGroupScheduleStaticParams,
 } from '@/widgets/schedule/data'
 import { EmbeddedSchedulePageView } from '@/widgets/schedule/schedule-page'
 
@@ -20,6 +20,10 @@ type GroupSchedulePageProps = {
   params: Promise<{
     groupName: string
   }>
+}
+
+export async function generateStaticParams() {
+  return getGroupScheduleStaticParams()
 }
 
 export async function generateMetadata({ params }: GroupSchedulePageProps) {
@@ -44,10 +48,7 @@ export default async function GroupSchedulePage({
 }: GroupSchedulePageProps) {
   const resolved = await params
   const groupName = decodeScheduleRouteParam(resolved.groupName)
-  const [hero, item] = await Promise.all([
-    getSharedInnerPageHeroData(),
-    getGroupSchedulePageData(groupName),
-  ])
+  const item = await getGroupSchedulePageData(groupName)
 
   if (!item) {
     notFound()
@@ -68,7 +69,6 @@ export default async function GroupSchedulePage({
       <InnerPageHero
         title={item.title}
         breadcrumbs={breadcrumbs}
-        slides={hero.slides}
       />
       <EmbeddedSchedulePageView item={item} />
     </>

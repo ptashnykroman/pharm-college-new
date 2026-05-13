@@ -1,14 +1,11 @@
-import { cache } from 'react'
 import { notFound } from 'next/navigation'
 
-import { getHomeHero } from '@/shared/api/graphql/sdk'
 import { buildNewsArchiveBreadcrumbs } from '@/shared/lib/breadcrumbs'
 import { buildPageMetadata } from '@/shared/lib/metadata'
-import { getNewsListPageData } from '@/widgets/news/data'
+import { getNewsArchiveStaticParams, getNewsListPageData } from '@/widgets/news/data'
 import { getNewsListingTitle } from '@/widgets/news/model'
 import { NewsListPageView } from '@/widgets/news/news-list-page'
 import { InnerPageHero } from '@/widgets/page/inner-page-hero'
-import { buildInnerPageHeroViewModel } from '@/widgets/page/inner-page-hero-data'
 
 type NewsArchivePageProps = {
   params: Promise<{
@@ -17,14 +14,12 @@ type NewsArchivePageProps = {
   }>
 }
 
-const getSharedHero = cache(async () => {
-  const heroData = await getHomeHero()
-
-  return buildInnerPageHeroViewModel(heroData)
-})
-
 function isValidMonth(month: string) {
   return /^(0[1-9]|1[0-2])$/.test(month)
+}
+
+export async function generateStaticParams() {
+  return getNewsArchiveStaticParams()
 }
 
 export async function generateMetadata({ params }: NewsArchivePageProps) {
@@ -55,19 +50,16 @@ export default async function NewsArchivePage({ params }: NewsArchivePageProps) 
     notFound()
   }
 
-  const [hero, data] = await Promise.all([
-    getSharedHero(),
-    getNewsListPageData({
-      year: resolved.year,
-      month: resolved.month,
-      pageSize: 12,
-    }),
-  ])
+  const data = await getNewsListPageData({
+    year: resolved.year,
+    month: resolved.month,
+    pageSize: 12,
+  })
   const breadcrumbs = buildNewsArchiveBreadcrumbs(resolved.year, resolved.month)
 
   return (
     <>
-      <InnerPageHero title={data.title} breadcrumbs={breadcrumbs} slides={hero.slides} />
+      <InnerPageHero title={data.title} breadcrumbs={breadcrumbs} />
       <NewsListPageView {...data} />
     </>
   )

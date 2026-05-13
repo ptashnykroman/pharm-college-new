@@ -20,7 +20,7 @@ export function PersonPageBlock({ block }: { block: PersonBlock }) {
     worker.cycle_commission?.data?.attributes?.slug && worker.slug
       ? `/structure/cmks/${worker.cycle_commission.data.attributes.slug}/${worker.slug}`
       : null
-
+  
   return (
     <BlockShell>
       <div className="flex flex-col items-center gap-5">

@@ -342,6 +342,29 @@ export const getTeacherDirectoryPageData = cache(async () => {
   }
 })
 
+export async function getTeacherProfileStaticParams() {
+  const data = await getTeacherDirectoryPageData()
+
+  return data.teachers
+    .flatMap((teacher) => {
+      const [structure, cmks, cmkSlug, teacherSlug] = teacher.href
+        .split('/')
+        .filter(Boolean)
+
+      if (structure !== 'structure' || cmks !== 'cmks' || !cmkSlug || !teacherSlug) {
+        return []
+      }
+
+      return [{ cmkSlug, teacherSlug }]
+    })
+    .sort((left, right) =>
+      `${left.cmkSlug}/${left.teacherSlug}`.localeCompare(
+        `${right.cmkSlug}/${right.teacherSlug}`,
+        'uk',
+      ),
+    )
+}
+
 const getTeacherProfileBySlug = cache(async (teacherSlug: string) => {
   const response = await executeGraphQLRaw<TeacherProfileResponse>(
     TEACHER_PROFILE_QUERY,

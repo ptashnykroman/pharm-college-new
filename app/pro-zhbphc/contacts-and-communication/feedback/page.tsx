@@ -1,6 +1,5 @@
 import { buildPageMetadata } from '@/shared/lib/metadata'
 import { resolveStaticBreadcrumbs } from '@/shared/lib/breadcrumbs'
-import { getSharedInnerPageHeroData } from '@/widgets/page/inner-page-hero-server'
 import { InnerPageHero } from '@/widgets/page/inner-page-hero'
 import { FeedbackPageView } from '@/widgets/static-pages/feedback-page'
 
@@ -15,12 +14,11 @@ export async function generateMetadata() {
 }
 
 export default async function FeedbackPage() {
-  const hero = await getSharedInnerPageHeroData()
   const breadcrumbs = resolveStaticBreadcrumbs(PATHNAME)
 
   return (
     <>
-      <InnerPageHero title="Зворотний зв'язок" breadcrumbs={breadcrumbs} slides={hero.slides} />
+      <InnerPageHero title="Зворотний зв'язок" breadcrumbs={breadcrumbs} />
       <FeedbackPageView />
     </>
   )

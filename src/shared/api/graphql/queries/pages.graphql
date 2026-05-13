@@ -1,3 +1,24 @@
+query GetCmsPagePaths($page: Int!, $pageSize: Int!) {
+  pages(sort: ["page_url:asc"], pagination: { page: $page, pageSize: $pageSize }) {
+    meta {
+      pagination {
+        total
+        page
+        pageSize
+        pageCount
+      }
+    }
+    data {
+      id
+      attributes {
+        page_url
+        publishedAt
+        updatedAt
+      }
+    }
+  }
+}
+
 query GetPageSeo($pageUrl: String!) {
   pages(filters: { page_url: { eq: $pageUrl } }, pagination: { pageSize: 1 }) {
     data {

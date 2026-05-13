@@ -524,6 +524,18 @@ export async function getStructureSectionCards(kind: StructureSectionKind) {
     .filter((item): item is StructureSectionCardViewModel => Boolean(item))
 }
 
+export async function getStructureSectionStaticParams(kind: StructureSectionKind) {
+  const cards = await getStructureSectionCards(kind)
+
+  return cards
+    .flatMap((card) => {
+      const slug = card.href.split('/').filter(Boolean).at(-1)
+
+      return slug ? [slug] : []
+    })
+    .sort((left, right) => left.localeCompare(right, 'uk'))
+}
+
 const getStructureSectionPageCached = cache(async (kind: StructureSectionKind, slug: string) => {
   const config = STRUCTURE_SECTION_CONFIGS[kind]
 

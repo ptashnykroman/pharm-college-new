@@ -14,6 +14,30 @@ import { CACHE_TAGS, DEFAULT_REVALIDATE_SECONDS } from "@/shared/lib/site-config
 
 const HOME_NEWS_PAGE_SIZE = 9;
 const HOME_PARTNERS_PAGE_SIZE = 100;
+const CMS_PAGE_PATHS_PAGE_SIZE = 100;
+
+const getCmsPagePathsQuery = /* GraphQL */ `
+  query GetCmsPagePaths($page: Int!, $pageSize: Int!) {
+    pages(sort: ["page_url:asc"], pagination: { page: $page, pageSize: $pageSize }) {
+      meta {
+        pagination {
+          total
+          page
+          pageSize
+          pageCount
+        }
+      }
+      data {
+        id
+        attributes {
+          page_url
+          publishedAt
+          updatedAt
+        }
+      }
+    }
+  }
+`;
 
 const getHomeNewsPageQuery = /* GraphQL */ `
   query GetHomeNewsPage($page: Int!, $pageSize: Int!) {
@@ -152,6 +176,48 @@ type HomeNewsPageQuery = {
     };
   }) | null;
 };
+
+type CmsPagePathsPageQuery = {
+  pages: {
+    meta: {
+      pagination: {
+        total: number;
+        page: number;
+        pageSize: number;
+        pageCount: number;
+      };
+    };
+    data: Array<{
+      id: string;
+      attributes: {
+        page_url?: string | null;
+        publishedAt?: string | null;
+        updatedAt?: string | null;
+      } | null;
+    }>;
+  } | null;
+};
+
+function normalizeCmsPath(path: string | null | undefined) {
+  const trimmed = path?.trim();
+
+  if (!trimmed || /^[a-z][a-z\d+.-]*:\/\//i.test(trimmed)) {
+    return null;
+  }
+
+  const [withoutQuery] = trimmed.split(/[?#]/);
+  const normalized = `/${withoutQuery.replace(/^\/+/, "")}`
+    .replace(/\/{2,}/g, "/")
+    .replace(/\/+$/, "");
+
+  return normalized || "/";
+}
+
+function collectCmsPagePaths(page: CmsPagePathsPageQuery) {
+  return page.pages?.data
+    .map((entry) => normalizeCmsPath(entry.attributes?.page_url))
+    .filter((path): path is string => Boolean(path)) ?? [];
+}
 
 export function getShellData() {
   return executeGraphQL(GetShellDataDocument, {}, {
@@ -299,6 +365,51 @@ export async function getHomePartners(): Promise<GetHomePartnersQuery> {
       data: partnerItems,
     },
   };
+}
+
+export async function getAllCmsPagePaths(
+  pageSize = CMS_PAGE_PATHS_PAGE_SIZE,
+): Promise<string[]> {
+  const options = {
+    revalidate: DEFAULT_REVALIDATE_SECONDS,
+    tags: [CACHE_TAGS.page, CACHE_TAGS.routes],
+  };
+
+  const firstPage = await executeGraphQLRaw<
+    CmsPagePathsPageQuery,
+    { page: number; pageSize: number }
+  >(
+    getCmsPagePathsQuery,
+    {
+      page: 1,
+      pageSize,
+    },
+    options,
+  );
+
+  const pageCount = firstPage.pages?.meta.pagination.pageCount ?? 0;
+  const pathSet = new Set(collectCmsPagePaths(firstPage));
+
+  if (pageCount > 1) {
+    const remainingPages = await Promise.all(
+      Array.from({ length: pageCount - 1 }, (_, index) =>
+        executeGraphQLRaw<CmsPagePathsPageQuery, { page: number; pageSize: number }>(
+          getCmsPagePathsQuery,
+          {
+            page: index + 2,
+            pageSize,
+          },
+          options,
+        ),
+      ),
+    );
+
+    remainingPages.forEach((page) => {
+      collectCmsPagePaths(page).forEach((path) => pathSet.add(path));
+    });
+  }
+
+  return Array.from(pathSet).sort((left, right) => left.localeCompare(right, "uk"));
 }
 
 export function getPageSeo(pageUrl: string) {

@@ -3,10 +3,10 @@ import { notFound } from 'next/navigation'
 import { buildBreadcrumbTrail, type BreadcrumbItem } from '@/shared/lib/breadcrumbs'
 import { buildPageMetadata, createPlaceholderMetadata } from '@/shared/lib/metadata'
 import { InnerPageHero } from '@/widgets/page/inner-page-hero'
-import { getSharedInnerPageHeroData } from '@/widgets/page/inner-page-hero-server'
 import {
   getStructureSectionPageData,
   getStructureSectionPageMetadata,
+  getStructureSectionStaticParams,
 } from '@/widgets/structure-sections/data'
 import { StructureSectionPageView } from '@/widgets/structure-sections/structure-section-page'
 
@@ -14,6 +14,12 @@ type SubdivisionDetailPageProps = {
   params: Promise<{
     subdivSlug: string
   }>
+}
+
+export async function generateStaticParams() {
+  const slugs = await getStructureSectionStaticParams('subdivision')
+
+  return slugs.map((subdivSlug) => ({ subdivSlug }))
 }
 
 export async function generateMetadata({ params }: SubdivisionDetailPageProps) {
@@ -29,10 +35,7 @@ export async function generateMetadata({ params }: SubdivisionDetailPageProps) {
 
 export default async function SubdivisionDetailPage({ params }: SubdivisionDetailPageProps) {
   const resolved = await params
-  const [hero, page] = await Promise.all([
-    getSharedInnerPageHeroData(),
-    getStructureSectionPageData('subdivision', resolved.subdivSlug),
-  ])
+  const page = await getStructureSectionPageData('subdivision', resolved.subdivSlug)
 
   if (!page) {
     notFound()
@@ -46,7 +49,7 @@ export default async function SubdivisionDetailPage({ params }: SubdivisionDetai
 
   return (
     <>
-      <InnerPageHero title={page.title} breadcrumbs={breadcrumbs} slides={hero.slides} />
+      <InnerPageHero title={page.title} breadcrumbs={breadcrumbs} />
       <StructureSectionPageView page={page} badge="Підрозділ" />
     </>
   )

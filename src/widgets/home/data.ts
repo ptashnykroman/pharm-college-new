@@ -5,16 +5,36 @@ import {
   getHomePageContent,
   getHomePartners,
 } from "@/shared/api/graphql/sdk";
-import { buildHomePageViewModel } from "@/widgets/home/model";
+import {
+  buildHomeHeroViewModel,
+  buildHomeMainSectionsViewModel,
+} from "@/widgets/home/model";
 
-export async function getHomePageViewData() {
-  const [hero, content, news, events, partners] = await Promise.all([
-    getHomeHero(),
+export async function getHomeHeroViewData() {
+  const hero = await getHomeHero();
+
+  return buildHomeHeroViewModel(hero);
+}
+
+export async function getHomeMainSectionsViewData() {
+  const [content, news, events, partners] = await Promise.all([
     getHomePageContent(),
     getHomeNews(),
     getHomeEvents(),
     getHomePartners(),
   ]);
 
-  return buildHomePageViewModel(hero, content, news, events, partners);
+  return buildHomeMainSectionsViewModel(content, news, events, partners);
+}
+
+export async function getHomePageViewData() {
+  const [hero, sections] = await Promise.all([
+    getHomeHeroViewData(),
+    getHomeMainSectionsViewData(),
+  ]);
+
+  return {
+    hero,
+    ...sections,
+  };
 }
