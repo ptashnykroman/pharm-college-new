@@ -47,7 +47,7 @@ function CompactEducationBookCard({
             item={imageItem}
             title={imageItem.image.alt || "Навчальний посібник"}
             imageSizes="(max-width: 639px) 100vw, (max-width: 767px) 50vw, (max-width: 1023px) 33vw, 25vw"
-            triggerClassName="rounded-none border-0 shadow-none"
+            triggerClassName="rounded-none border-0 shadow-none flex justify-center"
             imageClassName="!object-contain !h-full !w-auto"
           />
         ) : null}
