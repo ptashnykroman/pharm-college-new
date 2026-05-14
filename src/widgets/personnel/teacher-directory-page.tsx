@@ -92,8 +92,8 @@ export function TeacherDirectoryPageView({
   return (
     <section className="relative overflow-hidden bg-gradient-soft py-12 md:py-16">
       <div className="absolute inset-x-0 top-0 h-px bg-gradient-divider" />
-      <div className="absolute left-0 top-12 h-72 w-72 rounded-full bg-[rgba(var(--primary-glow),0.1)] blur-3xl" />
-      <div className="absolute bottom-0 right-0 h-72 w-72 rounded-full bg-[rgba(var(--accent-gold),0.1)] blur-3xl" />
+      <div className="glow-orb glow-primary-10 absolute left-0 top-12 h-72 w-72" />
+      <div className="glow-orb glow-gold-10 absolute bottom-0 right-0 h-72 w-72" />
 
       <div className="container relative mx-auto px-4 md:px-6">
         <h1 className="mt-5 text-3xl font-black text-center text-foreground sm:text-4xl">Кадровий склад</h1>

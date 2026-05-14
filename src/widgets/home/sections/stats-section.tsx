@@ -9,8 +9,8 @@ export function StatsSection({
     <section className="relative py-12 md:py-16">
       <div className="container mx-auto px-4 md:px-6">
         <div className="relative overflow-hidden rounded-3xl bg-gradient-stats p-8 shadow-elegant md:p-12">
-          <div className="absolute -right-10 -top-20 h-72 w-72 rounded-full bg-[rgba(var(--accent-gold),0.15)] blur-3xl" />
-          <div className="absolute -bottom-24 -left-10 h-72 w-72 rounded-full bg-[rgba(var(--primary-glow),0.3)] blur-3xl" />
+          <div className="glow-orb glow-gold-15 absolute -right-10 -top-20 h-72 w-72" />
+          <div className="glow-orb glow-primary-30 absolute -bottom-24 -left-10 h-72 w-72" />
           <div className="relative grid grid-cols-2 gap-8 md:grid-cols-4">
             {stats.map((item) => (
               <div key={item.id} className="text-center">

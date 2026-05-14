@@ -141,8 +141,7 @@ export function ScheduleLandingPageView({
   return (
     <section className="relative overflow-hidden bg-gradient-soft py-12 md:py-16">
       <div className="absolute inset-x-0 top-0 h-px bg-gradient-divider" />
-      <div className="absolute top-12 left-0 h-72 w-72 rounded-full bg-[rgba(var(--primary-glow),0.1)] blur-3xl" />
-      <div className="absolute right-0 bottom-0 h-72 w-72 rounded-full bg-[rgba(var(--accent-gold),0.1)] blur-3xl" />
+      <div className="glow-orb glow-primary-10 absolute top-12 left-0 h-72 w-72" />
 
       <div className="container relative mx-auto px-2 sm:px-4 md:px-6">
         <div className="mx-auto max-w-4xl text-center">
@@ -177,8 +176,8 @@ export function GroupScheduleDirectoryPageView({ sections }: { sections: Schedul
   return (
     <section className="relative overflow-hidden bg-gradient-soft py-12 md:py-16">
       <div className="absolute inset-x-0 top-0 h-px bg-gradient-divider" />
-      <div className="absolute top-12 left-0 h-72 w-72 rounded-full bg-[rgba(var(--primary-glow),0.1)] blur-3xl" />
-      <div className="absolute right-0 bottom-0 h-72 w-72 rounded-full bg-[rgba(var(--accent-gold),0.1)] blur-3xl" />
+      <div className="glow-orb glow-primary-10 absolute top-12 left-0 h-72 w-72" />
+      <div className="glow-orb glow-gold-10 absolute right-0 bottom-0 h-72 w-72" />
 
       <div className="container relative mx-auto px-0 sm:px-4 md:px-6">
         <div className="mx-auto max-w-4xl text-center">
@@ -199,8 +198,8 @@ export function TeacherScheduleDirectoryPageView({ sections }: { sections: Sched
   return (
     <section className="relative overflow-hidden bg-gradient-soft py-12 md:py-16">
       <div className="absolute inset-x-0 top-0 h-px bg-gradient-divider" />
-      <div className="absolute top-12 left-0 h-72 w-72 rounded-full bg-[rgba(var(--primary-glow),0.1)] blur-3xl" />
-      <div className="absolute right-0 bottom-0 h-72 w-72 rounded-full bg-[rgba(var(--accent-gold),0.1)] blur-3xl" />
+      <div className="glow-orb glow-primary-10 absolute top-12 left-0 h-72 w-72" />
+      <div className="glow-orb glow-gold-10 absolute right-0 bottom-0 h-72 w-72" />
 
       <div className="container relative mx-auto px-4 md:px-6">
         <div className="mx-auto max-w-4xl text-center">
@@ -245,8 +244,8 @@ export function EmbeddedSchedulePageView({ item }: { item: EmbeddedScheduleViewM
   return (
     <section className="relative overflow-hidden bg-gradient-soft py-12 md:py-16">
       <div className="absolute inset-x-0 top-0 h-px bg-gradient-divider" />
-      <div className="absolute top-12 left-0 h-72 w-72 rounded-full bg-[rgba(var(--primary-glow),0.1)] blur-3xl" />
-      <div className="absolute right-0 bottom-0 h-72 w-72 rounded-full bg-[rgba(var(--accent-gold),0.1)] blur-3xl" />
+      <div className="glow-orb glow-primary-10 absolute top-12 left-0 h-72 w-72" />
+      <div className="glow-orb glow-gold-10 absolute right-0 bottom-0 h-72 w-72" />
 
       <div className="container relative mx-auto sm:px-4 md:px-6">
         <div className="mx-auto max-w-4xl text-center">

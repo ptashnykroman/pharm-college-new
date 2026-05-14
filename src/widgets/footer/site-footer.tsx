@@ -8,7 +8,7 @@ import { SITE_NAME } from '@/shared/lib/site-config'
 export function SiteFooter({ data }: { data: FooterViewModel }) {
   return (
     <footer className="relative overflow-hidden bg-gradient-stats text-primary-foreground">
-      <div className="absolute -top-24 right-0 h-72 w-72 rounded-full bg-[rgba(var(--primary-glow),0.2)] blur-3xl" />
+      <div className="glow-orb glow-primary-20 absolute -top-24 right-0 h-72 w-72" />
 
       <div className="container relative mx-auto px-4 pt-16 pb-8 md:px-6">
         <div className="grid gap-10 md:grid-cols-1 lg:grid-cols-[1fr_2fr_1fr]">

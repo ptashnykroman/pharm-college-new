@@ -105,7 +105,7 @@ export function HomeHeroSection({ hero }: { hero: HomePageViewModel['hero'] }) {
 
       <FloatingPromos />
 
-      <div className="animate-float-slow absolute -left-24 -top-24 h-96 w-96 rounded-full bg-[rgba(var(--primary-glow),0.3)] blur-3xl" />
+      <div className="glow-orb glow-primary-30 animate-float-slow absolute -left-24 -top-24 h-96 w-96" />
 
       <div
         className="relative container mx-auto flex min-h-[100svh] flex-col items-center justify-center px-4 pb-20 pt-28 md:px-6"

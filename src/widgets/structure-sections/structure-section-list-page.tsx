@@ -15,8 +15,8 @@ export function StructureSectionListPageView({
   return (
     <section className="relative overflow-hidden bg-gradient-soft py-12 md:py-16">
       <div className="absolute inset-x-0 top-0 h-px bg-gradient-divider" />
-      <div className="absolute left-0 top-14 h-72 w-72 rounded-full bg-[rgba(var(--primary-glow),0.1)] blur-3xl" />
-      <div className="absolute bottom-0 right-0 h-72 w-72 rounded-full bg-[rgba(var(--accent-gold),0.1)] blur-3xl" />
+      <div className="glow-orb glow-primary-10 absolute left-0 top-14 h-72 w-72" />
+      <div className="glow-orb glow-gold-10 absolute bottom-0 right-0 h-72 w-72" />
 
       <div className="container relative mx-auto px-4 md:px-6">
         <div className="mx-auto max-w-3xl text-center">

@@ -381,6 +381,35 @@
     background-image: var(--gradient-events-gold-glow);
   }
 
+  .glow-orb {
+    border-radius: 9999px;
+    filter: blur(64px);
+  }
+
+  .glow-primary-10 {
+    background-color: rgba(var(--primary-glow), 0.1);
+  }
+
+  .glow-primary-20 {
+    background-color: rgba(var(--primary-glow), 0.2);
+  }
+
+  .glow-primary-25 {
+    background-color: rgba(var(--primary-glow), 0.25);
+  }
+
+  .glow-primary-30 {
+    background-color: rgba(var(--primary-glow), 0.3);
+  }
+
+  .glow-gold-10 {
+    background-color: rgba(var(--accent-gold), 0.1);
+  }
+
+  .glow-gold-15 {
+    background-color: rgba(var(--accent-gold), 0.15);
+  }
+
   .hero-gradient-text {
     color: rgb(var(--primary-foreground));
   }
