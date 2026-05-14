@@ -46,7 +46,7 @@ export function NewsListClient({
 
   if (!items.length) {
     return (
-      <div className="rounded-[2rem] border border-dashed border-border/80 bg-white/70 p-10 text-center shadow-soft">
+      <div className="rounded-[2rem] border border-dashed border-[rgba(var(--border),0.8)] bg-[rgba(255,255,255,0.7)] p-10 text-center shadow-soft">
         <h2 className="text-2xl font-black text-foreground">Новин поки немає</h2>
         <p className="mt-3 text-base leading-7 text-muted-foreground">
           Для цього періоду ще не знайдено жодної публікації.

@@ -14,7 +14,7 @@ export function Breadcrumbs({ items }: BreadcrumbsProps) {
 
   return (
     <nav aria-label="Breadcrumbs" className="absolute bottom-4 left-4 md:bottom-6 md:left-6">
-      <ol className="flex flex-wrap items-center gap-x-0.5 gap-y-1 text-primary-foreground/80 md:gap-x-2">
+      <ol className="flex flex-wrap items-center gap-x-0.5 gap-y-1 text-[rgba(var(--primary-foreground),0.8)] md:gap-x-2">
         {items.map((item, index) => {
           const isCurrent = item.current ?? index === items.length - 1
           const canLink = Boolean(item.href && !isCurrent)
@@ -38,7 +38,7 @@ export function Breadcrumbs({ items }: BreadcrumbsProps) {
               )}
 
               {index < items.length - 1 ? (
-                <ChevronRight className="h-3.5 w-3.5 shrink-0 text-primary-foreground/50" />
+                <ChevronRight className="h-3.5 w-3.5 shrink-0 text-[rgba(var(--primary-foreground),0.5)]" />
               ) : null}
             </li>
           )

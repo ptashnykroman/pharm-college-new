@@ -20,7 +20,7 @@ export function PartnersSection({
         <div className="mt-12 grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-5">
           {partners.map((item) => {
             const content = (
-              <div className="flex h-24 items-center justify-center rounded-2xl border border-border bg-card p-4 text-center text-sm font-semibold text-muted-foreground shadow-soft transition-bounce hover:-translate-y-1 hover:border-primary/30 hover:text-primary hover:shadow-card">
+              <div className="flex h-24 items-center justify-center rounded-2xl border border-border bg-card p-4 text-center text-sm font-semibold text-muted-foreground shadow-soft transition-bounce hover:-translate-y-1 hover:border-[rgba(var(--primary),0.3)] hover:text-primary hover:shadow-card">
                 {item.image ? (
                   <Image
                     src={item.image.src}

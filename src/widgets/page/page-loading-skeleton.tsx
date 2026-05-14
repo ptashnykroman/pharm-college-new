@@ -17,9 +17,9 @@ export function PageLoadingSkeleton() {
         />
 
         <div className="absolute inset-0 bg-gradient-hero opacity-60" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_oklch(0.62_0.18_245_/_0.35),_transparent_60%)]" />
-        <div className="absolute inset-0 bg-primary-deep/15" />
-        <div className="absolute -left-24 -top-24 h-72 w-72 rounded-full bg-primary-glow/25 blur-3xl" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_rgba(var(--primary-glow),0.35),_transparent_60%)]" />
+        <div className="absolute inset-0 bg-[rgba(var(--primary-deep),0.15)]" />
+        <div className="absolute -left-24 -top-24 h-72 w-72 rounded-full bg-[rgba(var(--primary-glow),0.25)] blur-3xl" />
 
         <div className="relative container mx-auto h-full px-4 md:px-6">
           <div className="flex h-full items-center justify-center pt-24 pb-14 text-center">
@@ -40,9 +40,9 @@ export function PageLoadingSkeleton() {
 
           <nav aria-label="Breadcrumbs loading" className="absolute bottom-4 left-4 md:bottom-6 md:left-6">
             <ol className="flex animate-pulse flex-wrap items-center gap-x-1.5 gap-y-1 md:gap-x-2">
-              <li className="h-3 w-12 rounded-full bg-primary-foreground/35 md:h-3.5 md:w-16" />
-              <li className="h-3 w-3 rounded-full bg-primary-foreground/25 md:h-3.5 md:w-3.5" />
-              <li className="h-3 w-24 rounded-full bg-primary-foreground/35 md:h-3.5 md:w-32" />
+              <li className="h-3 w-12 rounded-full bg-[rgba(var(--primary-foreground),0.35)] md:h-3.5 md:w-16" />
+              <li className="h-3 w-3 rounded-full bg-[rgba(var(--primary-foreground),0.25)] md:h-3.5 md:w-3.5" />
+              <li className="h-3 w-24 rounded-full bg-[rgba(var(--primary-foreground),0.35)] md:h-3.5 md:w-32" />
             </ol>
           </nav>
         </div>

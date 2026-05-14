@@ -16,7 +16,7 @@ export function FullSizePersonPageBlock({ block }: { block: FullSizePersonBlock 
             href={image.src}
             target="_blank"
             rel="noreferrer"
-            className="overflow-hidden rounded-[1.75rem] bg-muted/30 shadow-soft"
+            className="overflow-hidden rounded-[1.75rem] bg-[rgba(var(--muted),0.3)] shadow-soft"
           >
             <Image
               src={image.src}

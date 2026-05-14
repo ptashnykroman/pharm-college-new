@@ -29,7 +29,7 @@ export function NewsArchive({ items }: { items: NewsArchiveYear[] }) {
                   <li key={`${yearItem.year}-${month.month}`}>
                     <Link
                       href={month.href}
-                      className="flex items-center justify-between gap-4 rounded-2xl border border-border/60 bg-muted/25 px-4 py-3 text-sm font-semibold text-foreground transition-smooth hover:border-primary/25 hover:bg-primary/5 hover:text-primary"
+                      className="flex items-center justify-between gap-4 rounded-2xl border border-[rgba(var(--border),0.6)] bg-[rgba(var(--muted),0.25)] px-4 py-3 text-sm font-semibold text-foreground transition-smooth hover:border-[rgba(var(--primary),0.25)] hover:bg-[rgba(var(--primary),0.05)] hover:text-primary"
                     >
                       <span>{month.label}</span>
                       <span className="rounded-full bg-white px-2.5 py-1 text-xs text-muted-foreground shadow-soft">
@@ -48,7 +48,7 @@ export function NewsArchive({ items }: { items: NewsArchiveYear[] }) {
         <button
           type="button"
           onClick={() => setShowAll(true)}
-          className="w-full rounded-full border border-primary/20 bg-card px-5 py-3 text-sm font-semibold text-primary shadow-soft transition-bounce hover:-translate-y-0.5 hover:border-primary/35 hover:bg-primary hover:text-primary-foreground"
+          className="w-full rounded-full border border-[rgba(var(--primary),0.2)] bg-card px-5 py-3 text-sm font-semibold text-primary shadow-soft transition-bounce hover:-translate-y-0.5 hover:border-[rgba(var(--primary),0.35)] hover:bg-primary hover:text-primary-foreground"
         >
           Завантажити більше
         </button>

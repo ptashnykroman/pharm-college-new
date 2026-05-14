@@ -101,11 +101,11 @@ export function HomeHeroSection({ hero }: { hero: HomePageViewModel['hero'] }) {
       ) : null}
 
       <div className="absolute inset-0 bg-gradient-hero opacity-60" />
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_oklch(0.62_0.18_245_/_0.35),_transparent_60%)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_rgba(var(--primary-glow),0.35),_transparent_60%)]" />
 
       <FloatingPromos />
 
-      <div className="animate-float-slow absolute -left-24 -top-24 h-96 w-96 rounded-full bg-primary-glow/30 blur-3xl" />
+      <div className="animate-float-slow absolute -left-24 -top-24 h-96 w-96 rounded-full bg-[rgba(var(--primary-glow),0.3)] blur-3xl" />
 
       <div
         className="relative container mx-auto flex min-h-[100svh] flex-col items-center justify-center px-4 pb-20 pt-28 md:px-6"
@@ -122,21 +122,21 @@ export function HomeHeroSection({ hero }: { hero: HomePageViewModel['hero'] }) {
             </span>
           </h1>
 
-          <p className="text-sm 2xs:text-base xs:text-lg sm:text-xl mt-6 max-w-2xl text-primary-foreground/85">
+          <p className="text-sm 2xs:text-base xs:text-lg sm:text-xl mt-6 max-w-2xl text-[rgba(var(--primary-foreground),0.85)]">
             {hero.description}
           </p>
 
           <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
             <Link
               href={hero.primaryHref}
-              className="inline-flex h-10 2xs:h-11 xs:h-12 p-4 xs:px-6 items-center rounded-md bg-accent-gold text-[12px] 2xs:text-sm font-bold text-accent-gold-foreground shadow-elegant transition-bounce hover:scale-[1.02] hover:bg-accent-gold/90"
+              className="inline-flex h-10 2xs:h-11 xs:h-12 p-4 xs:px-6 items-center rounded-md bg-accent-gold text-[12px] 2xs:text-sm font-bold text-accent-gold-foreground shadow-elegant transition-bounce hover:scale-[1.02] hover:bg-[rgba(var(--accent-gold),0.9)]"
             >
               Вступ 2026
               <ArrowRight className="ml-2 h-4 w-4" />
             </Link>
             <Link
               href={hero.secondaryHref}
-              className="inline-flex h-10  2xs:h-11 xs:h-12 p-4 xs:px-6 items-center rounded-md border border-white/30 bg-white/10 text-[12px] 2xs:text-sm font-bold text-primary-foreground backdrop-blur-md transition-smooth hover:bg-white/20 hover:text-primary-foreground"
+              className="inline-flex h-10  2xs:h-11 xs:h-12 p-4 xs:px-6 items-center rounded-md border border-[rgba(255,255,255,0.3)] bg-[rgba(255,255,255,0.1)] text-[12px] 2xs:text-sm font-bold text-primary-foreground backdrop-blur-md transition-smooth hover:bg-[rgba(255,255,255,0.2)] hover:text-primary-foreground"
             >
               Переглянути розклад
             </Link>

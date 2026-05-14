@@ -30,7 +30,7 @@ export function PartnersPageBlock({ block }: { block: PartnersBlock }) {
   // if (partners.length === 0) {
   //   return null;
   // }
-  // rounded-[2rem] border border-border/80 bg-white p-5 shadow-soft md:p-6
+  // rounded-[2rem] border border-[rgba(var(--border),0.8)] bg-white p-5 shadow-soft md:p-6
   return (
     <div className="p-5 bg-secondary rounded-[2rem] ">
       <div className="flex items-center justify-center gap-4">
@@ -44,7 +44,7 @@ export function PartnersPageBlock({ block }: { block: PartnersBlock }) {
             <SmartLink
               key={partner.id}
               href={partner.href}
-              className="flex min-h-28 items-center justify-center rounded-[1.5rem] border border-border/70 bg-muted/20 p-4 transition-smooth hover:-translate-y-1 hover:bg-white"
+              className="flex min-h-28 items-center justify-center rounded-[1.5rem] border border-[rgba(var(--border),0.7)] bg-[rgba(var(--muted),0.2)] p-4 transition-smooth hover:-translate-y-1 hover:bg-white"
               ariaLabel={partner.name}
             >
               {partner.image ? (
@@ -56,7 +56,7 @@ export function PartnersPageBlock({ block }: { block: PartnersBlock }) {
                   className="max-h-16 w-auto object-contain"
                 />
               ) : (
-                <span className="text-center text-sm font-medium text-foreground/80">
+                <span className="text-center text-sm font-medium text-[rgba(var(--foreground),0.8)]">
                   {partner.name}
                 </span>
               )}

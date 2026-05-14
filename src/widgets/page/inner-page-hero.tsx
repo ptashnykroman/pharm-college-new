@@ -23,9 +23,9 @@ export function InnerPageHero({ breadcrumbs }: InnerPageHeroProps) {
       />
 
       <div className="absolute inset-0 bg-gradient-hero opacity-60" />
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_oklch(0.62_0.18_245_/_0.35),_transparent_60%)]" />
-      <div className="absolute inset-0 bg-primary-deep/15" />
-      <div className="absolute -left-24 -top-24 h-72 w-72 rounded-full bg-primary-glow/25 blur-3xl" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_rgba(var(--primary-glow),0.35),_transparent_60%)]" />
+      <div className="absolute inset-0 bg-[rgba(var(--primary-deep),0.15)]" />
+      <div className="absolute -left-24 -top-24 h-72 w-72 rounded-full bg-[rgba(var(--primary-glow),0.25)] blur-3xl" />
 
       <div className="relative container mx-auto h-full px-4 md:px-6">
         <div className="flex h-full items-center justify-center pt-24 pb-14 text-center">

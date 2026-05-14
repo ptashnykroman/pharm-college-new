@@ -48,7 +48,7 @@ export function AboutSection({ about }: { about: HomePageViewModel['about'] }) {
               {aboutFeatures.map((feature) => (
                 <li key={feature} className="flex items-start gap-3">
                   <CheckCircle2 className="mt-0.5 h-5 w-5 flex-shrink-0 text-primary" />
-                  <span className="text-foreground/90">{feature}</span>
+                  <span className="text-[rgba(var(--foreground),0.9)]">{feature}</span>
                 </li>
               ))}
             </ul>

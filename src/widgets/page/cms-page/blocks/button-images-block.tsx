@@ -25,7 +25,7 @@ export function ButtonImagesPageBlock({ block }: { block: ButtonImagesBlock }) {
           <SmartLink
             key={item.id}
             href={normalizeHref(item.link)}
-            className="group overflow-hidden rounded-[1.75rem] border border-border/80 bg-white shadow-soft transition-smooth hover:-translate-y-1 hover:shadow-card"
+            className="group overflow-hidden rounded-[1.75rem] border border-[rgba(var(--border),0.8)] bg-white shadow-soft transition-smooth hover:-translate-y-1 hover:shadow-card"
           >
             <Image
               src={image.src}

@@ -8,7 +8,7 @@ function CycleCommissionCard({ item }: { item: CycleCommissionCardViewModel }) {
   return (
     <SmartLink
       href={item.href}
-      className="group relative block min-h-[260px] overflow-hidden rounded-[2rem] border border-border/70 bg-white shadow-card transition hover:-translate-y-1.5 hover:shadow-elegant"
+      className="group relative block min-h-[260px] overflow-hidden rounded-[2rem] border border-[rgba(var(--border),0.7)] bg-white shadow-card transition hover:-translate-y-1.5 hover:shadow-elegant"
     >
       <div className="absolute inset-0">
         {item.image ? (
@@ -24,7 +24,7 @@ function CycleCommissionCard({ item }: { item: CycleCommissionCardViewModel }) {
         )}
       </div>
 
-      <div className="absolute inset-0 bg-gradient-to-t from-primary-deep via-primary/60 to-primary-deep/10 opacity-90 transition group-hover:opacity-95" />
+      <div className="absolute inset-0 bg-gradient-to-t from-primary-deep via-[rgba(var(--primary),0.6)] to-[rgba(var(--primary-deep),0.1)] opacity-90 transition group-hover:opacity-95" />
 
       <div className="relative flex min-h-[260px] flex-col justify-end p-6">
         <div className="mt-4 flex items-end justify-between gap-4">
@@ -32,7 +32,7 @@ function CycleCommissionCard({ item }: { item: CycleCommissionCardViewModel }) {
             {item.title}
           </h2>
 
-          <span className="absolute right-4 top-4 inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-white/90 text-primary shadow-soft transition group-hover:translate-x-1">
+          <span className="absolute right-4 top-4 inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-[rgba(255,255,255,0.9)] text-primary shadow-soft transition group-hover:translate-x-1">
             <ArrowRight className="h-5 w-5" />
           </span>
         </div>
@@ -48,9 +48,9 @@ export function CycleCommissionsListPageView({
 }) {
   return (
     <section className="relative overflow-hidden bg-gradient-soft py-12 md:py-16">
-      <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/20 to-transparent" />
-      <div className="absolute left-0 top-14 h-72 w-72 rounded-full bg-primary-glow/10 blur-3xl" />
-      <div className="absolute bottom-0 right-0 h-72 w-72 rounded-full bg-accent-gold/10 blur-3xl" />
+      <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[rgba(var(--primary),0.2)] to-transparent" />
+      <div className="absolute left-0 top-14 h-72 w-72 rounded-full bg-[rgba(var(--primary-glow),0.1)] blur-3xl" />
+      <div className="absolute bottom-0 right-0 h-72 w-72 rounded-full bg-[rgba(var(--accent-gold),0.1)] blur-3xl" />
 
       <div className="container relative mx-auto px-4 md:px-6">
         <div className="mx-auto max-w-3xl text-center">

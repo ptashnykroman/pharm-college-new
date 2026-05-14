@@ -13,9 +13,9 @@ function TeacherCard({ teacher }: { teacher: CycleCommissionTeacherViewModel }) 
   const nameLines = teacher.name.split(' ').filter(Boolean)
 
   return (
-    <article className="rounded-[1.75rem] border border-border/70 bg-white p-4 shadow-soft transition hover:-translate-y-1 hover:shadow-card">
+    <article className="rounded-[1.75rem] border border-[rgba(var(--border),0.7)] bg-white p-4 shadow-soft transition hover:-translate-y-1 hover:shadow-card">
       <div className="flex items-center gap-4">
-        <Link href={teacher.href} className="shrink-0 overflow-hidden rounded-[1.25rem] bg-muted/30">
+        <Link href={teacher.href} className="shrink-0 overflow-hidden rounded-[1.25rem] bg-[rgba(var(--muted),0.3)]">
           {teacher.photo ? (
             <Image
               src={teacher.photo.src}
@@ -49,7 +49,7 @@ function TeacherCard({ teacher }: { teacher: CycleCommissionTeacherViewModel }) 
       </div>
 
       {teacher.subjects.length ? (
-        <ul className="mt-4 text-sm leading-6 text-foreground/75">
+        <ul className="mt-4 text-sm leading-6 text-[rgba(var(--foreground),0.75)]">
           {teacher.subjects.map((subject) => (
             <li key={subject}>«{subject}»</li>
           ))}
@@ -159,7 +159,7 @@ export function CmkPeoplePanel({
                     'inline-flex h-11 min-w-11 items-center justify-center rounded-full border px-4 text-sm font-bold transition',
                     currentPage === page
                       ? 'border-primary bg-primary text-primary-foreground shadow-soft'
-                      : 'border-primary/25 bg-white text-primary hover:border-primary hover:bg-primary/5',
+                      : 'border-[rgba(var(--primary),0.25)] bg-white text-primary hover:border-primary hover:bg-[rgba(var(--primary),0.05)]',
                   )}
                 >
                   {page}

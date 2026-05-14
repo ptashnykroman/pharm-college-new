@@ -25,7 +25,7 @@ function AccordionItem({
     <AccordionPrimitive.Item
       data-slot="accordion-item"
       className={cn(
-        "overflow-hidden rounded-[2rem] border border-border/80 bg-white shadow-soft",
+        "overflow-hidden rounded-[2rem] border border-[rgba(var(--border),0.8)] bg-white shadow-soft",
         className,
       )}
       {...props}
@@ -43,7 +43,7 @@ function AccordionTrigger({
       <AccordionPrimitive.Trigger
         data-slot="accordion-trigger"
         className={cn(
-          "group/accordion-trigger flex flex-1 items-center justify-between gap-4 cursor-pointer px-5 py-3 sm:py-4 text-left text-sm xs:text-base sm:text-lg font-bold text-foreground transition-colors outline-none focus-visible:ring-3 focus-visible:ring-ring/50 disabled:pointer-events-none disabled:opacity-50 md:px-6",
+          "group/accordion-trigger flex flex-1 items-center justify-between gap-4 cursor-pointer px-5 py-3 sm:py-4 text-left text-sm xs:text-base sm:text-lg font-bold text-foreground transition-colors outline-none focus-visible:ring-3 focus-visible:ring-[rgba(var(--ring),0.5)] disabled:pointer-events-none disabled:opacity-50 md:px-6",
           className,
         )}
         {...props}
@@ -66,7 +66,7 @@ function AccordionContent({
   return (
     <AccordionPrimitive.Content
       data-slot="accordion-content"
-      className="overflow-hidden border-t border-border/70 text-sm data-open:animate-accordion-down data-closed:animate-accordion-up"
+      className="overflow-hidden border-t border-[rgba(var(--border),0.7)] text-sm data-open:animate-accordion-down data-closed:animate-accordion-up"
       {...props}
     >
       <div

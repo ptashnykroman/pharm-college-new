@@ -34,7 +34,7 @@ export function NewsPagination({
             "inline-flex h-10 min-w-10 items-center justify-center rounded-full border px-3 text-sm font-semibold transition-bounce",
             index === page
               ? "scale-110 border-primary bg-primary text-primary-foreground shadow-elegant"
-              : "border-border bg-card text-muted-foreground hover:border-primary/30 hover:text-primary",
+              : "border-border bg-card text-muted-foreground hover:border-[rgba(var(--primary),0.3)] hover:text-primary",
           )}
         >
           {index + 1}

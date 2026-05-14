@@ -30,7 +30,7 @@ export function CmsPage({ page }: { page: CmsPageData }) {
           </h1>
 
           {pageDescription ? (
-            <p className="mx-auto mt-5 max-w-4xl text-lg leading-8 text-foreground/80">
+            <p className="mx-auto mt-5 max-w-4xl text-lg leading-8 text-[rgba(var(--foreground),0.8)]">
               {pageDescription}
             </p>
           ) : null}
@@ -38,7 +38,7 @@ export function CmsPage({ page }: { page: CmsPageData }) {
 
         {mainPhoto ? (
           <div className="mt-8">
-            <div className="overflow-hidden rounded-[2rem] border border-border/80 bg-white shadow-card">
+            <div className="overflow-hidden rounded-[2rem] border border-[rgba(var(--border),0.8)] bg-white shadow-card">
               <Image
                 priority
                 src={mainPhoto.src}

@@ -131,14 +131,14 @@ export function SiteSearchDialog({ open, onOpenChange }: { open: boolean; onOpen
     <Dialog open={open} onOpenChange={handleOpenChange}>
       <DialogContent
         // max-w-[min(56rem,calc(100%-1.5rem))]
-        className="w-full max-w-[95vw] sm:!max-w-xl gap-0 overflow-hidden border border-border/70 bg-white p-0 shadow-elegant"
+        className="w-full max-w-[95vw] sm:!max-w-xl gap-0 overflow-hidden border border-[rgba(var(--border),0.7)] bg-white p-0 shadow-elegant"
       >
-        <DialogHeader className="border-b border-border/70 bg-gradient-soft px-5 py-4 text-left">
+        <DialogHeader className="border-b border-[rgba(var(--border),0.7)] bg-gradient-soft px-5 py-4 text-left">
           <DialogTitle className="text-lg font-black text-foreground">{COPY.title}</DialogTitle>
-          {/* <DialogDescription className="text-sm leading-6 text-foreground/65">{COPY.description}</DialogDescription> */}
+          {/* <DialogDescription className="text-sm leading-6 text-[rgba(var(--foreground),0.65)]">{COPY.description}</DialogDescription> */}
         </DialogHeader>
 
-        <div className="border-b border-border/70 px-4 py-3">
+        <div className="border-b border-[rgba(var(--border),0.7)] px-4 py-3">
           <div className="relative flex items-center">
             <Search className="pointer-events-none absolute left-3 h-5 w-5 text-muted-foreground" />
             <Input
@@ -154,13 +154,13 @@ export function SiteSearchDialog({ open, onOpenChange }: { open: boolean; onOpen
               {status === 'loading' ? (
                 <LoaderCircle className="h-4 w-4 animate-spin text-primary" />
               ) : results[0] ? (
-                <span className="hidden items-center gap-1 rounded-full border border-border bg-white px-2 py-1 text-[11px] font-semibold text-foreground/70 sm:inline-flex">
+                <span className="hidden items-center gap-1 rounded-full border border-border bg-white px-2 py-1 text-[11px] font-semibold text-[rgba(var(--foreground),0.7)] sm:inline-flex">
                   <CornerDownLeft className="h-3.5 w-3.5" />
                   Enter
                 </span>
               ) : null}
 
-              <span className="hidden items-center gap-1 rounded-full border border-border bg-white px-2 py-1 text-[11px] font-semibold text-foreground/70 sm:inline-flex">
+              <span className="hidden items-center gap-1 rounded-full border border-border bg-white px-2 py-1 text-[11px] font-semibold text-[rgba(var(--foreground),0.7)] sm:inline-flex">
                 <Command className="h-3.5 w-3.5" />K
               </span>
             </div>
@@ -186,22 +186,22 @@ export function SiteSearchDialog({ open, onOpenChange }: { open: boolean; onOpen
                   href={result.url}
                   onClick={() => closeDialog()}
                   className={cn(
-                    'group block rounded-[1.5rem] border border-transparent bg-white px-4 py-3 transition-smooth hover:border-primary/20 hover:bg-gradient-soft hover:shadow-soft',
-                    index === 0 && 'border-border/70',
+                    'group block rounded-[1.5rem] border border-transparent bg-white px-4 py-3 transition-smooth hover:border-[rgba(var(--primary),0.2)] hover:bg-gradient-soft hover:shadow-soft',
+                    index === 0 && 'border-[rgba(var(--border),0.7)]',
                   )}
                 >
                   <div className="flex items-start justify-between gap-3">
                     <div className="min-w-0">
                       <div className="flex flex-wrap items-center gap-2">
-                        <span className="rounded-full bg-primary/8 px-2.5 py-1 text-[11px] font-bold uppercase tracking-[0.16em] text-primary">
+                        <span className="rounded-full bg-[rgba(var(--primary),0.08)] px-2.5 py-1 text-[11px] font-bold uppercase tracking-[0.16em] text-primary">
                           {TYPE_LABELS[result.type]}
                         </span>
-                        <span className="text-xs text-foreground/45">{result.url}</span>
+                        <span className="text-xs text-[rgba(var(--foreground),0.45)]">{result.url}</span>
                       </div>
                       <h3 className="mt-2 text-base font-bold text-foreground transition-colors group-hover:text-primary">
                         {result.title}
                       </h3>
-                      <p className="mt-2 text-sm leading-6 text-foreground/70">{result.excerpt}</p>
+                      <p className="mt-2 text-sm leading-6 text-[rgba(var(--foreground),0.7)]">{result.excerpt}</p>
                     </div>
 
                     <Button
@@ -233,7 +233,7 @@ function SearchState({ title, description }: { title: string; description: strin
     <div className="flex h-full min-h-[17rem] items-center justify-center px-4 py-10 text-center">
       <div className="max-w-md">
         <p className="text-lg font-bold text-foreground">{title}</p>
-        <p className="mt-2 text-sm leading-6 text-foreground/65">{description}</p>
+        <p className="mt-2 text-sm leading-6 text-[rgba(var(--foreground),0.65)]">{description}</p>
       </div>
     </div>
   )

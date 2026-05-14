@@ -81,7 +81,7 @@ export function CmkMainPhotoGallery({ images }: { images: ResolvedImage[] }) {
     const image = images[0]
 
     return (
-      <div className="overflow-hidden rounded-[2rem] border border-border/80 bg-white shadow-card">
+      <div className="overflow-hidden rounded-[2rem] border border-[rgba(var(--border),0.8)] bg-white shadow-card">
         <Image
           preload
           src={image.src}
@@ -103,7 +103,7 @@ export function CmkMainPhotoGallery({ images }: { images: ResolvedImage[] }) {
   )
 
   return (
-    <div className="overflow-hidden rounded-[2rem] border border-border/80 bg-white shadow-card">
+    <div className="overflow-hidden rounded-[2rem] border border-[rgba(var(--border),0.8)] bg-white shadow-card">
       <div className="relative grid" aria-busy={pendingIndex !== null}>
         {preparedIndexes.map((index) => {
           const image = images[index]
@@ -133,11 +133,11 @@ export function CmkMainPhotoGallery({ images }: { images: ResolvedImage[] }) {
           )
         })}
 
-        <div className="absolute inset-x-0 bottom-0 flex items-center justify-between gap-3 bg-gradient-to-t from-primary-deep/80 via-primary/35 to-transparent px-4 pb-4 pt-16">
+        <div className="absolute inset-x-0 bottom-0 flex items-center justify-between gap-3 bg-gradient-to-t from-[rgba(var(--primary-deep),0.8)] via-[rgba(var(--primary),0.35)] to-transparent px-4 pb-4 pt-16">
           <button
             type="button"
             onClick={() => requestSlide(getPreviousIndex(activeIndex, images.length))}
-            className="cursor-pointer inline-flex h-11 w-11 items-center justify-center rounded-full bg-white/90 text-primary shadow-soft transition hover:scale-105"
+            className="cursor-pointer inline-flex h-11 w-11 items-center justify-center rounded-full bg-[rgba(255,255,255,0.9)] text-primary shadow-soft transition hover:scale-105"
             aria-label="Попереднє фото"
           >
             <ChevronLeft className="h-5 w-5" />
@@ -150,7 +150,7 @@ export function CmkMainPhotoGallery({ images }: { images: ResolvedImage[] }) {
                 type="button"
                 onClick={() => requestSlide(index)}
                 className={`h-2.5 rounded-full transition ${
-                  index === activeIndex ? 'w-8 bg-white' : 'w-2.5 bg-white/55 hover:bg-white/80'
+                  index === activeIndex ? 'w-8 bg-white' : 'w-2.5 bg-[rgba(255,255,255,0.55)] hover:bg-[rgba(255,255,255,0.8)]'
                 }`}
                 aria-label={`Перейти до фото ${index + 1}`}
               />
@@ -160,7 +160,7 @@ export function CmkMainPhotoGallery({ images }: { images: ResolvedImage[] }) {
           <button
             type="button"
             onClick={() => requestSlide(getNextIndex(activeIndex, images.length))}
-            className="cursor-pointer inline-flex h-11 w-11 items-center justify-center rounded-full bg-white/90 text-primary shadow-soft transition hover:scale-105"
+            className="cursor-pointer inline-flex h-11 w-11 items-center justify-center rounded-full bg-[rgba(255,255,255,0.9)] text-primary shadow-soft transition hover:scale-105"
             aria-label="Наступне фото"
           >
             <ChevronRight className="h-5 w-5" />

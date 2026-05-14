@@ -25,7 +25,7 @@ export function PersonPageBlock({ block }: { block: PersonBlock }) {
     <BlockShell>
       <div className="flex flex-col items-center gap-5">
         {photo ? (
-          <div className="overflow-hidden rounded-[1.75rem] bg-muted/30 text-center w-full">
+          <div className="overflow-hidden rounded-[1.75rem] bg-[rgba(var(--muted),0.3)] text-center w-full">
             {personHref ? (
               <SmartLink href={personHref} className="block">
                 <Image
@@ -53,7 +53,7 @@ export function PersonPageBlock({ block }: { block: PersonBlock }) {
           {worker.position ? <p className="mt-2 text-sm text-primary text-center">{worker.position}</p> : null}
         </div>
 
-        <div className="space-y-3 text-sm text-foreground/80">
+        <div className="space-y-3 text-sm text-[rgba(var(--foreground),0.8)]">
           {worker.phone ? (
             <a className="flex items-center gap-2 hover:text-primary" href={`tel:${normalizePhone(worker.phone)}`}>
               <Phone className="h-4 w-4" />

@@ -40,10 +40,10 @@ export function FooterMessageActions() {
       </div>
 
       <Dialog open={Boolean(activeDialogConfig)} onOpenChange={(open) => !open && setActiveDialog(null)}>
-        <DialogContent className="w-full max-w-[95vw] gap-0 overflow-hidden border border-border/70 bg-white p-0 shadow-elegant sm:!max-w-3xl">
+        <DialogContent className="w-full max-w-[95vw] gap-0 overflow-hidden border border-[rgba(var(--border),0.7)] bg-white p-0 shadow-elegant sm:!max-w-3xl">
           {activeDialogConfig ? (
             <>
-              <DialogHeader className="border-b border-border/70 bg-gradient-soft px-5 py-4 text-left md:px-6">
+              <DialogHeader className="border-b border-[rgba(var(--border),0.7)] bg-gradient-soft px-5 py-4 text-left md:px-6">
                 <DialogTitle className="text-xl font-black text-foreground">
                   {activeDialogConfig.dialogTitle}
                 </DialogTitle>

@@ -46,7 +46,7 @@ export function PhotosGalleryPageBlock({
             ? "!grid-cols-1"
             : "grid-cols-2 md:grid-cols-3 xl:grid-cols-4",
         )}
-        triggerClassName="bg-muted/30 shadow-none hover:shadow-soft"
+        triggerClassName="bg-[rgba(var(--muted),0.3)] shadow-none hover:shadow-soft"
         imageClassName="transition-transform duration-500"
         imageSizes="(max-width: 767px) 50vw, 33vw"
       />

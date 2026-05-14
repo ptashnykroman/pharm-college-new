@@ -140,7 +140,7 @@ export function MessageForm(props: MessageFormProps) {
   return (
     <div
       className={cn(
-        'rounded-[2rem] border border-border/70 bg-white',
+        'rounded-[2rem] border border-[rgba(var(--border),0.7)] bg-white',
         inDialog ? '' : 'p-6 md:p-8 shadow-card',
         className,
       )}
@@ -177,7 +177,7 @@ export function MessageForm(props: MessageFormProps) {
           <div>
             <label className="mb-2 block text-sm font-bold text-foreground">Тема звернення</label>
             <Select value={formState.subject} onValueChange={(value) => updateField('subject', value)}>
-              <SelectTrigger className="h-12 w-full rounded-[1rem] border-border/80 bg-white px-4 shadow-soft">
+              <SelectTrigger className="h-12 w-full rounded-[1rem] border-[rgba(var(--border),0.8)] bg-white px-4 shadow-soft">
                 <SelectValue placeholder="Оберіть тему повідомлення" />
               </SelectTrigger>
               <SelectContent>
@@ -199,7 +199,7 @@ export function MessageForm(props: MessageFormProps) {
             onChange={(event) => updateField('message', event.target.value)}
             aria-invalid={Boolean(errors.message)}
             placeholder="Напишіть ваше повідомлення"
-            className="min-h-40 rounded-[1rem] border-border/80 bg-white px-4 py-3 shadow-soft"
+            className="min-h-40 rounded-[1rem] border-[rgba(var(--border),0.8)] bg-white px-4 py-3 shadow-soft"
           />
           {errors.message ? <p className="mt-2 text-sm text-destructive">{errors.message}</p> : null}
         </div>

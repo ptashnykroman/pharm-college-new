@@ -144,7 +144,7 @@ export function ImageLightboxGallery({
             aria-haspopup="dialog"
             aria-label={`Відкрити фото ${index + 1}`}
             className={cn(
-              'group w-full relative cursor-pointer overflow-hidden rounded-[1.5rem] border border-border/70 bg-white text-left shadow-soft transition-smooth hover:-translate-y-1 hover:shadow-card focus-visible:outline-none focus-visible:ring-3 focus-visible:ring-ring/50',
+              'group w-full relative cursor-pointer overflow-hidden rounded-[1.5rem] border border-[rgba(var(--border),0.7)] bg-white text-left shadow-soft transition-smooth hover:-translate-y-1 hover:shadow-card focus-visible:outline-none focus-visible:ring-3 focus-visible:ring-[rgba(var(--ring),0.5)]',
               triggerClassName,
             )}
           >
@@ -159,7 +159,7 @@ export function ImageLightboxGallery({
                 imageClassName,
               )}
             />
-            <span className="absolute right-3 top-3 inline-flex items-center gap-2 rounded-full bg-black/60 px-3 py-1 text-xs font-semibold text-white">
+            <span className="absolute right-3 top-3 inline-flex items-center gap-2 rounded-full bg-[rgba(0,0,0,0.6)] px-3 py-1 text-xs font-semibold text-white">
               <Maximize2 className="w-3 h-3" />
               Переглянути
             </span>

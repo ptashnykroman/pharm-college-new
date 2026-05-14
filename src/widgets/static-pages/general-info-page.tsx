@@ -116,7 +116,7 @@ export function GeneralInfoPageView({ principal }: { principal: AdministrationCa
         </div>
 
         <div className="mt-10 grid gap-6 xl:grid-cols-[minmax(0,1.2fr)_minmax(0,1fr)]">
-          <div className="overflow-hidden rounded-[2rem] border border-border/70 bg-white shadow-card">
+          <div className="overflow-hidden rounded-[2rem] border border-[rgba(var(--border),0.7)] bg-white shadow-card">
             <iframe
               src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6291.689037301852!2d28.64056024719695!3d50.244635952177546!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x472c648aed44e5cf%3A0x8c8080cc023799b!2z0JbQuNGC0L7QvNC40YDRgdGM0LrQuNC5INCx0LDQt9C-0LLQuNC5INGE0LDRgNC80LDRhtC10LLRgtC40YfQvdC40Lkg0YTQsNGF0L7QstC40Lkg0LrQvtC70LXQtNC2INCW0LjRgtC-0LzQuNGA0YHRjNC60L7RlyDQvtCx0LvQsNGB0L3QvtGXINGA0LDQtNC4!5e0!3m2!1sru!2sua!4v1688215841222!5m2!1sru!2sua"
               title="Zhytomyr Basic Pharmaceutical Professional College map"
@@ -127,12 +127,12 @@ export function GeneralInfoPageView({ principal }: { principal: AdministrationCa
           </div>
 
           <div className="grid gap-6">
-            <article className="rounded-[2rem] border border-border/70 bg-white shadow-card p-4 md:p-6">
+            <article className="rounded-[2rem] border border-[rgba(var(--border),0.7)] bg-white shadow-card p-4 md:p-6">
               <div className="flex items-center gap-3 text-primary">
                 <MapPin className="h-5 w-5" />
                 <h2 className="text-xl font-black text-foreground">Correspondence Address</h2>
               </div>
-              <div className="mt-2 text-base leading-7 text-foreground/80">
+              <div className="mt-2 text-base leading-7 text-[rgba(var(--foreground),0.8)]">
                 <p>99 Chudnivska Street</p>
                 <p>Zhytomyr, 10005</p>
                 <p>Ukraine</p>
@@ -151,7 +151,7 @@ export function GeneralInfoPageView({ principal }: { principal: AdministrationCa
               </div>
             </article>
 
-            <article className="rounded-[2rem] border border-border/70 bg-white shadow-card p-4 md:p-6">
+            <article className="rounded-[2rem] border border-[rgba(var(--border),0.7)] bg-white shadow-card p-4 md:p-6">
               <h2 className="text-xl font-black text-foreground">Principal</h2>
               {principal ? (
                 <div className="mt-5 flex flex-col gap-5 sm:flex-row">
@@ -179,7 +179,7 @@ export function GeneralInfoPageView({ principal }: { principal: AdministrationCa
                   <div className="flex-1">
                     <h3 className="text-2xl font-black text-foreground">{principal.name}</h3>
                     {principal.position ? <p className="mt-2 text-base text-primary">{principal.position}</p> : null}
-                    <div className="mt-4 space-y-3 text-sm text-foreground/80">
+                    <div className="mt-4 space-y-3 text-sm text-[rgba(var(--foreground),0.8)]">
                       {principal.phone ? (
                         <a
                           href={`tel:${principal.phone}`}
@@ -202,7 +202,7 @@ export function GeneralInfoPageView({ principal }: { principal: AdministrationCa
                   </div>
                 </div>
               ) : (
-                <p className="mt-4 text-base leading-7 text-foreground/75">
+                <p className="mt-4 text-base leading-7 text-[rgba(var(--foreground),0.75)]">
                   Contact details of the principal are currently being updated.
                 </p>
               )}
@@ -226,7 +226,7 @@ export function GeneralInfoPageView({ principal }: { principal: AdministrationCa
                 {GENERAL_INFO_ROWS.map((row, index) => (
                   <tr
                     key={`${row.program}-${row.term}-${index}`}
-                    className="align-top text-sm leading-6 text-foreground/80"
+                    className="align-top text-sm leading-6 text-[rgba(var(--foreground),0.8)]"
                   >
                     <td className="px-4 py-4 font-semibold text-foreground">{row.field}</td>
                     <td className="px-4 py-4">{row.subject}</td>

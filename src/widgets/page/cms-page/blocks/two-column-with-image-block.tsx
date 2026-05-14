@@ -18,7 +18,7 @@ export function TwoColumnWithImagePageBlock({ block }: { block: TwoColumnWithIma
           <RichText html={block.body} />
         </div>
         {image ? (
-          <div className={cn("overflow-hidden rounded-[1.75rem] bg-muted/30", !textFirst && "lg:order-1")}>
+          <div className={cn("overflow-hidden rounded-[1.75rem] bg-[rgba(var(--muted),0.3)]", !textFirst && "lg:order-1")}>
             <Image
               src={image.src}
               alt={image.alt}

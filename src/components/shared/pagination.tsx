@@ -93,7 +93,7 @@ function PaginationButton({
         "inline-flex cursor-pointer h-8 sm:h-11 w-8 sm:w-11 items-center justify-center rounded-full border px-3 text-[13px] sm:text-sm font-semibold shadow-soft transition-bounce",
         active
           ? "scale-110 border-primary bg-primary text-primary-foreground shadow-elegant"
-          : "border-border bg-card text-muted-foreground hover:border-primary/30 hover:text-primary",
+          : "border-border bg-card text-muted-foreground hover:border-[rgba(var(--primary),0.3)] hover:text-primary",
         disabled &&
           "pointer-events-none opacity-40 hover:border-border hover:text-muted-foreground",
         className,

@@ -13,7 +13,7 @@ export function FooterContactColumn({
       <div className="text-sm font-semibold uppercase tracking-wider text-accent-gold">
         Контакти
       </div>
-      <ul className="mt-4 space-y-3 text-sm text-primary-foreground/80">
+      <ul className="mt-4 space-y-3 text-sm text-[rgba(var(--primary-foreground),0.8)]">
         <li className="flex items-center gap-2">
           <Phone className="h-4 w-4 text-accent-gold" />
           <a href={`tel:${normalizePhone(mainPhone)}`} className="transition-smooth hover:text-accent-gold">

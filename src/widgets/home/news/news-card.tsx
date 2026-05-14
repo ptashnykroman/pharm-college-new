@@ -21,7 +21,7 @@ export function NewsCard({ item, index, page, isHomePage }: NewsCardProps) {
       style={{ animationDelay: `${index * 80}ms` }}
       className="group relative isolate flex animate-fade-up flex-col overflow-hidden rounded-3xl bg-card shadow-soft transition-bounce hover:-translate-y-2 hover:shadow-elegant"
     >
-      <div className="pointer-events-none absolute inset-0 rounded-3xl ring-1 ring-border transition-smooth group-hover:ring-primary/30" />
+      <div className="pointer-events-none absolute inset-0 rounded-3xl ring-1 ring-border transition-smooth group-hover:ring-[rgba(var(--primary),0.3)]" />
 
       <Link href={item.href}>
         <div className="relative aspect-[16/11] overflow-hidden">
@@ -34,9 +34,9 @@ export function NewsCard({ item, index, page, isHomePage }: NewsCardProps) {
             className="object-cover transition-bounce duration-500 group-hover:scale-110"
           />
 
-          <div className="absolute inset-0 bg-gradient-to-t from-foreground/70 via-foreground/10 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[rgba(var(--foreground),0.7)] via-[rgba(var(--foreground),0.1)] to-transparent" />
 
-          <div className="absolute left-5 top-5 flex flex-col items-center justify-center rounded-2xl bg-card/95 px-3 py-2 text-center shadow-card backdrop-blur transition-bounce group-hover:-rotate-3 group-hover:scale-105">
+          <div className="absolute left-5 top-5 flex flex-col items-center justify-center rounded-2xl bg-[rgba(var(--card),0.95)] px-3 py-2 text-center shadow-card backdrop-blur transition-bounce group-hover:-rotate-3 group-hover:scale-105">
             <span className="text-xl font-extrabold leading-none text-primary">
               {item.date.day}
             </span>
@@ -79,7 +79,7 @@ export function NewsCard({ item, index, page, isHomePage }: NewsCardProps) {
         </p>
         <Link
           href={item.href}
-          className="mt-5 inline-flex items-center justify-between gap-2 rounded-xl border border-border px-4 py-2.5 text-sm font-semibold text-foreground transition-smooth group-hover:border-primary/30 group-hover:bg-primary/5 group-hover:text-primary"
+          className="mt-5 inline-flex items-center justify-between gap-2 rounded-xl border border-border px-4 py-2.5 text-sm font-semibold text-foreground transition-smooth group-hover:border-[rgba(var(--primary),0.3)] group-hover:bg-[rgba(var(--primary),0.05)] group-hover:text-primary"
         >
           Читати далі
           <span className="flex h-7 w-7 items-center justify-center rounded-full bg-accent text-primary transition-bounce group-hover:rotate-45 group-hover:bg-primary group-hover:text-primary-foreground">
@@ -90,7 +90,7 @@ export function NewsCard({ item, index, page, isHomePage }: NewsCardProps) {
 
       <div
         key={`${page}-${item.id}`}
-        className="pointer-events-none absolute -right-12 -top-12 h-24 w-24 rounded-full bg-primary-glow/0 blur-2xl transition-smooth group-hover:bg-primary-glow/40"
+        className="pointer-events-none absolute -right-12 -top-12 h-24 w-24 rounded-full bg-[rgba(var(--primary-glow),0)] blur-2xl transition-smooth group-hover:bg-[rgba(var(--primary-glow),0.4)]"
       />
     </article>
   );

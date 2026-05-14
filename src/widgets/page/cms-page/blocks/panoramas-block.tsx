@@ -29,7 +29,7 @@ export function PanoramasPageBlock({ block }: { block: PanoramasBlock }) {
   }
 
   return (
-    <BlockShell className={cn(block.withBackground && "border-primary/20 bg-gradient-hero text-white")}>
+    <BlockShell className={cn(block.withBackground && "border-[rgba(var(--primary),0.2)] bg-gradient-hero text-white")}>
       {block.title ? (
         <h2 className={cn("text-2xl font-black", block.withBackground ? "text-white" : "text-foreground")}>
           {block.title}
@@ -46,8 +46,8 @@ export function PanoramasPageBlock({ block }: { block: PanoramasBlock }) {
             className={cn(
               "group overflow-hidden rounded-[1.5rem] border transition-smooth hover:-translate-y-1",
               block.withBackground
-                ? "border-white/20 bg-white/10 hover:bg-white/15"
-                : "border-border/70 bg-muted/20 hover:bg-white",
+                ? "border-[rgba(255,255,255,0.2)] bg-[rgba(255,255,255,0.1)] hover:bg-[rgba(255,255,255,0.15)]"
+                : "border-[rgba(var(--border),0.7)] bg-[rgba(var(--muted),0.2)] hover:bg-white",
             )}
           >
             {item.image ? (

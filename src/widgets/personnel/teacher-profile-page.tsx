@@ -39,10 +39,10 @@ function TeacherProfileTabButton({
       tabIndex={isActive ? 0 : -1}
       onClick={onClick}
       className={cn(
-        "group relative cursor-pointer flex min-w-[170px] shrink-0 snap-start items-center justify-center overflow-hidden rounded-[1.25rem] border px-2 md:px-4 py-2 md:py-3 text-sm font-semibold leading-tight transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/25 sm:min-w-0 sm:flex-1 md:text-base",
+        "group relative cursor-pointer flex min-w-[170px] shrink-0 snap-start items-center justify-center overflow-hidden rounded-[1.25rem] border px-2 md:px-4 py-2 md:py-3 text-sm font-semibold leading-tight transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[rgba(var(--primary),0.25)] sm:min-w-0 sm:flex-1 md:text-base",
         isActive
-          ? "border-primary/20 bg-gradient-primary text-primary-foreground shadow-soft"
-          : "border-primary/20 bg-white text-foreground/70 hover:border-primary/10 hover:bg-white hover:text-foreground hover:shadow-soft",
+          ? "border-[rgba(var(--primary),0.2)] bg-gradient-primary text-primary-foreground shadow-soft"
+          : "border-[rgba(var(--primary),0.2)] bg-white text-[rgba(var(--foreground),0.7)] hover:border-[rgba(var(--primary),0.1)] hover:bg-white hover:text-foreground hover:shadow-soft",
       )}
     >
       <span className="relative z-10 block text-balance">{label}</span>
@@ -110,7 +110,7 @@ export function TeacherProfilePageView({
   return (
     <section className="relative overflow-hidden bg-gradient-soft py-12 md:py-16">
       <div className="container mx-auto px-0 xs:px-4 pb-16 md:px-6 md:pb-20">
-        <div className="sm:rounded-[2rem] sm:border sm:border-white/65 sm:bg-white/75 sm:shadow-soft sm:backdrop-blur-sm sm:border-border/70">
+        <div className="sm:rounded-[2rem] sm:border sm:border-[rgba(255,255,255,0.65)] sm:bg-[rgba(255,255,255,0.75)] sm:shadow-soft sm:backdrop-blur-sm sm:border-[rgba(var(--border),0.7)]">
           <div>
             <div className="relative overflow-x-auto sm:rounded-[1.5rem] [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden sm:overflow-visible">
               <div
@@ -136,7 +136,7 @@ export function TeacherProfilePageView({
             </div>
 
             {showMobileScrollHint ? (
-              <div className="flex items-center justify-center gap-1.5 px-4 pb-3 pt-2 text-[11px] font-semibold uppercase tracking-[0.16em] text-foreground/45 sm:hidden">
+              <div className="flex items-center justify-center gap-1.5 px-4 pb-3 pt-2 text-[11px] font-semibold uppercase tracking-[0.16em] text-[rgba(var(--foreground),0.45)] sm:hidden">
                 <ChevronLeft className="h-3.5 w-3.5" />
                 <span>Переглянути ще</span>
                 <ChevronRight className="h-3.5 w-3.5" />
@@ -145,7 +145,7 @@ export function TeacherProfilePageView({
           </div>
         </div>
 
-        <div className="mt-4 sm:mt-8 rounded-[2rem] border border-border/70 bg-white p-6 shadow-card md:p-8">
+        <div className="mt-4 sm:mt-8 rounded-[2rem] border border-[rgba(var(--border),0.7)] bg-white p-6 shadow-card md:p-8">
           {activeTab === "general" ? (
             <div
               id={getPanelId("general")}
@@ -166,7 +166,7 @@ export function TeacherProfilePageView({
                         className="w-full object-cover"
                       />
                     ) : (
-                      <div className="flex aspect-[3/4] items-center justify-center text-6xl font-black text-white/90">
+                      <div className="flex aspect-[3/4] items-center justify-center text-6xl font-black text-[rgba(255,255,255,0.9)]">
                         {teacher.name
                           .split(" ")
                           .filter(Boolean)
@@ -194,7 +194,7 @@ export function TeacherProfilePageView({
                 </div>
 
                 <div>
-                  <p className="text-sm font-semibold uppercase tracking-[0.2em] text-primary/75">
+                  <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[rgba(var(--primary),0.75)]">
                     <Link
                       href={`/structure/cmks/${teacher.cycleCommission.slug}`}
                       className="transition-colors hover:text-primary"
@@ -208,10 +208,10 @@ export function TeacherProfilePageView({
 
                   {teacher.status || teacher.position ? (
                     <div className="mt-6 rounded-[1.5rem] bg-gradient-soft p-5">
-                      <h3 className="text-sm font-bold uppercase tracking-[0.18em] text-foreground/65">
+                      <h3 className="text-sm font-bold uppercase tracking-[0.18em] text-[rgba(var(--foreground),0.65)]">
                         Посада та кваліфікація
                       </h3>
-                      <p className="mt-3 text-base leading-7 text-foreground/80">
+                      <p className="mt-3 text-base leading-7 text-[rgba(var(--foreground),0.8)]">
                         {teacher.status || teacher.position}
                       </p>
                     </div>
@@ -221,7 +221,7 @@ export function TeacherProfilePageView({
                     {teacher.email ? (
                       <a
                         href={`mailto:${teacher.email}`}
-                        className="inline-flex items-center gap-2 rounded-full border border-border/70 bg-white px-4 py-2 text-foreground/80 shadow-soft transition-colors hover:text-primary"
+                        className="inline-flex items-center gap-2 rounded-full border border-[rgba(var(--border),0.7)] bg-white px-4 py-2 text-[rgba(var(--foreground),0.8)] shadow-soft transition-colors hover:text-primary"
                       >
                         <Mail className="h-4 w-4" />
                         <span>{teacher.email}</span>
@@ -231,7 +231,7 @@ export function TeacherProfilePageView({
                     {teacher.phone ? (
                       <a
                         href={`tel:${normalizePhone(teacher.phone)}`}
-                        className="inline-flex items-center gap-2 rounded-full border border-border/70 bg-white px-4 py-2 text-foreground/80 shadow-soft transition-colors hover:text-primary"
+                        className="inline-flex items-center gap-2 rounded-full border border-[rgba(var(--border),0.7)] bg-white px-4 py-2 text-[rgba(var(--foreground),0.8)] shadow-soft transition-colors hover:text-primary"
                       >
                         <Phone className="h-4 w-4" />
                         <span>{teacher.phone}</span>
@@ -240,7 +240,7 @@ export function TeacherProfilePageView({
                   </div>
 
                   <div className="mt-8">
-                    <h3 className="text-sm font-bold uppercase tracking-[0.18em] text-foreground/65">
+                    <h3 className="text-sm font-bold uppercase tracking-[0.18em] text-[rgba(var(--foreground),0.65)]">
                       Навчальні предмети
                     </h3>
 
@@ -249,14 +249,14 @@ export function TeacherProfilePageView({
                         {teacher.subjects.map((subject) => (
                           <li
                             key={subject}
-                            className="rounded-[1.25rem] border border-border/70 bg-white px-4 py-3 text-sm leading-6 text-foreground/80 shadow-soft"
+                            className="rounded-[1.25rem] border border-[rgba(var(--border),0.7)] bg-white px-4 py-3 text-sm leading-6 text-[rgba(var(--foreground),0.8)] shadow-soft"
                           >
                             «{subject}»
                           </li>
                         ))}
                       </ul>
                     ) : (
-                      <p className="mt-4 text-sm leading-7 text-foreground/75">
+                      <p className="mt-4 text-sm leading-7 text-[rgba(var(--foreground),0.75)]">
                         Інформація про предмети викладача наразі відсутня.
                       </p>
                     )}

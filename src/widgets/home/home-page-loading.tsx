@@ -22,11 +22,11 @@ export function HomePageLoading() {
         />
 
         <div className="absolute inset-0 bg-gradient-hero opacity-60" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_oklch(0.62_0.18_245_/_0.35),_transparent_60%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_rgba(var(--primary-glow),0.35),_transparent_60%)]" />
 
         <FloatingPromos />
 
-        <div className="animate-float-slow absolute -left-24 -top-24 h-96 w-96 rounded-full bg-primary-glow/30 blur-3xl" />
+        <div className="animate-float-slow absolute -left-24 -top-24 h-96 w-96 rounded-full bg-[rgba(var(--primary-glow),0.3)] blur-3xl" />
 
         <div
           className="relative container mx-auto flex min-h-[100svh] flex-col items-center justify-center px-4 pb-20 pt-28 md:px-6"
@@ -43,7 +43,7 @@ export function HomePageLoading() {
               </span>
             </h1>
 
-            <p className="text-sm 2xs:text-base xs:text-lg sm:text-xl mt-6 max-w-2xl text-primary-foreground/85">
+            <p className="text-sm 2xs:text-base xs:text-lg sm:text-xl mt-6 max-w-2xl text-[rgba(var(--primary-foreground),0.85)]">
               {HOME_HERO_DESCRIPTION}
             </p>
 
@@ -51,13 +51,13 @@ export function HomePageLoading() {
               <div className="inline-flex h-10 2xs:h-11 xs:h-12 items-center rounded-md bg-accent-gold px-4 xs:px-6 text-[12px] 2xs:text-sm font-bold text-accent-gold-foreground shadow-elegant">
                 Вступ 2026
               </div>
-              <div className="inline-flex h-10 2xs:h-11 xs:h-12 items-center rounded-md border border-white/30 bg-white/10 px-4 xs:px-6 text-[12px] 2xs:text-sm font-bold text-primary-foreground backdrop-blur-md">
+              <div className="inline-flex h-10 2xs:h-11 xs:h-12 items-center rounded-md border border-[rgba(255,255,255,0.3)] bg-[rgba(255,255,255,0.1)] px-4 xs:px-6 text-[12px] 2xs:text-sm font-bold text-primary-foreground backdrop-blur-md">
                 Переглянути розклад
               </div>
             </div>
 
             <div className="mt-8 w-full max-w-[90vw] xs:max-w-md">
-              <div className="flex items-center gap-3 rounded-full border border-white/15 bg-primary-deep/40 py-1 xs:py-1.5 pl-1.5 pr-2 backdrop-blur-md">
+              <div className="flex items-center gap-3 rounded-full border border-[rgba(255,255,255,0.15)] bg-[rgba(var(--primary-deep),0.4)] py-1 xs:py-1.5 pl-1.5 pr-2 backdrop-blur-md">
                 <span className="inline-flex items-center gap-1.5 rounded-full bg-accent-gold px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-accent-gold-foreground">
                   <span className="relative flex h-1.5 w-1.5">
                     <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-destructive opacity-75" />
@@ -67,14 +67,14 @@ export function HomePageLoading() {
                 </span>
 
                 <span className="min-w-0 flex-1">
-                  <span className="block h-3 w-full animate-pulse rounded-full bg-primary-foreground/20 xs:h-4" />
+                  <span className="block h-3 w-full animate-pulse rounded-full bg-[rgba(var(--primary-foreground),0.2)] xs:h-4" />
                 </span>
 
-                <span className="hidden shrink-0 text-[11px] tabular-nums text-primary-foreground/50 sm:inline">1/3</span>
+                <span className="hidden shrink-0 text-[11px] tabular-nums text-[rgba(var(--primary-foreground),0.5)] sm:inline">1/3</span>
 
                 <span className="flex shrink-0 items-center gap-0.5">
-                  <span className="flex h-7 w-7 items-center justify-center rounded-full bg-white/10" />
-                  <span className="flex h-7 w-7 items-center justify-center rounded-full bg-white/10" />
+                  <span className="flex h-7 w-7 items-center justify-center rounded-full bg-[rgba(255,255,255,0.1)]" />
+                  <span className="flex h-7 w-7 items-center justify-center rounded-full bg-[rgba(255,255,255,0.1)]" />
                 </span>
               </div>
             </div>

@@ -34,10 +34,10 @@ export function PageCardsPageBlock({ block }: { block: PageCardsBlock }) {
         <SmartLink
           key={card.id}
           href={card.href}
-          className="group rounded-[1.5rem] sm:rounded-[2rem] border border-border/80 bg-white p-2 pb-4 md:p-3 md:pb-4 lg:p-4 shadow-soft transition-smooth hover:-translate-y-1 hover:shadow-card"
+          className="group rounded-[1.5rem] sm:rounded-[2rem] border border-[rgba(var(--border),0.8)] bg-white p-2 pb-4 md:p-3 md:pb-4 lg:p-4 shadow-soft transition-smooth hover:-translate-y-1 hover:shadow-card"
         >
           {card.image ? (
-            <div className="overflow-hidden rounded-[1rem] sm:rounded-[1.5rem] bg-muted/30">
+            <div className="overflow-hidden rounded-[1rem] sm:rounded-[1.5rem] bg-[rgba(var(--muted),0.3)]">
               <Image
                 src={card.image.src}
                 alt={card.image.alt}

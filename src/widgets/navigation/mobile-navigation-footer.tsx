@@ -29,7 +29,7 @@ export function MobileNavigationFooter({ quickLinks, socialLinks, onClose }: Mob
                 href={item.href}
                 onClick={onClose}
                 /* text-muted-foreground */
-                className="inline-flex items-center gap-2 rounded-lg px-3 py-2 text-xs font-medium text-white transition-smooth hover:bg-accent/20"
+                className="inline-flex items-center gap-2 rounded-lg px-3 py-2 text-xs font-medium text-white transition-smooth hover:bg-[rgba(var(--accent),0.2)]"
               >
                 {item.iconSrc ? (
                   <img src={item.iconSrc} alt="" width={20} height={20} className="h-6 w-6 object-contain" />

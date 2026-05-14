@@ -43,7 +43,7 @@ export function MobileNavigationList({
                       : undefined
                   }
                   aria-label={`Відкрити підменю ${node.label}`}
-                  className="inline-flex h-[52px] w-[52px] shrink-0 items-center justify-center rounded-2xl bg-accent/60 text-muted-foreground transition-smooth hover:bg-accent active:bg-accent"
+                  className="inline-flex h-[52px] w-[52px] shrink-0 items-center justify-center rounded-2xl bg-[rgba(var(--accent),0.6)] text-muted-foreground transition-smooth hover:bg-accent active:bg-accent"
                 >
                   <ChevronRight className="h-6 w-6" />
                 </button>

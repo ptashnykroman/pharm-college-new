@@ -14,7 +14,7 @@ export function StructureSectionCard({
   return (
     <SmartLink
       href={item.href}
-      className="group relative block min-h-[260px] overflow-hidden rounded-[2rem] border border-border/70 bg-white shadow-card transition hover:-translate-y-1.5 hover:shadow-elegant"
+      className="group relative block min-h-[260px] overflow-hidden rounded-[2rem] border border-[rgba(var(--border),0.7)] bg-white shadow-card transition hover:-translate-y-1.5 hover:shadow-elegant"
     >
       <div className="absolute inset-0">
         {item.image ? (
@@ -30,7 +30,7 @@ export function StructureSectionCard({
         )}
       </div>
 
-      <div className="absolute inset-0 bg-gradient-to-t from-primary-deep via-primary/60 to-primary-deep/10 opacity-90 transition group-hover:opacity-95" />
+      <div className="absolute inset-0 bg-gradient-to-t from-primary-deep via-[rgba(var(--primary),0.6)] to-[rgba(var(--primary-deep),0.1)] opacity-90 transition group-hover:opacity-95" />
 
       <div className="relative flex min-h-[260px] flex-col justify-end p-6">
         <div className="mt-4 flex items-end justify-between gap-4">
@@ -38,7 +38,7 @@ export function StructureSectionCard({
             {item.title}
           </h2>
 
-          <span className="absolute right-4 top-4 inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-white/90 text-primary shadow-soft transition group-hover:translate-x-1">
+          <span className="absolute right-4 top-4 inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-[rgba(255,255,255,0.9)] text-primary shadow-soft transition group-hover:translate-x-1">
             <ArrowRight className="h-5 w-5" />
           </span>
         </div>

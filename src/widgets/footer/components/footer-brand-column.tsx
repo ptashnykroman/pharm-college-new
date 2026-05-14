@@ -36,11 +36,11 @@ export function FooterBrandColumn({ logoImage, socialLinks }: Pick<FooterViewMod
         </div>
         <div>
           <div className="font-bold">{SITE_NAME}</div>
-          <div className="text-[11px] uppercase tracking-wider text-primary-foreground/70">{SITE_NAME2}</div>
+          <div className="text-[11px] uppercase tracking-wider text-[rgba(var(--primary-foreground),0.7)]">{SITE_NAME2}</div>
         </div>
       </div>
 
-      <p className="mt-4 text-sm text-primary-foreground/75">{SITE_FULL_NAME}</p>
+      <p className="mt-4 text-sm text-[rgba(var(--primary-foreground),0.75)]">{SITE_FULL_NAME}</p>
 
       <div className="mt-5 flex gap-2">
         {socialLinks.map((item) => (

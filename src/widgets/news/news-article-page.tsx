@@ -42,11 +42,11 @@ export function NewsArticlePageView({
 }) {
   return (
     <section className="relative overflow-hidden bg-gradient-soft pb-20 pt-10 md:pb-24 md:pt-14">
-      <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/20 to-transparent" />
+      <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[rgba(var(--primary),0.2)] to-transparent" />
       <div className="container mx-auto px-4 md:px-6">
         <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_22rem] xl:gap-10">
-          <article className="overflow-hidden rounded-[2rem] border border-border/80 bg-white shadow-card">
-            <div className="border-b border-border/70 px-6 py-6 md:px-8">
+          <article className="overflow-hidden rounded-[2rem] border border-[rgba(var(--border),0.8)] bg-white shadow-card">
+            <div className="border-b border-[rgba(var(--border),0.7)] px-6 py-6 md:px-8">
               <div className="flex flex-wrap gap-3">
                 <ArticleMetaPill tone="accent">
                   {article.date.day} {article.date.monthLong} {article.date.year}
@@ -62,7 +62,7 @@ export function NewsArticlePageView({
             </div>
 
             {article.image ? (
-              <div className="flex max-h-[700px] items-center justify-center overflow-hidden border-b border-border/70">
+              <div className="flex max-h-[700px] items-center justify-center overflow-hidden border-b border-[rgba(var(--border),0.7)]">
                 <Image
                   priority
                   src={article.image.src}
@@ -87,7 +87,7 @@ export function NewsArticlePageView({
                   <h2 className="text-2xl font-black text-foreground">Відео</h2>
                   <iframe
                     title={article.title}
-                    className="mt-5 aspect-video w-full rounded-[1.75rem] border border-border/70 shadow-soft"
+                    className="mt-5 aspect-video w-full rounded-[1.75rem] border border-[rgba(var(--border),0.7)] shadow-soft"
                     src={`${article.videoEmbedUrl}?autoplay=0&controls=2`}
                     allowFullScreen
                   />

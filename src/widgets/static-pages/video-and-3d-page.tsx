@@ -32,7 +32,7 @@ function MediaCard({
       <DialogTrigger asChild>
         <button
           type="button"
-          className="group relative cursor-pointer overflow-hidden rounded-[2rem] border border-border/70 bg-white text-left shadow-card transition hover:-translate-y-1.5 hover:shadow-elegant"
+          className="group relative cursor-pointer overflow-hidden rounded-[2rem] border border-[rgba(var(--border),0.7)] bg-white text-left shadow-card transition hover:-translate-y-1.5 hover:shadow-elegant"
         >
           <div className="relative aspect-[4/3] overflow-hidden bg-gradient-hero">
             {image ? (
@@ -45,8 +45,8 @@ function MediaCard({
               />
             ) : null}
 
-            <div className="absolute inset-0 bg-gradient-to-t from-primary-deep/90 via-primary/20 to-transparent" />
-            <div className="absolute right-5 top-5 flex h-14 w-14 items-center justify-center rounded-full bg-white/90 text-primary shadow-soft">
+            <div className="absolute inset-0 bg-gradient-to-t from-[rgba(var(--primary-deep),0.9)] via-[rgba(var(--primary),0.2)] to-transparent" />
+            <div className="absolute right-5 top-5 flex h-14 w-14 items-center justify-center rounded-full bg-[rgba(255,255,255,0.9)] text-primary shadow-soft">
               {kind === 'video' ? <Play className="h-5 w-5" /> : <ScanSearch className="h-5 w-5" />}
             </div>
           </div>
@@ -80,9 +80,9 @@ function MediaCard({
 export function VideoAnd3dPageView({ data }: { data: VideoAnd3dPageData }) {
   return (
     <section className="relative overflow-hidden bg-gradient-soft py-12 md:py-16">
-      <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/20 to-transparent" />
-      <div className="absolute left-0 top-12 h-72 w-72 rounded-full bg-primary-glow/10 blur-3xl" />
-      <div className="absolute bottom-0 right-0 h-72 w-72 rounded-full bg-accent-gold/10 blur-3xl" />
+      <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[rgba(var(--primary),0.2)] to-transparent" />
+      <div className="absolute left-0 top-12 h-72 w-72 rounded-full bg-[rgba(var(--primary-glow),0.1)] blur-3xl" />
+      <div className="absolute bottom-0 right-0 h-72 w-72 rounded-full bg-[rgba(var(--accent-gold),0.1)] blur-3xl" />
 
       <div className="container relative mx-auto px-4 md:px-6">
         <div className="mx-auto max-w-4xl text-center">
@@ -97,7 +97,7 @@ export function VideoAnd3dPageView({ data }: { data: VideoAnd3dPageData }) {
               </div>
               <div>
                 <h2 className="text-2xl font-black text-foreground">3D-панорами</h2>
-                <p className="text-sm text-foreground/70">Інтерактивний 3D-перегляд навчальних приміщень</p>
+                <p className="text-sm text-[rgba(var(--foreground),0.7)]">Інтерактивний 3D-перегляд навчальних приміщень</p>
               </div>
             </div>
 
@@ -122,7 +122,7 @@ export function VideoAnd3dPageView({ data }: { data: VideoAnd3dPageData }) {
               </div>
               <div>
                 <h2 className="text-2xl font-black text-foreground">Відео</h2>
-                <p className="text-sm text-foreground/70">Добірка відеоматеріалів коледжу з відкриттям у діалозі.</p>
+                <p className="text-sm text-[rgba(var(--foreground),0.7)]">Добірка відеоматеріалів коледжу з відкриттям у діалозі.</p>
               </div>
             </div>
 

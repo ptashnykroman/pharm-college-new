@@ -7,11 +7,11 @@ export function FooterAddressColumn({ addressHtml, mapUrl }: { addressHtml: stri
   return (
     <div>
       <div className="text-sm font-semibold uppercase tracking-wider text-accent-gold">Адреса</div>
-      <ul className="mt-4 space-y-3 text-sm text-primary-foreground/80">
+      <ul className="mt-4 space-y-3 text-sm text-[rgba(var(--primary-foreground),0.8)]">
         <li className="flex items-start gap-2">
           <MapPin className="mt-0.5 h-4 w-4 text-accent-gold" />
           <div
-            className="leading-6 !text-sm !text-primary-foreground/80 ![&>p]:my-1"
+            className="leading-6 !text-sm !text-[rgba(var(--primary-foreground),0.8)] ![&>p]:my-1"
             dangerouslySetInnerHTML={{ __html: addressHtml }}
           />
         </li>

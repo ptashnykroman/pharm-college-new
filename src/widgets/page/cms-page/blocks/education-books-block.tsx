@@ -39,7 +39,7 @@ function CompactEducationBookCard({
 }) {
   return (
     <div className="!mx-2 inline-block w-full align-top !mt-0 sm:w-[calc(50%-16px)] md:w-[calc(33.333%-16px)] lg:w-[calc(25%-16px)]">
-      <BlockShell className="w-full h-full overflow-hidden border-border/70 !bg-white !p-0 shadow-soft">
+      <BlockShell className="w-full h-full overflow-hidden border-[rgba(var(--border),0.7)] !bg-white !p-0 shadow-soft">
         {imageItem ? (
           <EducationBookImage
             item={imageItem}
@@ -55,12 +55,12 @@ function CompactEducationBookCard({
           {block.authors ? (
             <details
               open={block.authors.default_open}
-              className="rounded-[1.25rem] border border-border/70 bg-gradient-soft"
+              className="rounded-[1.25rem] border border-[rgba(var(--border),0.7)] bg-gradient-soft"
             >
               <summary className="cursor-pointer list-none px-4 py-3 text-sm font-semibold marker:hidden">
                 {block.authors.title}
               </summary>
-              <div className="border-t border-border/70 px-4 py-4">
+              <div className="border-t border-[rgba(var(--border),0.7)] px-4 py-4">
                 <RichText html={block.authors.body} className="text-sm leading-6" />
               </div>
             </details>

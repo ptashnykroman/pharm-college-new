@@ -44,7 +44,7 @@ export function MobileNavigation({
         open ? "pointer-events-auto opacity-100" : "pointer-events-none opacity-0",
       )}
     >
-      <div onClick={onClose} className="absolute inset-0 bg-foreground/40 backdrop-blur-sm" />
+      <div onClick={onClose} className="absolute inset-0 bg-[rgba(var(--foreground),0.4)] backdrop-blur-sm" />
 
       <div
         className={cn(

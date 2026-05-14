@@ -46,10 +46,10 @@ export function TrustBoxPageView() {
           {TRUST_BOX_SECTIONS.map((section) => (
             <article
               key={section.title}
-              className="rounded-[2rem] border border-border/70 bg-white p-6 shadow-card md:p-8"
+              className="rounded-[2rem] border border-[rgba(var(--border),0.7)] bg-white p-6 shadow-card md:p-8"
             >
               <h2 className="text-2xl font-black text-foreground">{section.title}</h2>
-              <div className="mt-5 space-y-4 text-base leading-7 text-foreground/80">
+              <div className="mt-5 space-y-4 text-base leading-7 text-[rgba(var(--foreground),0.8)]">
                 {section.body.map((paragraph) => (
                   <p key={paragraph}>{paragraph}</p>
                 ))}
