@@ -245,21 +245,35 @@
       background-color 180ms cubic-bezier(0.4, 0, 0.2, 1),
       border-color 180ms cubic-bezier(0.4, 0, 0.2, 1),
       color 180ms cubic-bezier(0.4, 0, 0.2, 1),
-      box-shadow 180ms cubic-bezier(0.4, 0, 0.2, 1),
-      backdrop-filter 180ms cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow 180ms cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   html[data-header-scrolled="true"] .header-shell {
-    @apply border-b border-border bg-[rgba(var(--background),0.85)] backdrop-blur-xl;
+    @apply border-b border-border;
+    background-color: rgb(var(--background));
     box-shadow: var(--shadow-soft);
   }
 
   .header-top-bar {
-    @apply border-b border-[rgba(255,255,255,0.1)] bg-[rgba(var(--primary-deep),0.3)] backdrop-blur-md;
+    @apply border-b border-[rgba(255,255,255,0.1)];
+    background-color: rgba(var(--primary-deep), 0.72);
   }
 
   html[data-header-scrolled="true"] .header-top-bar {
-    @apply border-[rgba(var(--border),0.6)] bg-[rgba(var(--primary),0.8)];
+    @apply border-[rgba(var(--border),0.6)];
+    background-color: rgba(var(--primary), 0.92);
+  }
+
+  @supports ((-webkit-backdrop-filter: blur(16px)) or (backdrop-filter: blur(16px))) {
+    .header-top-bar {
+      background-color: rgba(var(--primary-deep), 0.26);
+      -webkit-backdrop-filter: blur(12px);
+      backdrop-filter: blur(12px);
+    }
+
+    html[data-header-scrolled="true"] .header-top-bar {
+      background-color: rgba(var(--primary), 0.8);
+    }
   }
 
   .header-brand-title {
