@@ -36,12 +36,7 @@ async function HomePageContent({ heroPromise, sectionsPromise }: HomePageContent
   )
 }
 
-// libs: embla-carousel, yet-another-react-lightbox, sentry
-// test: https://live.browserstack.com/
-
 // TODO:
 // Адаптація під старі браузери
-// Підключити sentry
-// Перевірити rich-text елементи в акордіоні
-// Зробити сторінку "Відео і 3д"
 // Налаштувати SEO
+// lighthouse performance 90+
