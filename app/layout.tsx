@@ -6,10 +6,7 @@ import { getSiteChromeData } from '@/widgets/header/data'
 import { SiteHeader } from '@/widgets/header/site-header'
 
 import './globals.css'
-import { Inter } from 'next/font/google'
 import { cn } from '@/lib/utils'
-
-const inter = Inter({ subsets: ['latin'], variable: '--font-sans' })
 
 const HEADER_SCROLL_BOOTSTRAP = `(() => {
   const root = document.documentElement;
@@ -71,7 +68,7 @@ export default async function RootLayout({
   return (
     <html
       lang="uk"
-      className={cn('h-full antialiased', 'font-sans', inter.variable)}
+      className={cn('h-full antialiased', 'font-sans')}
       data-header-scroll-ready="false"
       data-header-scrolled="false"
       suppressHydrationWarning

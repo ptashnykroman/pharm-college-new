@@ -66,12 +66,12 @@ function AccordionContent({
   return (
     <AccordionPrimitive.Content
       data-slot="accordion-content"
-      className="overflow-hidden border-t border-[rgba(var(--border),0.7)] text-sm data-open:animate-accordion-down data-closed:animate-accordion-up"
+      className="overflow-hidden border-t border-[rgba(var(--border),0.7)] text-sm data-[state=open]:animate-accordion-down data-[state=closed]:animate-accordion-up"
       {...props}
     >
       <div
         className={cn(
-          "h-(--radix-accordion-content-height) py-3 sm:py-5 px-3 sm:px-5 md:px-6",
+          "px-3 py-3 sm:px-5 sm:py-5 md:px-6",
           className,
         )}
       >

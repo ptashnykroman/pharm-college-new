@@ -96,7 +96,7 @@ export function NewsArticlePageView({
             </div>
           </article>
 
-          <aside className="space-y-8 lg:sticky lg:top-8 lg:self-start">
+          <aside className="space-y-8 lg:self-start">
             <section>
               <h2 className="mb-4 text-center text-2xl font-black text-foreground">
                 Останні новини
