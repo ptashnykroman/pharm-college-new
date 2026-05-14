@@ -12,7 +12,7 @@ export function GallerySection({ gallery }: { gallery: HomePageViewModel['galler
         </div>
 
         <div className="mt-14 grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-4 lg:gap-4">
-          {gallery.items.slice(0, 6).map((item) => (
+          {gallery.items.map((item) => (
             <a
               key={item.id}
               href={item.href}
