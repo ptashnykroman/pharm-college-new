@@ -1,17 +1,16 @@
-import { GraduationCap } from 'lucide-react'
+import { ArrowUpRight, CalendarRange, GraduationCap } from 'lucide-react'
 
 import type {
+  ExamSchedulePageViewModel,
+  ExamScheduleProgramSection,
+  ExamScheduleStudyFormSection,
   EmbeddedScheduleViewModel,
   ScheduleDepartmentSection,
   ScheduleTeacherSection,
 } from '@/widgets/schedule/data'
 import { SmartLink } from '../navigation/smart-link'
 
-function GroupDirectorySection({
-  section,
-}: {
-  section: ScheduleDepartmentSection
-}) {
+function GroupDirectorySection({ section }: { section: ScheduleDepartmentSection }) {
   return (
     <article className="rounded-[1.5rem] border border-border/70 bg-white px-2 py-6 shadow-card sm:rounded-[2rem] sm:p-6 md:p-8">
       <div className="flex items-center gap-2 sm:gap-4">
@@ -19,32 +18,21 @@ function GroupDirectorySection({
           <GraduationCap className="h-4 w-4 sm:h-5 sm:w-5" />
         </div>
         <div>
-          <h2 className="text-lg leading-tight font-black text-foreground sm:text-xl md:text-2xl">
-            {section.title}
-          </h2>
+          <h2 className="text-lg leading-tight font-black text-foreground sm:text-xl md:text-2xl">{section.title}</h2>
           {section.subtitle ? (
-            <p className="mt-0.5 text-xs text-foreground/70 sm:text-sm md:text-md">
-              {section.subtitle}
-            </p>
+            <p className="mt-0.5 text-xs text-foreground/70 sm:text-sm md:text-md">{section.subtitle}</p>
           ) : null}
         </div>
       </div>
 
       <div className="mt-6 space-y-6">
         {section.specialties.map((specialty) => (
-          <div
-            key={specialty.id}
-            className="rounded-[1.5rem] border border-border/70 bg-muted/20 px-3 py-5 sm:p-5"
-          >
-            <h3 className="text-base leading-tight font-black text-foreground sm:text-lg">
-              {specialty.title}
-            </h3>
+          <div key={specialty.id} className="rounded-[1.5rem] border border-border/70 bg-muted/20 px-3 py-5 sm:p-5">
+            <h3 className="text-base leading-tight font-black text-foreground sm:text-lg">{specialty.title}</h3>
             <div className="mt-4 grid gap-4">
               {specialty.degrees.map((degree) => (
                 <div key={degree.id}>
-                  <p className="text-sm font-bold text-primary">
-                    {degree.title}
-                  </p>
+                  <p className="text-sm font-bold text-primary">{degree.title}</p>
                   <div className="mt-3 flex flex-wrap gap-2 sm:gap-3">
                     {degree.groups.map((group) => (
                       <SmartLink
@@ -66,16 +54,10 @@ function GroupDirectorySection({
   )
 }
 
-function TeacherDirectorySection({
-  section,
-}: {
-  section: ScheduleTeacherSection
-}) {
+function TeacherDirectorySection({ section }: { section: ScheduleTeacherSection }) {
   return (
     <article className="rounded-[1.5rem] border border-border/70 bg-white p-4 shadow-card sm:rounded-[2rem] sm:p-6 md:p-8">
-      <h2 className="text-base font-black text-foreground sm:text-xl">
-        {section.title}
-      </h2>
+      <h2 className="text-base font-black text-foreground sm:text-xl">{section.title}</h2>
       <div className="mt-4 flex flex-wrap gap-2 sm:gap-3">
         {section.teachers.map((teacher) => (
           <SmartLink
@@ -85,6 +67,64 @@ function TeacherDirectorySection({
           >
             {teacher.label}
           </SmartLink>
+        ))}
+      </div>
+    </article>
+  )
+}
+
+function ExamScheduleProgramCard({ program }: { program: ExamScheduleProgramSection }) {
+  return (
+    <div className="rounded-[1.5rem] border border-border/70 bg-white p-4 shadow-soft sm:p-5">
+      <div className="flex items-start justify-between gap-3">
+        <h4 className="text-sm leading-snug font-black text-foreground sm:text-base">{program.title}</h4>
+        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-[1rem] bg-primary/8 text-primary">
+          <CalendarRange className="h-5 w-5" />
+        </div>
+      </div>
+
+      <div className="mt-4 grid gap-3 sm:grid-cols-2">
+        {program.items.map((item) => (
+          <SmartLink
+            key={item.id}
+            className="group flex min-h-14 items-center justify-between gap-3 rounded-[1rem] border border-primary/20 bg-white px-4 py-3 text-left text-sm font-semibold text-foreground shadow-soft transition-bounce hover:-translate-y-0.5 hover:border-primary/40 hover:bg-accent/70 hover:text-primary"
+            href={item.href}
+            ariaLabel={`Відкрити ${item.label}`}
+          >
+            <span>{item.label}</span>
+            <ArrowUpRight className="h-4 w-4 shrink-0 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+          </SmartLink>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+function ExamScheduleStudyFormCard({ section }: { section: ExamScheduleStudyFormSection }) {
+  return (
+    <article className="rounded-[1.75rem] border border-border/70 bg-white/95 shadow-card backdrop-blur sm:rounded-[2rem] p-3 sm:p-6 md:p-8">
+      <div className="flex items-center gap-3">
+        <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-[1.1rem] bg-primary text-primary-foreground shadow-soft">
+          <CalendarRange className="h-5 w-5" />
+        </div>
+        <div>
+          <h2 className="text-xl leading-tight font-black text-foreground sm:text-2xl">{section.title}</h2>
+        </div>
+      </div>
+
+      <div className="mt-6 space-y-6">
+        {section.specialties.map((specialty) => (
+          <section
+            key={specialty.id}
+            className="rounded-[1.5rem] border border-border/70 bg-muted/20 p-4 sm:p-5 md:p-6"
+          >
+            <h3 className="text-lg leading-tight font-black text-foreground sm:text-xl">{specialty.title}</h3>
+            <div className="mt-4 grid gap-4">
+              {specialty.programs.map((program) => (
+                <ExamScheduleProgramCard key={program.id} program={program} />
+              ))}
+            </div>
+          </section>
         ))}
       </div>
     </article>
@@ -106,9 +146,7 @@ export function ScheduleLandingPageView({
 
       <div className="container relative mx-auto px-2 sm:px-4 md:px-6">
         <div className="mx-auto max-w-4xl text-center">
-          <h1 className="mt-5 text-3xl font-black text-foreground sm:text-4xl">
-            Групи
-          </h1>
+          <h1 className="mt-5 text-3xl font-black text-foreground sm:text-4xl">Групи</h1>
         </div>
 
         <div className="mt-10 grid gap-10">
@@ -120,9 +158,7 @@ export function ScheduleLandingPageView({
 
           <div>
             <div className="mx-auto max-w-4xl text-center">
-              <h1 className="mt-5 text-3xl font-black text-foreground sm:text-4xl">
-                Викладачі
-              </h1>
+              <h1 className="mt-5 text-3xl font-black text-foreground sm:text-4xl">Викладачі</h1>
             </div>
 
             <div className="mt-6 grid gap-6">
@@ -137,11 +173,7 @@ export function ScheduleLandingPageView({
   )
 }
 
-export function GroupScheduleDirectoryPageView({
-  sections,
-}: {
-  sections: ScheduleDepartmentSection[]
-}) {
+export function GroupScheduleDirectoryPageView({ sections }: { sections: ScheduleDepartmentSection[] }) {
   return (
     <section className="relative overflow-hidden bg-gradient-soft py-12 md:py-16">
       <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/20 to-transparent" />
@@ -150,9 +182,7 @@ export function GroupScheduleDirectoryPageView({
 
       <div className="container relative mx-auto px-0 sm:px-4 md:px-6">
         <div className="mx-auto max-w-4xl text-center">
-          <h1 className="mt-5 text-3xl font-black text-foreground sm:text-4xl">
-            Групи
-          </h1>
+          <h1 className="mt-5 text-3xl font-black text-foreground sm:text-4xl">Групи</h1>
         </div>
 
         <div className="mt-10 grid gap-6">
@@ -165,11 +195,7 @@ export function GroupScheduleDirectoryPageView({
   )
 }
 
-export function TeacherScheduleDirectoryPageView({
-  sections,
-}: {
-  sections: ScheduleTeacherSection[]
-}) {
+export function TeacherScheduleDirectoryPageView({ sections }: { sections: ScheduleTeacherSection[] }) {
   return (
     <section className="relative overflow-hidden bg-gradient-soft py-12 md:py-16">
       <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/20 to-transparent" />
@@ -178,9 +204,7 @@ export function TeacherScheduleDirectoryPageView({
 
       <div className="container relative mx-auto px-4 md:px-6">
         <div className="mx-auto max-w-4xl text-center">
-          <h1 className="mt-5 text-3xl font-black text-foreground sm:text-4xl">
-            Викладачі
-          </h1>
+          <h1 className="mt-5 text-3xl font-black text-foreground sm:text-4xl">Викладачі</h1>
         </div>
 
         <div className="mt-10 grid gap-6">
@@ -193,11 +217,31 @@ export function TeacherScheduleDirectoryPageView({
   )
 }
 
-export function EmbeddedSchedulePageView({
-  item,
-}: {
-  item: EmbeddedScheduleViewModel
-}) {
+export function ExamSchedulePageView({ page }: { page: ExamSchedulePageViewModel }) {
+  return (
+    <section className="relative overflow-hidden bg-gradient-soft py-12 md:py-16">
+      <div className="container relative mx-auto sm:px-4 md:px-6">
+        <div className="mx-auto max-w-4xl text-center">
+          <h1 className="mt-5 text-3xl font-black text-foreground sm:text-4xl">{page.title}</h1>
+        </div>
+
+        {page.sections.length ? (
+          <div className="mt-8 grid gap-6 md:gap-8">
+            {page.sections.map((section) => (
+              <ExamScheduleStudyFormCard key={section.id} section={section} />
+            ))}
+          </div>
+        ) : (
+          <article className="mt-8 rounded-[1.75rem] border border-dashed border-border bg-white/90 p-8 text-center shadow-soft">
+            <h2 className="text-xl font-black text-foreground">Розклад екзаменів поки що не опублікований</h2>
+          </article>
+        )}
+      </div>
+    </section>
+  )
+}
+
+export function EmbeddedSchedulePageView({ item }: { item: EmbeddedScheduleViewModel }) {
   return (
     <section className="relative overflow-hidden bg-gradient-soft py-12 md:py-16">
       <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/20 to-transparent" />
@@ -206,9 +250,7 @@ export function EmbeddedSchedulePageView({
 
       <div className="container relative mx-auto sm:px-4 md:px-6">
         <div className="mx-auto max-w-4xl text-center">
-          <h1 className="mt-5 text-3xl font-black text-foreground sm:text-4xl">
-            {item.title}
-          </h1>
+          <h1 className="mt-5 text-3xl font-black text-foreground sm:text-4xl">{item.title}</h1>
         </div>
 
         <div className="mt-10 overflow-hidden rounded-[2rem] border border-border/70 bg-white p-2 shadow-card sm:p-3 md:p-4">

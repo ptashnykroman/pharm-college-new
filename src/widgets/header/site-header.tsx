@@ -15,8 +15,8 @@ import { DesktopNavigation } from '@/widgets/navigation/desktop-navigation'
 import { MobileNavigation } from '@/widgets/navigation/mobile-navigation'
 import { SiteSearchDialog } from '@/widgets/search/site-search-dialog'
 
-const SEARCH_LABEL = '\u041f\u043e\u0448\u0443\u043a'
-const MENU_LABEL = '\u041c\u0435\u043d\u044e'
+const SEARCH_LABEL = 'Пошук'
+const MENU_LABEL = 'Меню'
 
 export function SiteHeader({ data }: { data: HeaderViewModel }) {
   const [open, setOpen] = useState(false)

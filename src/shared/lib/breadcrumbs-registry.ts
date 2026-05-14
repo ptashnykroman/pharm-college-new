@@ -62,6 +62,10 @@ export const STATIC_BREADCRUMB_TRAILS: Record<
     { label: 'Розклад', href: '/rozklad' },
     { label: 'Викладачі' },
   ],
+  '/exam-schedule': [
+    { label: 'Розклад', href: '/rozklad' },
+    { label: 'Розклад екзаменів', href: '/exam-schedule' },
+  ],
   '/structure/cmks': [
     { label: 'Структура', href: '/structure' },
     { label: 'Циклові комісії', href: '/structure/cmks' },

@@ -10,7 +10,10 @@ const GENERAL_INFO_ROWS = [
     program: 'Pharmacy',
     educationBackground: (
       <>
-        <a href="https://drive.google.com/file/d/1npa0f3KYWGm-639hG4Gm-1vywLYDC6Bo/view" className="font-semibold text-primary underline-offset-4 hover:underline">
+        <a
+          href="https://drive.google.com/file/d/1npa0f3KYWGm-639hG4Gm-1vywLYDC6Bo/view"
+          className="font-semibold text-primary underline-offset-4 hover:underline"
+        >
           I (baccalaureate)
         </a>
       </>
@@ -24,7 +27,10 @@ const GENERAL_INFO_ROWS = [
     program: 'Pharmacy',
     educationBackground: (
       <>
-        <a href="https://drive.google.com/file/d/1npa0f3KYWGm-639hG4Gm-1vywLYDC6Bo/view" className="font-semibold text-primary underline-offset-4 hover:underline">
+        <a
+          href="https://drive.google.com/file/d/1npa0f3KYWGm-639hG4Gm-1vywLYDC6Bo/view"
+          className="font-semibold text-primary underline-offset-4 hover:underline"
+        >
           I (baccalaureate)
         </a>
       </>
@@ -38,7 +44,10 @@ const GENERAL_INFO_ROWS = [
     program: 'Pharmacy',
     educationBackground: (
       <>
-        <a href="https://drive.google.com/drive/folders/186VHbPxrtxX9XAQAyUTu9JhlVaob4ghj" className="font-semibold text-primary underline-offset-4 hover:underline">
+        <a
+          href="https://drive.google.com/drive/folders/186VHbPxrtxX9XAQAyUTu9JhlVaob4ghj"
+          className="font-semibold text-primary underline-offset-4 hover:underline"
+        >
           Junior specialist, Junior Bachelor
         </a>
       </>
@@ -52,7 +61,10 @@ const GENERAL_INFO_ROWS = [
     program: 'Pharmacy',
     educationBackground: (
       <>
-        <a href="https://drive.google.com/drive/folders/186VHbPxrtxX9XAQAyUTu9JhlVaob4ghj" className="font-semibold text-primary underline-offset-4 hover:underline">
+        <a
+          href="https://drive.google.com/drive/folders/186VHbPxrtxX9XAQAyUTu9JhlVaob4ghj"
+          className="font-semibold text-primary underline-offset-4 hover:underline"
+        >
           Junior specialist, Junior Bachelor
         </a>
       </>
@@ -66,7 +78,10 @@ const GENERAL_INFO_ROWS = [
     program: 'Pharmacy',
     educationBackground: (
       <>
-        <a href="https://drive.google.com/drive/folders/186VHbPxrtxX9XAQAyUTu9JhlVaob4ghj" className="font-semibold text-primary underline-offset-4 hover:underline">
+        <a
+          href="https://drive.google.com/drive/folders/186VHbPxrtxX9XAQAyUTu9JhlVaob4ghj"
+          className="font-semibold text-primary underline-offset-4 hover:underline"
+        >
           Junior specialist, Junior Bachelor
         </a>
       </>
@@ -95,19 +110,9 @@ const GENERAL_INFO_ROWS = [
 export function GeneralInfoPageView({ principal }: { principal: AdministrationCardViewModel | null }) {
   return (
     <section className="relative overflow-hidden bg-gradient-soft py-12 md:py-16">
-      <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/20 to-transparent" />
-      <div className="absolute left-0 top-16 h-72 w-72 rounded-full bg-primary-glow/10 blur-3xl" />
-      <div className="absolute bottom-0 right-0 h-72 w-72 rounded-full bg-accent-gold/10 blur-3xl" />
-
       <div className="container relative mx-auto px-4 md:px-6">
         <div className="mx-auto max-w-4xl text-center">
-          <span className="inline-flex rounded-full border border-primary/15 bg-white/80 px-4 py-1 text-xs font-bold uppercase tracking-[0.24em] text-primary shadow-soft">
-            International page
-          </span>
           <h1 className="mt-5 text-3xl font-black text-foreground sm:text-4xl">General Information</h1>
-          <p className="mt-5 text-lg leading-8 text-foreground/75">
-            Key contact details and overview of educational programs for international visitors and partners.
-          </p>
         </div>
 
         <div className="mt-10 grid gap-6 xl:grid-cols-[minmax(0,1.2fr)_minmax(0,1fr)]">
@@ -115,19 +120,19 @@ export function GeneralInfoPageView({ principal }: { principal: AdministrationCa
             <iframe
               src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6291.689037301852!2d28.64056024719695!3d50.244635952177546!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x472c648aed44e5cf%3A0x8c8080cc023799b!2z0JbQuNGC0L7QvNC40YDRgdGM0LrQuNC5INCx0LDQt9C-0LLQuNC5INGE0LDRgNC80LDRhtC10LLRgtC40YfQvdC40Lkg0YTQsNGF0L7QstC40Lkg0LrQvtC70LXQtNC2INCW0LjRgtC-0LzQuNGA0YHRjNC60L7RlyDQvtCx0LvQsNGB0L3QvtGXINGA0LDQtNC4!5e0!3m2!1sru!2sua!4v1688215841222!5m2!1sru!2sua"
               title="Zhytomyr Basic Pharmaceutical Professional College map"
-              className="h-[360px] w-full"
+              className="min-h-[400px] h-full w-full"
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
             />
           </div>
 
           <div className="grid gap-6">
-            <article className="rounded-[2rem] border border-border/70 bg-white p-6 shadow-card md:p-8">
+            <article className="rounded-[2rem] border border-border/70 bg-white shadow-card p-4 md:p-6">
               <div className="flex items-center gap-3 text-primary">
                 <MapPin className="h-5 w-5" />
                 <h2 className="text-xl font-black text-foreground">Correspondence Address</h2>
               </div>
-              <div className="mt-5 space-y-2 text-base leading-7 text-foreground/80">
+              <div className="mt-2 text-base leading-7 text-foreground/80">
                 <p>99 Chudnivska Street</p>
                 <p>Zhytomyr, 10005</p>
                 <p>Ukraine</p>
@@ -146,11 +151,11 @@ export function GeneralInfoPageView({ principal }: { principal: AdministrationCa
               </div>
             </article>
 
-            <article className="rounded-[2rem] border border-border/70 bg-white p-6 shadow-card md:p-8">
+            <article className="rounded-[2rem] border border-border/70 bg-white shadow-card p-4 md:p-6">
               <h2 className="text-xl font-black text-foreground">Principal</h2>
               {principal ? (
                 <div className="mt-5 flex flex-col gap-5 sm:flex-row">
-                  <div className="overflow-hidden rounded-[1.5rem] bg-gradient-hero sm:w-44">
+                  <div className="overflow-hidden rounded-[1.5rem] bg-gradient-hero max-w-50 sm:w-40">
                     {principal.photo ? (
                       <Image
                         src={principal.photo.src}
@@ -176,13 +181,19 @@ export function GeneralInfoPageView({ principal }: { principal: AdministrationCa
                     {principal.position ? <p className="mt-2 text-base text-primary">{principal.position}</p> : null}
                     <div className="mt-4 space-y-3 text-sm text-foreground/80">
                       {principal.phone ? (
-                        <a href={`tel:${principal.phone}`} className="inline-flex items-center gap-2 hover:text-primary">
+                        <a
+                          href={`tel:${principal.phone}`}
+                          className="inline-flex items-center gap-2 hover:text-primary"
+                        >
                           <Phone className="h-4 w-4" />
                           <span>{principal.phone}</span>
                         </a>
                       ) : null}
                       {principal.email ? (
-                        <a href={`mailto:${principal.email}`} className="flex items-center gap-2 break-all hover:text-primary">
+                        <a
+                          href={`mailto:${principal.email}`}
+                          className="flex items-center gap-2 break-all hover:text-primary"
+                        >
                           <Mail className="h-4 w-4" />
                           <span>{principal.email}</span>
                         </a>
@@ -199,22 +210,24 @@ export function GeneralInfoPageView({ principal }: { principal: AdministrationCa
           </div>
         </div>
 
-        <div className="mt-10 overflow-hidden rounded-[2rem] border border-border/70 bg-white shadow-card">
-          <div className="overflow-x-auto">
-            <table className="min-w-full border-collapse text-left">
-              <thead className="bg-primary-deep text-sm uppercase tracking-[0.14em] text-primary-foreground">
-                <tr>
-                  <th className="px-4 py-4 font-bold">Field of Expertise</th>
-                  <th className="px-4 py-4 font-bold">Program Subject Area</th>
-                  <th className="px-4 py-4 font-bold">Education Program</th>
-                  <th className="px-4 py-4 font-bold">Educational Background</th>
-                  <th className="px-4 py-4 font-bold">Form of Study</th>
-                  <th className="px-4 py-4 font-bold">Term of Study</th>
-                </tr>
-              </thead>
+        <div className="mt-10 rich-text">
+          <div className="overflow-x-auto rich-text__table-wrap">
+            <table className="min-w-full">
               <tbody>
+                <tr>
+                  <th className="px-4 py-4 font-bold !text-white border-r border-white">Field of Expertise</th>
+                  <th className="px-4 py-4 font-bold !text-white border-r border-white">Program Subject Area</th>
+                  <th className="px-4 py-4 font-bold !text-white border-r border-white">Education Program</th>
+                  <th className="px-4 py-4 font-bold !text-white border-r border-white">Educational Background</th>
+                  <th className="px-4 py-4 font-bold !text-white border-r border-white">Form of Study</th>
+                  <th className="px-4 py-4 font-bold !text-white">Term of Study</th>
+                </tr>
+
                 {GENERAL_INFO_ROWS.map((row, index) => (
-                  <tr key={`${row.program}-${row.term}-${index}`} className="border-t border-border/70 align-top text-sm leading-6 text-foreground/80">
+                  <tr
+                    key={`${row.program}-${row.term}-${index}`}
+                    className="align-top text-sm leading-6 text-foreground/80"
+                  >
                     <td className="px-4 py-4 font-semibold text-foreground">{row.field}</td>
                     <td className="px-4 py-4">{row.subject}</td>
                     <td className="px-4 py-4">{row.program}</td>
