@@ -45,7 +45,7 @@ function MediaCard({
               />
             ) : null}
 
-            <div className="absolute inset-0 bg-gradient-to-t from-[rgba(var(--primary-deep),0.9)] via-[rgba(var(--primary),0.2)] to-transparent" />
+            <div className="absolute inset-0 bg-gradient-video-overlay" />
             <div className="absolute right-5 top-5 flex h-14 w-14 items-center justify-center rounded-full bg-[rgba(255,255,255,0.9)] text-primary shadow-soft">
               {kind === 'video' ? <Play className="h-5 w-5" /> : <ScanSearch className="h-5 w-5" />}
             </div>
@@ -80,7 +80,7 @@ function MediaCard({
 export function VideoAnd3dPageView({ data }: { data: VideoAnd3dPageData }) {
   return (
     <section className="relative overflow-hidden bg-gradient-soft py-12 md:py-16">
-      <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[rgba(var(--primary),0.2)] to-transparent" />
+      <div className="absolute inset-x-0 top-0 h-px bg-gradient-divider" />
       <div className="absolute left-0 top-12 h-72 w-72 rounded-full bg-[rgba(var(--primary-glow),0.1)] blur-3xl" />
       <div className="absolute bottom-0 right-0 h-72 w-72 rounded-full bg-[rgba(var(--accent-gold),0.1)] blur-3xl" />
 

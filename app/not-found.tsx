@@ -4,7 +4,7 @@ export default function NotFound() {
   return (
     <div className="relative overflow-hidden bg-background">
       <div className="absolute inset-x-0 top-0 h-26 bg-primary-deep" />
-      <div className="absolute inset-x-0 top-0 h-26 bg-gradient-stats to-transparent" />
+      <div className="absolute inset-x-0 top-0 h-26 bg-gradient-stats" />
 
       <div className="container relative mx-auto px-4 pb-20 pt-36 md:px-6">
         <div className="mx-auto max-w-2xl rounded-3xl border border-border bg-white p-10 text-center shadow-card">

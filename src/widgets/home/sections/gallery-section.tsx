@@ -28,7 +28,7 @@ export function GallerySection({ gallery }: { gallery: HomePageViewModel['galler
                 sizes="(max-width: 768px) 50vw, 33vw"
                 className="object-cover transition-bounce group-hover:scale-110"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-[rgba(var(--primary-deep),0.85)] via-[rgba(var(--primary-deep),0.2)] to-transparent" />
+              <div className="absolute inset-0 bg-gradient-gallery-overlay" />
               <div className="absolute inset-x-0 bottom-0 p-2 sm:p-4 md:p-3 lg:p-5">
                 <div className="text-sm font-semibold text-primary-foreground md:text-base">{item.title}</div>
               </div>

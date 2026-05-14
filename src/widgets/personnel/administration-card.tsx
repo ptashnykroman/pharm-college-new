@@ -20,7 +20,7 @@ export function AdministrationCard({
 }) {
   return (
     <article className="group flex h-full flex-col">
-      <div className="relative overflow-hidden rounded-t-[2rem] bg-gradient-to-br from-primary-deep via-primary to-primary-glow shadow-card">
+      <div className="relative overflow-hidden rounded-t-[2rem] bg-gradient-brand-surface shadow-card">
         {person.photo ? (
           <Image
             src={person.photo.src}
@@ -30,12 +30,12 @@ export function AdministrationCard({
             className="h-[360px] w-full object-cover transition duration-500 group-hover:scale-[1.04]"
           />
         ) : (
-          <div className="flex h-[360px] items-center justify-center bg-gradient-to-br from-primary-deep via-primary to-primary-glow text-6xl font-black text-[rgba(255,255,255,0.9)]">
+          <div className="flex h-[360px] items-center justify-center bg-gradient-brand-surface text-6xl font-black text-[rgba(255,255,255,0.9)]">
             {getInitials(person.name)}
           </div>
         )}
 
-        <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-primary-deep via-[rgba(var(--primary),0.9)] to-transparent px-5 pb-5 pt-16">
+        <div className="absolute inset-x-0 bottom-0 bg-gradient-admin-overlay px-5 pb-5 pt-16">
           {person.position ? (
             <p className="text-balance text-lg font-bold leading-6 text-white">
               {person.position}

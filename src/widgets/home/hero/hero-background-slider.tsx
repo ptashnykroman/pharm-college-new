@@ -54,7 +54,7 @@ export function HeroBackgroundSlider({
       {showOverlays ? (
         <>
           <div className="absolute inset-0 bg-gradient-hero opacity-60" />
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_rgba(var(--primary-glow),0.35),_transparent_60%)]" />
+          <div className="absolute inset-0 bg-gradient-hero-radial" />
         </>
       ) : null}
     </div>

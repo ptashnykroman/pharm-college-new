@@ -103,8 +103,8 @@ export function EventsSection({
   return (
     <section id="events" className="relative overflow-hidden py-20 md:py-28">
       <div className="absolute inset-0 -z-10 bg-primary-deep">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,_rgba(var(--primary-glow),0.4),_transparent_50%)]" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_80%_80%,_rgba(var(--accent-gold),0.18),_transparent_55%)]" />
+        <div className="absolute inset-0 bg-gradient-events-primary-glow" />
+        <div className="absolute inset-0 bg-gradient-events-gold-glow" />
         <div
           className="absolute inset-0 opacity-[0.08]"
           style={{
@@ -180,7 +180,7 @@ export function EventsSection({
                         className="object-cover transition-bounce duration-500 group-hover:scale-110"
                       />
                     ) : null}
-                    <div className="absolute inset-0 bg-gradient-to-br from-[rgba(var(--primary-deep),0.7)] via-[rgba(var(--primary),0.4)] to-transparent" />
+                    <div className="absolute inset-0 bg-gradient-events-overlay" />
 
                     <span className="absolute right-4 top-4 rounded-full bg-primary px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-primary-foreground shadow-soft">
                       Подія

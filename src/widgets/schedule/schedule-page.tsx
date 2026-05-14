@@ -140,7 +140,7 @@ export function ScheduleLandingPageView({
 }) {
   return (
     <section className="relative overflow-hidden bg-gradient-soft py-12 md:py-16">
-      <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[rgba(var(--primary),0.2)] to-transparent" />
+      <div className="absolute inset-x-0 top-0 h-px bg-gradient-divider" />
       <div className="absolute top-12 left-0 h-72 w-72 rounded-full bg-[rgba(var(--primary-glow),0.1)] blur-3xl" />
       <div className="absolute right-0 bottom-0 h-72 w-72 rounded-full bg-[rgba(var(--accent-gold),0.1)] blur-3xl" />
 
@@ -176,7 +176,7 @@ export function ScheduleLandingPageView({
 export function GroupScheduleDirectoryPageView({ sections }: { sections: ScheduleDepartmentSection[] }) {
   return (
     <section className="relative overflow-hidden bg-gradient-soft py-12 md:py-16">
-      <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[rgba(var(--primary),0.2)] to-transparent" />
+      <div className="absolute inset-x-0 top-0 h-px bg-gradient-divider" />
       <div className="absolute top-12 left-0 h-72 w-72 rounded-full bg-[rgba(var(--primary-glow),0.1)] blur-3xl" />
       <div className="absolute right-0 bottom-0 h-72 w-72 rounded-full bg-[rgba(var(--accent-gold),0.1)] blur-3xl" />
 
@@ -198,7 +198,7 @@ export function GroupScheduleDirectoryPageView({ sections }: { sections: Schedul
 export function TeacherScheduleDirectoryPageView({ sections }: { sections: ScheduleTeacherSection[] }) {
   return (
     <section className="relative overflow-hidden bg-gradient-soft py-12 md:py-16">
-      <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[rgba(var(--primary),0.2)] to-transparent" />
+      <div className="absolute inset-x-0 top-0 h-px bg-gradient-divider" />
       <div className="absolute top-12 left-0 h-72 w-72 rounded-full bg-[rgba(var(--primary-glow),0.1)] blur-3xl" />
       <div className="absolute right-0 bottom-0 h-72 w-72 rounded-full bg-[rgba(var(--accent-gold),0.1)] blur-3xl" />
 
@@ -244,7 +244,7 @@ export function ExamSchedulePageView({ page }: { page: ExamSchedulePageViewModel
 export function EmbeddedSchedulePageView({ item }: { item: EmbeddedScheduleViewModel }) {
   return (
     <section className="relative overflow-hidden bg-gradient-soft py-12 md:py-16">
-      <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[rgba(var(--primary),0.2)] to-transparent" />
+      <div className="absolute inset-x-0 top-0 h-px bg-gradient-divider" />
       <div className="absolute top-12 left-0 h-72 w-72 rounded-full bg-[rgba(var(--primary-glow),0.1)] blur-3xl" />
       <div className="absolute right-0 bottom-0 h-72 w-72 rounded-full bg-[rgba(var(--accent-gold),0.1)] blur-3xl" />
 

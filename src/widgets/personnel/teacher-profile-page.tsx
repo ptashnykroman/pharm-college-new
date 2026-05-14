@@ -156,7 +156,7 @@ export function TeacherProfilePageView({
             >
               <div className="grid gap-8 lg:grid-cols-[minmax(240px,320px)_minmax(0,1fr)]">
                 <div className="space-y-4">
-                  <div className="overflow-hidden mx-auto !max-w-[320px] rounded-[2rem] bg-gradient-to-br from-primary-deep via-primary to-primary-glow shadow-soft">
+                  <div className="overflow-hidden mx-auto !max-w-[320px] rounded-[2rem] bg-gradient-brand-surface shadow-soft">
                     {teacher.photo ? (
                       <Image
                         src={teacher.photo.src}

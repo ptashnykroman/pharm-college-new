@@ -133,7 +133,7 @@ export function CmkMainPhotoGallery({ images }: { images: ResolvedImage[] }) {
           )
         })}
 
-        <div className="absolute inset-x-0 bottom-0 flex items-center justify-between gap-3 bg-gradient-to-t from-[rgba(var(--primary-deep),0.8)] via-[rgba(var(--primary),0.35)] to-transparent px-4 pb-4 pt-16">
+        <div className="absolute inset-x-0 bottom-0 flex items-center justify-between gap-3 bg-gradient-gallery-caption px-4 pb-4 pt-16">
           <button
             type="button"
             onClick={() => requestSlide(getPreviousIndex(activeIndex, images.length))}

@@ -18,7 +18,7 @@ export function NewsListPageView({
 }: NewsListPageViewProps) {
   return (
     <section className="relative overflow-hidden bg-gradient-soft pb-20 pt-10 md:pb-24 md:pt-14">
-      <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[rgba(var(--primary),0.2)] to-transparent" />
+      <div className="absolute inset-x-0 top-0 h-px bg-gradient-divider" />
       <div className="container mx-auto px-4 md:px-6">
         <div className="mb-6 flex items-center justify-center gap-4">
           <h1

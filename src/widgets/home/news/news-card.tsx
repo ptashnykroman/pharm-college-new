@@ -34,7 +34,7 @@ export function NewsCard({ item, index, page, isHomePage }: NewsCardProps) {
             className="object-cover transition-bounce duration-500 group-hover:scale-110"
           />
 
-          <div className="absolute inset-0 bg-gradient-to-t from-[rgba(var(--foreground),0.7)] via-[rgba(var(--foreground),0.1)] to-transparent" />
+          <div className="absolute inset-0 bg-gradient-news-overlay" />
 
           <div className="absolute left-5 top-5 flex flex-col items-center justify-center rounded-2xl bg-[rgba(var(--card),0.95)] px-3 py-2 text-center shadow-card backdrop-blur transition-bounce group-hover:-rotate-3 group-hover:scale-105">
             <span className="text-xl font-extrabold leading-none text-primary">

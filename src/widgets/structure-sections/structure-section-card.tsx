@@ -30,7 +30,7 @@ export function StructureSectionCard({
         )}
       </div>
 
-      <div className="absolute inset-0 bg-gradient-to-t from-primary-deep via-[rgba(var(--primary),0.6)] to-[rgba(var(--primary-deep),0.1)] opacity-90 transition group-hover:opacity-95" />
+      <div className="absolute inset-0 bg-gradient-card-overlay opacity-90 transition group-hover:opacity-95" />
 
       <div className="relative flex min-h-[260px] flex-col justify-end p-6">
         <div className="mt-4 flex items-end justify-between gap-4">

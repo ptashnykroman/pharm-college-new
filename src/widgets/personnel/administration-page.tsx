@@ -9,7 +9,7 @@ export function AdministrationPageView({
 }) {
   return (
     <section className="relative overflow-hidden bg-gradient-soft py-12 md:py-16">
-      <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[rgba(var(--primary),0.2)] to-transparent" />
+      <div className="absolute inset-x-0 top-0 h-px bg-gradient-divider" />
       <div className="absolute left-0 top-20 h-64 w-64 rounded-full bg-[rgba(var(--primary-glow),0.1)] blur-3xl" />
       <div className="absolute bottom-0 right-0 h-72 w-72 rounded-full bg-[rgba(var(--accent-gold),0.1)] blur-3xl" />
 
