@@ -25,15 +25,10 @@ export function PageLoadingSkeleton() {
           <div className="flex h-full items-center justify-center pt-24 pb-14 text-center">
             <div className="max-w-5xl animate-fade-up">
               <h1
-                style={{
-                  fontFamily: '"Inter", ui-sans-serif, system-ui, sans-serif',
-                }}
+                style={{ fontFamily: '"Inter", ui-sans-serif, system-ui, sans-serif' }}
                 className="text-2xl 2xs:text-3xl xs:text-4xl sm:text-5xl leading-[1.05] font-black tracking-tight text-primary-foreground"
               >
-                Житомирський базовий{' '}
-                <span className="hero-gradient-text block">
-                  фармацевтичний фаховий коледж
-                </span>
+                Житомирський базовий <span className="hero-gradient-text block">фармацевтичний фаховий коледж</span>
               </h1>
             </div>
           </div>

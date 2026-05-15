@@ -5,7 +5,7 @@ import { FloatingPromos } from '@/widgets/home/hero/floating-promos'
 import { HomeMainSectionsFallback } from '@/widgets/home/home-page'
 
 const HOME_HERO_DESCRIPTION =
-  'Готуємо професіоналів для аптечної справи, лабораторної діагностики та медицини. Сучасні лабораторії, досвідчені викладачі, реальна практика.'
+  'Готуємо майбутніх фахівців з фармації та лабораторної діагностики. Якісна освіта, досвідчені викладачі та практична підготовка для успішного старту професійної діяльності.'
 
 export function HomePageLoading() {
   return (
@@ -37,10 +37,7 @@ export function HomePageLoading() {
               style={{ fontFamily: '"Inter", ui-sans-serif, system-ui, sans-serif' }}
               className="text-2xl 2xs:text-3xl xs:text-4xl sm:text-5xl lg:text-6xl 3xl:text-7xl leading-[1.05] font-black tracking-tight text-primary-foreground"
             >
-              Житомирський базовий{' '}
-              <span className="hero-gradient-text block">
-                фармацевтичний фаховий коледж
-              </span>
+              Житомирський базовий <span className="hero-gradient-text block">фармацевтичний фаховий коледж</span>
             </h1>
 
             <p className="text-sm 2xs:text-base xs:text-lg sm:text-xl mt-6 max-w-2xl text-[rgba(var(--primary-foreground),0.85)]">
@@ -70,7 +67,9 @@ export function HomePageLoading() {
                   <span className="block h-3 w-full animate-pulse rounded-full bg-[rgba(var(--primary-foreground),0.2)] xs:h-4" />
                 </span>
 
-                <span className="hidden shrink-0 text-[11px] tabular-nums text-[rgba(var(--primary-foreground),0.5)] sm:inline">1/3</span>
+                <span className="hidden shrink-0 text-[11px] tabular-nums text-[rgba(var(--primary-foreground),0.5)] sm:inline">
+                  1/3
+                </span>
 
                 <span className="flex shrink-0 items-center gap-0.5">
                   <span className="flex h-7 w-7 items-center justify-center rounded-full bg-[rgba(255,255,255,0.1)]" />

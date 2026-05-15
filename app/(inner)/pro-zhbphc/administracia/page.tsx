@@ -20,7 +20,7 @@ export default async function AdministrationPage() {
 
   return (
     <>
-      <InnerPageHero title="Адміністрація" breadcrumbs={breadcrumbs} />
+      <InnerPageHero breadcrumbs={breadcrumbs} />
       <AdministrationPageView people={people} />
     </>
   )

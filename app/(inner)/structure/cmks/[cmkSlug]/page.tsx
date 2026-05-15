@@ -47,7 +47,7 @@ export default async function CycleCommissionDetailPage({ params }: CycleCommiss
 
   return (
     <>
-      <InnerPageHero title={page.title} breadcrumbs={breadcrumbs} />
+      <InnerPageHero breadcrumbs={breadcrumbs} />
       <CycleCommissionPageView page={page} />
     </>
   )

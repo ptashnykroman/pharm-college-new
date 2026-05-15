@@ -22,10 +22,7 @@ export default async function ExamSchedulePage() {
 
   return (
     <>
-      <InnerPageHero
-        title={page.title}
-        breadcrumbs={breadcrumbs}
-      />
+      <InnerPageHero breadcrumbs={breadcrumbs} />
       <ExamSchedulePageView page={page} />
     </>
   )

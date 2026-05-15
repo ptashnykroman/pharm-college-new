@@ -9,8 +9,7 @@ const PATHNAME = '/rozklad/vikladach'
 export async function generateMetadata() {
   return buildPageMetadata({
     title: 'Викладачі',
-    description:
-      'Список викладачів із переходом до персонального розкладу.',
+    description: 'Список викладачів із переходом до персонального розкладу.',
     pathname: PATHNAME,
   })
 }
@@ -21,10 +20,7 @@ export default async function TeacherScheduleDirectoryPage() {
 
   return (
     <>
-      <InnerPageHero
-        title="Викладачі"
-        breadcrumbs={breadcrumbs}
-      />
+      <InnerPageHero breadcrumbs={breadcrumbs} />
       <TeacherScheduleDirectoryPageView sections={sections} />
     </>
   )

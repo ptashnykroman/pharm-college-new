@@ -6,13 +6,10 @@ import type { BreadcrumbItem } from '@/shared/lib/breadcrumbs'
 import { SITE_FULL_NAME } from '@/shared/lib/site-config'
 
 type InnerPageHeroProps = {
-  title?: string
   breadcrumbs?: readonly BreadcrumbItem[] | null
 }
 
-export function InnerPageHero({ title, breadcrumbs }: InnerPageHeroProps) {
-  const heading = title?.trim() || breadcrumbs?.at(-1)?.label || SITE_FULL_NAME
-
+export function InnerPageHero({ breadcrumbs }: InnerPageHeroProps) {
   return (
     <section className="relative h-[400px] overflow-hidden">
       <Image
@@ -39,7 +36,7 @@ export function InnerPageHero({ title, breadcrumbs }: InnerPageHeroProps) {
               }}
               className="text-2xl leading-[1.05] font-black tracking-tight text-primary-foreground 2xs:text-3xl xs:text-4xl sm:text-5xl"
             >
-              {heading}
+              Житомирський базовий <span className="hero-gradient-text block">фармацевтичний фаховий коледж</span>
             </h1>
           </div>
         </div>

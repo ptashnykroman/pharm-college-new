@@ -49,7 +49,7 @@ export default async function VidilenyaDetailPage({ params }: VidilenyaDetailPag
 
   return (
     <>
-      <InnerPageHero title={page.title} breadcrumbs={breadcrumbs} />
+      <InnerPageHero breadcrumbs={breadcrumbs} />
       <StructureSectionPageView page={page} badge="Відділення" />
     </>
   )

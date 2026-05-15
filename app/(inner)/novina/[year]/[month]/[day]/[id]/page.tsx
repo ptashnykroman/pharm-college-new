@@ -72,7 +72,7 @@ export default async function FullNewsPage({ params }: FullNewsPageProps) {
           keywords: data.article.tags,
         })}
       />
-      <InnerPageHero title={data.article.title} breadcrumbs={breadcrumbs} />
+      <InnerPageHero breadcrumbs={breadcrumbs} />
       <NewsArticlePageView article={data.article} recentItems={data.recentItems} archive={data.archive} />
     </>
   )

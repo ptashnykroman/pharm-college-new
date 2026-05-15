@@ -1,18 +1,9 @@
 import { notFound } from 'next/navigation'
 
-import {
-  buildBreadcrumbTrail,
-  type BreadcrumbItem,
-} from '@/shared/lib/breadcrumbs'
-import {
-  buildPageMetadata,
-  createPlaceholderMetadata,
-} from '@/shared/lib/metadata'
+import { buildBreadcrumbTrail, type BreadcrumbItem } from '@/shared/lib/breadcrumbs'
+import { buildPageMetadata, createPlaceholderMetadata } from '@/shared/lib/metadata'
 import { InnerPageHero } from '@/widgets/page/inner-page-hero'
-import {
-  getTeacherSchedulePageData,
-  getTeacherScheduleStaticParams,
-} from '@/widgets/schedule/data'
+import { getTeacherSchedulePageData, getTeacherScheduleStaticParams } from '@/widgets/schedule/data'
 import { EmbeddedSchedulePageView } from '@/widgets/schedule/schedule-page'
 
 type TeacherSchedulePageProps = {
@@ -40,9 +31,7 @@ export async function generateMetadata({ params }: TeacherSchedulePageProps) {
   })
 }
 
-export default async function TeacherSchedulePage({
-  params,
-}: TeacherSchedulePageProps) {
+export default async function TeacherSchedulePage({ params }: TeacherSchedulePageProps) {
   const resolved = await params
   const item = await getTeacherSchedulePageData(resolved.teacherSlug)
 
@@ -61,10 +50,7 @@ export default async function TeacherSchedulePage({
 
   return (
     <>
-      <InnerPageHero
-        title={item.title}
-        breadcrumbs={breadcrumbs}
-      />
+      <InnerPageHero breadcrumbs={breadcrumbs} />
       <EmbeddedSchedulePageView item={item} />
     </>
   )

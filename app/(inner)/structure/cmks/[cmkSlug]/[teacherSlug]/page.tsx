@@ -49,7 +49,7 @@ export default async function TeacherProfilePage({ params }: TeacherProfilePageP
 
   return (
     <>
-      <InnerPageHero title={teacher.name} breadcrumbs={breadcrumbs} />
+      <InnerPageHero breadcrumbs={breadcrumbs} />
       <TeacherProfilePageView teacher={teacher} />
     </>
   )

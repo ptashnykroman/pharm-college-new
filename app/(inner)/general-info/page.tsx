@@ -20,7 +20,7 @@ export default async function GeneralInfoPage() {
 
   return (
     <>
-      <InnerPageHero title="General Information" breadcrumbs={breadcrumbs} />
+      <InnerPageHero breadcrumbs={breadcrumbs} />
       <GeneralInfoPageView principal={principal} />
     </>
   )

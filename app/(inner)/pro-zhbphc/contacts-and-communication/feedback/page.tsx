@@ -18,7 +18,7 @@ export default async function FeedbackPage() {
 
   return (
     <>
-      <InnerPageHero title="Зворотний зв'язок" breadcrumbs={breadcrumbs} />
+      <InnerPageHero breadcrumbs={breadcrumbs} />
       <FeedbackPageView />
     </>
   )

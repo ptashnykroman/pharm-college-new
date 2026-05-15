@@ -19,7 +19,7 @@ export default async function TrustBoxPage() {
 
   return (
     <>
-      <InnerPageHero title="Скринька довіри" breadcrumbs={breadcrumbs} />
+      <InnerPageHero breadcrumbs={breadcrumbs} />
       <TrustBoxPageView />
     </>
   )

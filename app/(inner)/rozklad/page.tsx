@@ -9,8 +9,7 @@ const PATHNAME = '/rozklad'
 export async function generateMetadata() {
   return buildPageMetadata({
     title: 'Розклад',
-    description:
-      'Розклад груп та викладачів коледжу з переходом до вбудованих Google Calendar сторінок.',
+    description: 'Розклад груп та викладачів коледжу з переходом до вбудованих Google Calendar сторінок.',
     pathname: PATHNAME,
   })
 }
@@ -21,14 +20,8 @@ export default async function SchedulePage() {
 
   return (
     <>
-      <InnerPageHero
-        title="Розклад"
-        breadcrumbs={breadcrumbs}
-      />
-      <ScheduleLandingPageView
-        groupSections={data.groupSections}
-        teacherSections={data.teacherSections}
-      />
+      <InnerPageHero breadcrumbs={breadcrumbs} />
+      <ScheduleLandingPageView groupSections={data.groupSections} teacherSections={data.teacherSections} />
     </>
   )
 }

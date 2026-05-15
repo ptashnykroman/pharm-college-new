@@ -109,7 +109,7 @@ export function buildHomeHeroViewModel(heroData: GetHomeHeroQuery): HomeHeroView
   return {
     title: hero.title,
     description:
-      'Готуємо професіоналів для аптечної справи, лабораторної діагностики та медицини. Сучасні лабораторії, досвідчені викладачі, реальна практика.',
+      'Готуємо майбутніх фахівців з фармації та лабораторної діагностики. Якісна освіта, досвідчені викладачі та практична підготовка для успішного старту професійної діяльності.',
     primaryHref: HERO_PRIMARY_LINK,
     secondaryHref: HERO_SECONDARY_LINK,
     newsHref: NEWS_INDEX_PATH,

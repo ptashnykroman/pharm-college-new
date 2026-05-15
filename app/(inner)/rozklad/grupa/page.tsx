@@ -9,8 +9,7 @@ const PATHNAME = '/rozklad/grupa'
 export async function generateMetadata() {
   return buildPageMetadata({
     title: 'Групи',
-    description:
-      'Список академічних груп із переходом до персонального розкладу.',
+    description: 'Список академічних груп із переходом до персонального розкладу.',
     pathname: PATHNAME,
   })
 }
@@ -21,10 +20,7 @@ export default async function GroupScheduleDirectoryPage() {
 
   return (
     <>
-      <InnerPageHero
-        title="Групи"
-        breadcrumbs={breadcrumbs}
-      />
+      <InnerPageHero breadcrumbs={breadcrumbs} />
       <GroupScheduleDirectoryPageView sections={sections} />
     </>
   )

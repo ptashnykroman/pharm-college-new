@@ -20,7 +20,7 @@ export default async function VideoAnd3dPage() {
 
   return (
     <>
-      <InnerPageHero title="Відео та 3D-панорами" breadcrumbs={breadcrumbs} />
+      <InnerPageHero breadcrumbs={breadcrumbs} />
       <VideoAnd3dPageView data={data} />
     </>
   )

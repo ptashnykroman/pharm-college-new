@@ -59,7 +59,7 @@ export default async function NewsArchivePage({ params }: NewsArchivePageProps) 
 
   return (
     <>
-      <InnerPageHero title={data.title} breadcrumbs={breadcrumbs} />
+      <InnerPageHero breadcrumbs={breadcrumbs} />
       <NewsListPageView {...data} />
     </>
   )

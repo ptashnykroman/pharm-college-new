@@ -23,7 +23,7 @@ export default async function ContactsPage() {
   return (
     <>
       <SeoJsonLd data={buildContactPageJsonLd()} />
-      <InnerPageHero title="Контакти" breadcrumbs={breadcrumbs} />
+      <InnerPageHero breadcrumbs={breadcrumbs} />
       <ContactsPageView people={people} />
     </>
   )

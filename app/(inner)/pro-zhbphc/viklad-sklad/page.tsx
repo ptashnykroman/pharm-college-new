@@ -20,7 +20,7 @@ export default async function TeacherDirectoryPage() {
 
   return (
     <>
-      <InnerPageHero title="Викладацький склад" breadcrumbs={breadcrumbs} />
+      <InnerPageHero breadcrumbs={breadcrumbs} />
       <TeacherDirectoryPageView commissions={data.commissions} teachers={data.teachers} />
     </>
   )

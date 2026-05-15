@@ -20,7 +20,7 @@ export default async function NewsIndexPage() {
 
   return (
     <>
-      <InnerPageHero title={data.title} breadcrumbs={breadcrumbs} />
+      <InnerPageHero breadcrumbs={breadcrumbs} />
       <NewsListPageView {...data} />
     </>
   )

@@ -58,7 +58,10 @@ function shouldGenerateCatchAllPath(pathname: string) {
 
 function toSlugParam(pathname: string) {
   return {
-    slug: pathname.replace(/^\/+|\/+$/g, '').split('/').filter(Boolean),
+    slug: pathname
+      .replace(/^\/+|\/+$/g, '')
+      .split('/')
+      .filter(Boolean),
   }
 }
 
@@ -111,7 +114,7 @@ export default async function DynamicPage({ params }: DynamicPageProps) {
 
   return (
     <>
-      <InnerPageHero title={page.title} breadcrumbs={breadcrumbs} />
+      <InnerPageHero breadcrumbs={breadcrumbs} />
       <CmsPage page={page} />
     </>
   )

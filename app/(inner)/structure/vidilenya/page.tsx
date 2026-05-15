@@ -20,7 +20,7 @@ export default async function VidilenyaPage() {
 
   return (
     <>
-      <InnerPageHero title="Відділення" breadcrumbs={breadcrumbs} />
+      <InnerPageHero breadcrumbs={breadcrumbs} />
       <StructureSectionListPageView
         badge="Відділення"
         title="Відділення"

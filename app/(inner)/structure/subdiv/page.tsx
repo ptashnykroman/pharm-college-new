@@ -20,7 +20,7 @@ export default async function SubdivisionsPage() {
 
   return (
     <>
-      <InnerPageHero title="Підрозділи" breadcrumbs={breadcrumbs} />
+      <InnerPageHero breadcrumbs={breadcrumbs} />
       <StructureSectionListPageView
         badge="Підрозділи"
         title="Підрозділи"

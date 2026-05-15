@@ -1,13 +1,7 @@
 import { notFound } from 'next/navigation'
 
-import {
-  buildBreadcrumbTrail,
-  type BreadcrumbItem,
-} from '@/shared/lib/breadcrumbs'
-import {
-  buildPageMetadata,
-  createPlaceholderMetadata,
-} from '@/shared/lib/metadata'
+import { buildBreadcrumbTrail, type BreadcrumbItem } from '@/shared/lib/breadcrumbs'
+import { buildPageMetadata, createPlaceholderMetadata } from '@/shared/lib/metadata'
 import { InnerPageHero } from '@/widgets/page/inner-page-hero'
 import {
   decodeScheduleRouteParam,
@@ -43,9 +37,7 @@ export async function generateMetadata({ params }: GroupSchedulePageProps) {
   })
 }
 
-export default async function GroupSchedulePage({
-  params,
-}: GroupSchedulePageProps) {
+export default async function GroupSchedulePage({ params }: GroupSchedulePageProps) {
   const resolved = await params
   const groupName = decodeScheduleRouteParam(resolved.groupName)
   const item = await getGroupSchedulePageData(groupName)
@@ -66,10 +58,7 @@ export default async function GroupSchedulePage({
 
   return (
     <>
-      <InnerPageHero
-        title={item.title}
-        breadcrumbs={breadcrumbs}
-      />
+      <InnerPageHero breadcrumbs={breadcrumbs} />
       <EmbeddedSchedulePageView item={item} />
     </>
   )

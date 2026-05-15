@@ -20,7 +20,7 @@ export default async function CycleCommissionsPage() {
 
   return (
     <>
-      <InnerPageHero title="Циклові комісії" breadcrumbs={breadcrumbs} />
+      <InnerPageHero breadcrumbs={breadcrumbs} />
       <CycleCommissionsListPageView items={items} />
     </>
   )

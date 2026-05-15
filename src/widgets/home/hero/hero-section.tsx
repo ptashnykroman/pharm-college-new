@@ -1,19 +1,19 @@
 'use client'
 
-import Image from 'next/image'
 import Link from 'next/link'
+import Image from 'next/image'
 import { ArrowRight } from 'lucide-react'
 import { useEffect, useState } from 'react'
 
 import { FloatingPromos } from './floating-promos'
 import type { HomePageViewModel } from '@/widgets/home/model'
 import { buildHeroSlides } from '@/widgets/home/hero/hero-utils'
-import { HeroAnnouncementStrip } from '@/widgets/home/hero/hero-announcement-strip'
 import { HeroBackgroundSlider } from '@/widgets/home/hero/hero-background-slider'
+import { HeroAnnouncementStrip } from '@/widgets/home/hero/hero-announcement-strip'
 
 const DESKTOP_HERO_QUERY = '(min-width: 768px)'
 const SLIDE_INTERVAL_MS = 10000
-const HERO_BASE_QUALITY = 82
+const HERO_BASE_QUALITY = 80
 const HERO_SLIDER_QUALITY = 80
 
 type SliderState = {
@@ -28,7 +28,7 @@ export function HomeHeroSection({ hero }: { hero: HomePageViewModel['hero'] }) {
   const [isPageVisible, setIsPageVisible] = useState(true)
   const [sliderState, setSliderState] = useState<SliderState>({
     activeIndex: 0,
-    renderedIndexes: [0],
+    renderedIndexes: [0, 1],
   })
 
   const slides = buildHeroSlides(hero)
@@ -44,9 +44,16 @@ export function HomeHeroSection({ hero }: { hero: HomePageViewModel['hero'] }) {
     const syncDesktopState = () => setIsDesktopHero(mediaQuery.matches)
 
     syncDesktopState()
-    mediaQuery.addEventListener('change', syncDesktopState)
 
-    return () => mediaQuery.removeEventListener('change', syncDesktopState)
+    if (typeof mediaQuery.addEventListener === 'function') {
+      mediaQuery.addEventListener('change', syncDesktopState)
+
+      return () => mediaQuery.removeEventListener('change', syncDesktopState)
+    }
+
+    mediaQuery.addListener(syncDesktopState)
+
+    return () => mediaQuery.removeListener(syncDesktopState)
   }, [])
 
   useEffect(() => {
@@ -66,9 +73,16 @@ export function HomeHeroSection({ hero }: { hero: HomePageViewModel['hero'] }) {
     const id = window.setInterval(() => {
       setSliderState((current) => {
         const activeIndex = (current.activeIndex + 1) % slides.length
-        const renderedIndexes = current.renderedIndexes.includes(activeIndex)
-          ? current.renderedIndexes
-          : [...current.renderedIndexes, activeIndex]
+        const upcomingIndex = (activeIndex + 1) % slides.length
+        const renderedIndexes = current.renderedIndexes.slice()
+
+        if (!renderedIndexes.includes(activeIndex)) {
+          renderedIndexes.push(activeIndex)
+        }
+
+        if (!renderedIndexes.includes(upcomingIndex)) {
+          renderedIndexes.push(upcomingIndex)
+        }
 
         return {
           activeIndex,
