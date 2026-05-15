@@ -121,7 +121,7 @@ export function HomeHeroSection({ hero }: { hero: HomePageViewModel['hero'] }) {
         className="relative container mx-auto flex min-h-[100svh] flex-col items-center justify-center px-4 pb-20 pt-28 md:px-6"
         style={{ minHeight: '100vh' }}
       >
-        <div className="animate-fade-up flex max-w-[900px] flex-col items-center text-center">
+        <div className="flex max-w-[900px] flex-col items-center text-center">
           <h1
             style={{ fontFamily: '"Inter", ui-sans-serif, system-ui, sans-serif' }}
             className="text-2xl 2xs:text-3xl xs:text-4xl sm:text-5xl lg:text-6xl 3xl:text-7xl leading-[1.05] font-black tracking-tight text-primary-foreground"
