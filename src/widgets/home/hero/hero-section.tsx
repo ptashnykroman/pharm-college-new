@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
+import { getImageProps } from "next/image";
 import { ArrowRight } from "lucide-react";
 import { useEffect, useState } from "react";
 
@@ -46,6 +46,22 @@ export function HomeHeroSection({ hero }: { hero: HomePageViewModel["hero"] }) {
     totalAnnouncements > 0
       ? hero.announcements[announcementIndex % totalAnnouncements]
       : null;
+  const { props: mobileHeroImageProps } = getImageProps({
+    src: collegePhoto3,
+    alt: "",
+    quality: HERO_BASE_QUALITY,
+    sizes: "100vw",
+    preload: true,
+  });
+  const { props: desktopHeroImageProps } = getImageProps({
+    src: heroBaseImage.src,
+    alt: "",
+    width: heroBaseImage.width,
+    height: heroBaseImage.height,
+    quality: HERO_BASE_QUALITY,
+    sizes: "100vw",
+    preload: true,
+  });
 
   useEffect(() => {
     const mediaQuery = window.matchMedia(DESKTOP_HERO_QUERY);
@@ -118,25 +134,23 @@ export function HomeHeroSection({ hero }: { hero: HomePageViewModel["hero"] }) {
 
   return (
     <section className="hero-viewport-height relative overflow-hidden">
-      <Image
-        src={collegePhoto3}
-        alt=""
-        fill
-        preload
-        quality={HERO_BASE_QUALITY}
-        sizes="100vw"
-        className="object-cover object-center md:hidden"
-      />
+      <div className="absolute inset-0">
+        <picture className="block h-full w-full">
+          {desktopHeroImageProps.srcSet ? (
+            <source
+              media={DESKTOP_HERO_QUERY}
+              srcSet={desktopHeroImageProps.srcSet}
+              sizes={desktopHeroImageProps.sizes}
+            />
+          ) : null}
 
-      <Image
-        src={heroBaseImage.src}
-        alt=""
-        fill
-        preload
-        quality={HERO_BASE_QUALITY}
-        sizes="100vw"
-        className="hidden object-cover object-center md:block"
-      />
+          <img
+            {...mobileHeroImageProps}
+            alt=""
+            className="h-full w-full object-cover object-center"
+          />
+        </picture>
+      </div>
 
       {isDesktopHero && desktopSlides.length > 0 ? (
         <HeroBackgroundSlider
