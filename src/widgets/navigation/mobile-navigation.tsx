@@ -99,7 +99,7 @@ export function MobileNavigation({
               return (
                 <div
                   key={index}
-                  className="h-full overflow-y-auto pt-2 flex flex-col"
+                  className="h-full overflow-y-auto pt-2 flex flex-col gap-4"
                   style={{ width: `${100 / (level + 1)}%` }}
                   aria-hidden={!isActive}
                 >
