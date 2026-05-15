@@ -45,7 +45,9 @@ export function HeroAnnouncementStrip({
                 key={currentIndex}
                 className="min-w-0 flex-1 animate-fade-up rounded-sm text-left text-[12px] xs:text-sm text-[rgba(var(--primary-foreground),0.9)] transition-smooth group-hover:text-accent-gold hover:text-accent-gold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[rgba(var(--accent-gold),0.6)]"
               >
-                <span className="cursor-pointer block truncate decoration-[rgba(255,255,255,0.2)] underline-offset-4">{title}</span>
+                <span className="cursor-pointer block truncate decoration-[rgba(255,255,255,0.2)] underline-offset-4">
+                  {title}
+                </span>
                 <span className="sr-only">Відкрити повний текст оголошення</span>
               </button>
             </DialogTrigger>
@@ -89,7 +91,7 @@ export function HeroAnnouncementStrip({
         </p>
 
         {hasBody ? (
-          <DialogContent className="grid max-h-[85svh] max-w-[calc(100%-2rem)] grid-rows-[auto_minmax(0,1fr)] gap-0 overflow-hidden rounded-[1.75rem] border border-[rgba(var(--border),0.7)] bg-background p-0 shadow-elegant sm:max-w-2xl">
+          <DialogContent className="grid max-h-[85svh] max-w-full grid-rows-[auto_minmax(0,1fr)] gap-0 overflow-hidden rounded-[1.75rem] border border-[rgba(var(--border),0.7)] bg-background p-0 shadow-elegant sm:max-w-2xl">
             <DialogHeader className="gap-3 border-b border-[rgba(var(--border),0.7)] px-6 py-5 sm:px-8">
               <span className="text-xs font-bold uppercase tracking-[0.24em] text-primary">Оголошення</span>
               <DialogTitle className="text-left text-xl font-black leading-tight text-foreground sm:text-2xl">
@@ -98,7 +100,10 @@ export function HeroAnnouncementStrip({
             </DialogHeader>
 
             <div className="min-h-0 overflow-y-auto px-6 pb-6 sm:px-8 sm:pb-8">
-              <RichText html={body} className="my-6 text-sm leading-7 text-[rgba(var(--foreground),0.8)] sm:text-base" />
+              <RichText
+                html={body}
+                className="my-6 text-sm leading-7 text-[rgba(var(--foreground),0.8)] sm:text-base"
+              />
             </div>
           </DialogContent>
         ) : null}

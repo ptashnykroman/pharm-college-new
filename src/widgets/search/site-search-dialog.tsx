@@ -10,7 +10,7 @@ import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import { searchSite } from '@/shared/api/search/client'
 import type { SearchResult, SearchResultType } from '@/shared/api/search/types'
-import { Dialog, DialogContent,  DialogHeader, DialogTitle } from '@/components/ui/dialog'
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog'
 
 const COPY = {
   title: 'Пошук по сайту',
@@ -129,13 +129,9 @@ export function SiteSearchDialog({ open, onOpenChange }: { open: boolean; onOpen
 
   return (
     <Dialog open={open} onOpenChange={handleOpenChange}>
-      <DialogContent
-        // max-w-[min(56rem,calc(100%-1.5rem))]
-        className="w-full max-w-[95vw] sm:!max-w-xl gap-0 overflow-hidden border border-[rgba(var(--border),0.7)] bg-white p-0 shadow-elegant"
-      >
+      <DialogContent className="w-full max-w-[95vw] sm:!max-w-xl gap-0 overflow-hidden border border-[rgba(var(--border),0.7)] bg-white p-0 shadow-elegant">
         <DialogHeader className="border-b border-[rgba(var(--border),0.7)] bg-gradient-soft px-5 py-4 text-left">
           <DialogTitle className="text-lg font-black text-foreground">{COPY.title}</DialogTitle>
-          {/* <DialogDescription className="text-sm leading-6 text-[rgba(var(--foreground),0.65)]">{COPY.description}</DialogDescription> */}
         </DialogHeader>
 
         <div className="border-b border-[rgba(var(--border),0.7)] px-4 py-3">
@@ -147,7 +143,7 @@ export function SiteSearchDialog({ open, onOpenChange }: { open: boolean; onOpen
               onChange={handleQueryChange}
               onKeyDown={handleInputKeyDown}
               placeholder={COPY.placeholder}
-              className="h-12 border-transparent bg-transparent pl-11 pr-28 text-base shadow-none focus-visible:border-transparent focus-visible:ring-0"
+              className="h-12 border-transparent bg-transparent pl-11 pr-28 text-base !shadow-none focus-visible:border-transparent focus-visible:ring-0"
             />
 
             <div className="absolute right-1.5 flex items-center gap-1.5">
