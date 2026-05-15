@@ -1,7 +1,6 @@
 import { Suspense } from 'react'
 
 import { createHomeMetadata } from '@/shared/lib/metadata'
-import { HomePageLoading } from '@/widgets/home/home-page-loading'
 import { getHomeHeroViewData, getHomeMainSectionsViewData } from '@/widgets/home/data'
 import { HomeMainSections, HomeMainSectionsFallback, HomePageView } from '@/widgets/home/home-page'
 
@@ -17,11 +16,7 @@ export default function Home() {
   const heroPromise = getHomeHeroViewData()
   const sectionsPromise = getHomeMainSectionsViewData()
 
-  return (
-    <Suspense fallback={<HomePageLoading />}>
-      <HomePageContent heroPromise={heroPromise} sectionsPromise={sectionsPromise} />
-    </Suspense>
-  )
+  return <HomePageContent heroPromise={heroPromise} sectionsPromise={sectionsPromise} />
 }
 
 async function HomePageContent({ heroPromise, sectionsPromise }: HomePageContentProps) {
