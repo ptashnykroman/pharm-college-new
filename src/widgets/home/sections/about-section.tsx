@@ -1,18 +1,18 @@
-import Image from 'next/image'
-import Link from 'next/link'
-import { ArrowRight, CheckCircle2 } from 'lucide-react'
+import Image from "next/image";
+import Link from "next/link";
+import { ArrowRight, CheckCircle2 } from "lucide-react";
 
-import { replaceCmsMediaUrls } from '@/shared/lib/rich-text'
-import type { HomePageViewModel } from '@/widgets/home/model'
-import buildingImg from '@/shared/assets/images/homepage/college_photo2.webp'
+import { replaceCmsMediaUrls } from "@/shared/lib/rich-text";
+import type { HomePageViewModel } from "@/widgets/home/model";
+import buildingImg from "@/shared/assets/images/homepage/college_photo2.webp";
 
 const aboutFeatures = [
-  'Сучасна навчально-матеріальна база',
-  'Висококваліфікований викладацький склад',
-  'Практика в провідних мережах аптек',
-]
+  "Сучасна навчально-матеріальна база",
+  "Висококваліфікований викладацький склад",
+  "Практика в провідних мережах аптек",
+];
 
-export function AboutSection({ about }: { about: HomePageViewModel['about'] }) {
+export function AboutSection({ about }: { about: HomePageViewModel["about"] }) {
   return (
     <section id="about" className="relative py-20 md:py-28">
       <div className="container mx-auto px-4 md:px-6">
@@ -31,24 +31,34 @@ export function AboutSection({ about }: { about: HomePageViewModel['about'] }) {
               />
             </div>
             <div className="absolute -bottom-6 -right-4 hidden flex-col items-center justify-center rounded-2xl border border-border bg-card px-6 py-4 shadow-card md:flex">
-              <div className="text-3xl font-black text-gradient-primary">1936</div>
-              <div className="text-xs text-muted-foreground">рік заснування</div>
+              <div className="text-3xl font-black text-gradient-primary">
+                1936
+              </div>
+              <div className="text-xs text-muted-foreground">
+                рік заснування
+              </div>
             </div>
           </div>
 
           <div>
-            <h2 className="mt-4 text-3xl font-black text-foreground sm:text-4xl lg:text-5xl">{about.title}</h2>
+            <h2 className="mt-4 text-3xl font-black text-foreground sm:text-4xl lg:text-5xl">
+              {about.title}
+            </h2>
 
             <div
               className="rich-text mt-5 text-lg text-muted-foreground"
-              dangerouslySetInnerHTML={{ __html: replaceCmsMediaUrls(about.bodyHtml) }}
+              dangerouslySetInnerHTML={{
+                __html: replaceCmsMediaUrls(about.bodyHtml),
+              }}
             />
 
             <ul className="mt-8 space-y-3">
               {aboutFeatures.map((feature) => (
                 <li key={feature} className="flex items-start gap-1.5 xs:gap-3">
                   <CheckCircle2 className="mt-0.5 h-5 w-5 flex-shrink-0 text-primary" />
-                  <span className="text-[rgba(var(--foreground),0.9)] !text-[14px] !xs:text-sm">{feature}</span>
+                  <span className="text-[rgba(var(--foreground),0.9)] !text-[14px] !sm:text-sm !md:text-base">
+                    {feature}
+                  </span>
                 </li>
               ))}
             </ul>
@@ -64,5 +74,5 @@ export function AboutSection({ about }: { about: HomePageViewModel['about'] }) {
         </div>
       </div>
     </section>
-  )
+  );
 }

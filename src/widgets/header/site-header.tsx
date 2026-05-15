@@ -1,71 +1,16 @@
-'use client'
-
 import Image from 'next/image'
 import Link from 'next/link'
-import { Menu, Search, X } from 'lucide-react'
-import { useEffect, useEffectEvent, useState } from 'react'
 
 import EngIcon from '@/shared/assets/icons/header/United-kingdom_flag.webp'
-import type { NavigationNode } from '@/shared/lib/navigation'
 import { HERO_PRIMARY_LINK } from '@/shared/lib/site-config'
 import { HeaderBrand } from '@/widgets/header/components/header-brand'
+import { HeaderMobileMenu } from '@/widgets/header/components/header-mobile-menu'
+import { SiteSearchControl } from '@/widgets/header/components/site-search-control'
 import { HeaderTopBar } from '@/widgets/header/components/header-top-bar'
 import type { HeaderViewModel } from '@/widgets/header/model'
 import { DesktopNavigation } from '@/widgets/navigation/desktop-navigation'
-import { MobileNavigation } from '@/widgets/navigation/mobile-navigation'
-import { SiteSearchDialog } from '@/widgets/search/site-search-dialog'
-
-const SEARCH_LABEL = 'Пошук'
-const MENU_LABEL = 'Меню'
 
 export function SiteHeader({ data }: { data: HeaderViewModel }) {
-  const [open, setOpen] = useState(false)
-  const [searchOpen, setSearchOpen] = useState(false)
-  const [mobileStack, setMobileStack] = useState<NavigationNode[]>([])
-
-  const openSearch = useEffectEvent(() => {
-    setSearchOpen(true)
-  })
-
-  useEffect(() => {
-    document.body.style.overflow = open ? 'hidden' : ''
-
-    return () => {
-      document.body.style.overflow = ''
-    }
-  }, [open])
-
-  useEffect(() => {
-    const onKeyDown = (event: KeyboardEvent) => {
-      if (!(event.ctrlKey || event.metaKey) || event.key.toLowerCase() !== 'k') {
-        return
-      }
-
-      event.preventDefault()
-      openSearch()
-    }
-
-    window.addEventListener('keydown', onKeyDown)
-
-    return () => {
-      window.removeEventListener('keydown', onKeyDown)
-    }
-  }, [])
-
-  function closeMobileNavigation() {
-    setOpen(false)
-    setMobileStack([])
-  }
-
-  function toggleMobileNavigation() {
-    if (open) {
-      closeMobileNavigation()
-      return
-    }
-
-    setOpen(true)
-  }
-
   return (
     <div className="relative">
       <header className="header-shell">
@@ -87,36 +32,13 @@ export function SiteHeader({ data }: { data: HeaderViewModel }) {
                 <Image width={24} height={24} src={EngIcon} alt="eng" quality={90} />
               </Link>
 
-              <button
-                onClick={() => setSearchOpen(true)}
-                className="header-action-button inline-flex h-10 w-10 cursor-pointer items-center justify-center rounded-lg"
-                aria-label={SEARCH_LABEL}
-              >
-                <Search className="h-5 w-5" />
-              </button>
+              <SiteSearchControl />
             </div>
 
-            <button
-              onClick={toggleMobileNavigation}
-              className="header-action-button inline-flex h-10 w-10 cursor-pointer items-center justify-center rounded-lg xl:hidden"
-              aria-label={MENU_LABEL}
-            >
-              {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-            </button>
+            <HeaderMobileMenu navigation={data.navigation} quickLinks={data.quickLinks} socialLinks={data.socialLinks} />
           </div>
         </div>
       </header>
-
-      <MobileNavigation
-        open={open}
-        onClose={closeMobileNavigation}
-        nav={data.navigation}
-        quickLinks={data.quickLinks}
-        socialLinks={data.socialLinks}
-        stack={mobileStack}
-        setStack={setMobileStack}
-      />
-      <SiteSearchDialog open={searchOpen} onOpenChange={setSearchOpen} />
     </div>
   )
 }

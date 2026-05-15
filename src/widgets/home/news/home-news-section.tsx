@@ -2,11 +2,13 @@ import Link from 'next/link'
 import { ArrowRight } from 'lucide-react'
 
 import { NEWS_INDEX_PATH } from '@/shared/lib/site-config'
+import { NewsCard } from '@/widgets/home/news/news-card'
 import type { HomePageViewModel } from '@/widgets/home/model'
-import { PAGE_SIZE } from '@/widgets/home/news/news-utils'
-import { NewsListClient } from '@/widgets/news/news-list-client'
+import { HOME_NEWS_SECTION_ITEMS } from '@/widgets/home/section-limits'
 
 export function HomeNewsSection({ items }: { items: HomePageViewModel['news'] }) {
+  const visibleItems = items.slice(0, HOME_NEWS_SECTION_ITEMS)
+
   return (
     <section id="news" className="relative overflow-hidden bg-gradient-soft py-20 md:py-28">
       {/* <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[rgba(var(--primary),0.2)] to-transparent" /> */}
@@ -28,13 +30,20 @@ export function HomeNewsSection({ items }: { items: HomePageViewModel['news'] })
           </Link>
         </div>
 
-        <NewsListClient
-          items={items}
-          pageSize={PAGE_SIZE}
-          isHomePage
-          gridClassName="mt-12 grid gap-6 md:grid-cols-3"
-          scrollTargetId="home-news-heading"
-        />
+        {visibleItems.length ? (
+          <div className="mt-12 grid gap-6 md:grid-cols-3">
+            {visibleItems.map((item, index) => (
+              <NewsCard key={item.id} item={item} index={index} page={0} isHomePage />
+            ))}
+          </div>
+        ) : (
+          <div className="mt-12 rounded-[2rem] border border-dashed border-[rgba(var(--border),0.8)] bg-[rgba(255,255,255,0.7)] p-10 text-center shadow-soft">
+            <h2 className="text-2xl font-black text-foreground">РќРѕРІРёРЅ РїРѕРєРё РЅРµРјР°С”</h2>
+            <p className="mt-3 text-base leading-7 text-muted-foreground">
+              Р”Р»СЏ С†СЊРѕРіРѕ РїРµСЂС–РѕРґСѓ С‰Рµ РЅРµ Р·РЅР°Р№РґРµРЅРѕ Р¶РѕРґРЅРѕС— РїСѓР±Р»С–РєР°С†С–С—.
+            </p>
+          </div>
+        )}
       </div>
     </section>
   )

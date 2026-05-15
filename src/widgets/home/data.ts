@@ -9,6 +9,10 @@ import {
   buildHomeHeroViewModel,
   buildHomeMainSectionsViewModel,
 } from "@/widgets/home/model";
+import {
+  HOME_EVENTS_SECTION_ITEMS,
+  HOME_NEWS_SECTION_ITEMS,
+} from "@/widgets/home/section-limits";
 
 export async function getHomeHeroViewData() {
   const hero = await getHomeHero();
@@ -19,8 +23,8 @@ export async function getHomeHeroViewData() {
 export async function getHomeMainSectionsViewData() {
   const [content, news, events, partners] = await Promise.all([
     getHomePageContent(),
-    getHomeNews(),
-    getHomeEvents(),
+    getHomeNews(HOME_NEWS_SECTION_ITEMS),
+    getHomeEvents(HOME_EVENTS_SECTION_ITEMS),
     getHomePartners(),
   ]);
 

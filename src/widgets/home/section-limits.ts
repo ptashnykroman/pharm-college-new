@@ -1,0 +1,2 @@
+export const HOME_NEWS_SECTION_ITEMS = 3
+export const HOME_EVENTS_SECTION_ITEMS = 6

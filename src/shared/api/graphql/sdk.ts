@@ -1,6 +1,6 @@
 import {
   GetHeaderScheduleDocument,
-  GetHomeEventsDocument,
+  type GetHomeEventsQuery,
   GetHomeHeroDocument,
   GetHomePageContentDocument,
   GetPageByPathDocument,
@@ -13,6 +13,7 @@ import { executeGraphQL, executeGraphQLRaw } from "@/shared/api/graphql/client";
 import { CACHE_TAGS, DEFAULT_REVALIDATE_SECONDS } from "@/shared/lib/site-config";
 
 const HOME_NEWS_PAGE_SIZE = 9;
+const HOME_EVENTS_PAGE_SIZE = 6;
 const HOME_PARTNERS_PAGE_SIZE = 100;
 const CMS_PAGE_PATHS_PAGE_SIZE = 100;
 
@@ -153,6 +154,44 @@ const getHomePartnersPageQuery = /* GraphQL */ `
   }
 `;
 
+const getHomeEventsPageQuery = /* GraphQL */ `
+  query GetHomeEventsPage($pageSize: Int!) {
+    events(
+      pagination: { pageSize: $pageSize }
+      sort: ["weight:desc", "date:desc"]
+    ) {
+      data {
+        id
+        attributes {
+          title
+          date
+          weight
+          image {
+            ...MediaFileFields
+          }
+        }
+      }
+    }
+  }
+
+  fragment MediaFileAttributes on UploadFile {
+    name
+    url
+    width
+    height
+    alternativeText
+    formats
+  }
+
+  fragment MediaFileFields on UploadFileEntityResponse {
+    data {
+      attributes {
+        ...MediaFileAttributes
+      }
+    }
+  }
+`;
+
 type HomePartnersPageQuery = {
   partners: (NonNullable<GetHomePartnersQuery["partners"]> & {
     meta: {
@@ -216,12 +255,6 @@ function normalizeCmsPath(path: string | null | undefined) {
     .replace(/\/+$/, "");
 
   return normalized || "/";
-}
-
-function collectCmsPagePaths(page: CmsPagePathsPageQuery) {
-  return page.pages?.data
-    .map((entry) => normalizeCmsPath(entry.attributes?.page_url))
-    .filter((path): path is string => Boolean(path)) ?? [];
 }
 
 function collectCmsPageEntries(page: CmsPagePathsPageQuery) {
@@ -331,11 +364,19 @@ export async function getHomeNews(
   };
 }
 
-export function getHomeEvents() {
-  return executeGraphQL(GetHomeEventsDocument, {}, {
-    revalidate: DEFAULT_REVALIDATE_SECONDS,
-    tags: [CACHE_TAGS.events, CACHE_TAGS.home],
-  });
+export function getHomeEvents(
+  pageSize = HOME_EVENTS_PAGE_SIZE,
+): Promise<GetHomeEventsQuery> {
+  return executeGraphQLRaw<GetHomeEventsQuery, { pageSize: number }>(
+    getHomeEventsPageQuery,
+    {
+      pageSize,
+    },
+    {
+      revalidate: DEFAULT_REVALIDATE_SECONDS,
+      tags: [CACHE_TAGS.events, CACHE_TAGS.home],
+    },
+  );
 }
 
 export async function getHomePartners(): Promise<GetHomePartnersQuery> {
