@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { Command, CornerDownLeft, LoaderCircle, Search } from 'lucide-react'
-import { startTransition, useEffect, useState, type ChangeEvent, type KeyboardEvent } from 'react'
+import { startTransition, useEffect, useState, type ChangeEvent, type KeyboardEvent, type ReactNode } from 'react'
 
 import { cn } from '@/lib/utils'
 import { Input } from '@/components/ui/input'
@@ -14,18 +14,22 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/u
 
 const COPY = {
   title: 'Пошук по сайту',
-  description: 'Шукає по сторінках, новинах, структурі коледжу, працівниках і вкладених контентних блоках.',
+  description:
+    'Шукає по сторінках, новинах, структурі коледжу, працівниках і вкладених контентних блоках.',
   placeholder: 'Введіть свій запит',
   startTitle: 'Почніть пошук',
-  startDescription: 'Введіть назву сторінки, новини, підрозділу, викладача або текст із контентних блоків.',
+  startDescription:
+    'Введіть назву сторінки, новини, підрозділу, викладача або текст із контентних блоків.',
   shortTitle: 'Запит надто короткий',
   loadingTitle: 'Шукаємо...',
-  loadingDescription: 'Перевіряю сторінки, новини, структуру та профілі працівників.',
+  loadingDescription: 'Перевіряємо сторінки, новини, структуру та профілі працівників.',
   errorTitle: 'Не вдалося виконати пошук',
   errorDescription: 'Спробуйте ще раз або перезавантажте сторінку.',
   emptyTitle: 'Нічого не знайдено',
   emptyDescription: 'Спробуйте змінити формулювання або використати коротший запит.',
   openResultLabel: 'Перейти до результату',
+  shellLoadingTitle: 'Завантажуємо пошук',
+  shellLoadingDescription: 'Готуємо діалог пошуку по сайту.',
 } as const
 
 const TYPE_LABELS: Record<SearchResultType, string> = {
@@ -44,7 +48,26 @@ const SEARCH_RESULT_LIMIT = 12
 
 type SearchStatus = 'idle' | 'loading' | 'ready' | 'error'
 
+export const SITE_SEARCH_DIALOG_CONTENT_CLASS_NAME =
+  'w-full max-w-[95vw] sm:!max-w-xl gap-0 overflow-hidden border border-[rgba(var(--border),0.7)] bg-white p-0 shadow-elegant'
+
 export function SiteSearchDialog({ open, onOpenChange }: { open: boolean; onOpenChange: (open: boolean) => void }) {
+  return (
+    <Dialog open={open} onOpenChange={onOpenChange}>
+      <DialogContent className={SITE_SEARCH_DIALOG_CONTENT_CLASS_NAME}>
+        <SiteSearchDialogPanel open={open} onOpenChange={onOpenChange} />
+      </DialogContent>
+    </Dialog>
+  )
+}
+
+export function SiteSearchDialogPanel({
+  open,
+  onOpenChange,
+}: {
+  open: boolean
+  onOpenChange: (open: boolean) => void
+}) {
   const router = useRouter()
   const [query, setQuery] = useState('')
   const [results, setResults] = useState<SearchResult[]>([])
@@ -128,99 +151,130 @@ export function SiteSearchDialog({ open, onOpenChange }: { open: boolean; onOpen
   }
 
   return (
-    <Dialog open={open} onOpenChange={handleOpenChange}>
-      <DialogContent className="w-full max-w-[95vw] sm:!max-w-xl gap-0 overflow-hidden border border-[rgba(var(--border),0.7)] bg-white p-0 shadow-elegant">
-        <DialogHeader className="border-b border-[rgba(var(--border),0.7)] bg-gradient-soft px-5 py-4 text-left">
-          <DialogTitle className="text-lg font-black text-foreground">{COPY.title}</DialogTitle>
-        </DialogHeader>
+    <SiteSearchDialogFrame>
+      <div className="border-b border-[rgba(var(--border),0.7)] px-4 py-3">
+        <div className="relative flex items-center">
+          <Search className="pointer-events-none absolute left-3 h-5 w-5 text-muted-foreground" />
+          <Input
+            autoFocus={open}
+            value={query}
+            onChange={handleQueryChange}
+            onKeyDown={handleInputKeyDown}
+            placeholder={COPY.placeholder}
+            className="h-12 border-transparent bg-transparent pl-11 pr-28 text-base !shadow-none focus-visible:border-transparent focus-visible:ring-0"
+          />
 
-        <div className="border-b border-[rgba(var(--border),0.7)] px-4 py-3">
-          <div className="relative flex items-center">
-            <Search className="pointer-events-none absolute left-3 h-5 w-5 text-muted-foreground" />
-            <Input
-              autoFocus={open}
-              value={query}
-              onChange={handleQueryChange}
-              onKeyDown={handleInputKeyDown}
-              placeholder={COPY.placeholder}
-              className="h-12 border-transparent bg-transparent pl-11 pr-28 text-base !shadow-none focus-visible:border-transparent focus-visible:ring-0"
-            />
-
-            <div className="absolute right-1.5 flex items-center gap-1.5">
-              {status === 'loading' ? (
-                <LoaderCircle className="h-4 w-4 animate-spin text-primary" />
-              ) : results[0] ? (
-                <span className="hidden items-center gap-1 rounded-full border border-border bg-white px-2 py-1 text-[11px] font-semibold text-[rgba(var(--foreground),0.7)] sm:inline-flex">
-                  <CornerDownLeft className="h-3.5 w-3.5" />
-                  Enter
-                </span>
-              ) : null}
-
+          <div className="absolute right-1.5 flex items-center gap-1.5">
+            {status === 'loading' ? (
+              <LoaderCircle className="h-4 w-4 animate-spin text-primary" />
+            ) : results[0] ? (
               <span className="hidden items-center gap-1 rounded-full border border-border bg-white px-2 py-1 text-[11px] font-semibold text-[rgba(var(--foreground),0.7)] sm:inline-flex">
-                <Command className="h-3.5 w-3.5" />K
+                <CornerDownLeft className="h-3.5 w-3.5" />
+                Enter
               </span>
-            </div>
+            ) : null}
+
+            <span className="hidden items-center gap-1 rounded-full border border-border bg-white px-2 py-1 text-[11px] font-semibold text-[rgba(var(--foreground),0.7)] sm:inline-flex">
+              <Command className="h-3.5 w-3.5" />K
+            </span>
           </div>
         </div>
+      </div>
 
-        <div className="max-h-[65vh] min-h-[18rem] overflow-y-auto p-2">
-          {!trimmedQuery ? (
-            <SearchState title={COPY.startTitle} description={COPY.startDescription} />
-          ) : !hasEnoughChars ? (
-            <SearchState title={COPY.shortTitle} description={`Введіть щонайменше ${MIN_QUERY_LENGTH} символи.`} />
-          ) : status === 'loading' ? (
-            <SearchState title={COPY.loadingTitle} description={COPY.loadingDescription} />
-          ) : status === 'error' ? (
-            <SearchState title={COPY.errorTitle} description={COPY.errorDescription} />
-          ) : results.length === 0 ? (
-            <SearchState title={COPY.emptyTitle} description={COPY.emptyDescription} />
-          ) : (
-            <div className="space-y-2">
-              {results.map((result, index) => (
-                <Link
-                  key={`${result.type}-${result.id}-${index}`}
-                  href={result.url}
-                  onClick={() => closeDialog()}
-                  className={cn(
-                    'group block rounded-[1.5rem] border border-transparent bg-white px-4 py-3 transition-smooth hover:border-[rgba(var(--primary),0.2)] hover:bg-gradient-soft hover:shadow-soft',
-                    index === 0 && 'border-[rgba(var(--border),0.7)]',
-                  )}
-                >
-                  <div className="flex items-start justify-between gap-3">
-                    <div className="min-w-0">
-                      <div className="flex flex-wrap items-center gap-2">
-                        <span className="rounded-full bg-[rgba(var(--primary),0.08)] px-2.5 py-1 text-[11px] font-bold uppercase tracking-[0.16em] text-primary">
-                          {TYPE_LABELS[result.type]}
-                        </span>
-                        <span className="text-xs text-[rgba(var(--foreground),0.45)]">{result.url}</span>
-                      </div>
-                      <h3 className="mt-2 text-base font-bold text-foreground transition-colors group-hover:text-primary">
-                        {result.title}
-                      </h3>
-                      <p className="mt-2 text-sm leading-6 text-[rgba(var(--foreground),0.7)]">{result.excerpt}</p>
+      <div className="max-h-[65vh] min-h-[18rem] overflow-y-auto p-2">
+        {!trimmedQuery ? (
+          <SearchState title={COPY.startTitle} description={COPY.startDescription} />
+        ) : !hasEnoughChars ? (
+          <SearchState title={COPY.shortTitle} description={`Введіть щонайменше ${MIN_QUERY_LENGTH} символи.`} />
+        ) : status === 'loading' ? (
+          <SearchState title={COPY.loadingTitle} description={COPY.loadingDescription} />
+        ) : status === 'error' ? (
+          <SearchState title={COPY.errorTitle} description={COPY.errorDescription} />
+        ) : results.length === 0 ? (
+          <SearchState title={COPY.emptyTitle} description={COPY.emptyDescription} />
+        ) : (
+          <div className="space-y-2">
+            {results.map((result, index) => (
+              <Link
+                key={`${result.type}-${result.id}-${index}`}
+                href={result.url}
+                onClick={() => closeDialog()}
+                className={cn(
+                  'group block rounded-[1.5rem] border border-transparent bg-white px-4 py-3 transition-smooth hover:border-[rgba(var(--primary),0.2)] hover:bg-gradient-soft hover:shadow-soft',
+                  index === 0 && 'border-[rgba(var(--border),0.7)]',
+                )}
+              >
+                <div className="flex items-start justify-between gap-3">
+                  <div className="min-w-0">
+                    <div className="flex flex-wrap items-center gap-2">
+                      <span className="rounded-full bg-[rgba(var(--primary),0.08)] px-2.5 py-1 text-[11px] font-bold uppercase tracking-[0.16em] text-primary">
+                        {TYPE_LABELS[result.type]}
+                      </span>
+                      <span className="text-xs text-[rgba(var(--foreground),0.45)]">{result.url}</span>
                     </div>
-
-                    <Button
-                      type="button"
-                      variant="ghost"
-                      size="icon-sm"
-                      className="hidden sm:blockshrink-0 opacity-0 transition group-hover:opacity-100"
-                      onClick={(event) => {
-                        event.preventDefault()
-                        openResult(result.url)
-                      }}
-                      aria-label={`${COPY.openResultLabel} ${result.title}`}
-                    >
-                      <CornerDownLeft className="h-4 w-4" />
-                    </Button>
+                    <h3 className="mt-2 text-base font-bold text-foreground transition-colors group-hover:text-primary">
+                      {result.title}
+                    </h3>
+                    <p className="mt-2 text-sm leading-6 text-[rgba(var(--foreground),0.7)]">{result.excerpt}</p>
                   </div>
-                </Link>
-              ))}
-            </div>
-          )}
+
+                  <Button
+                    type="button"
+                    variant="ghost"
+                    size="icon-sm"
+                    className="hidden shrink-0 opacity-0 transition group-hover:opacity-100 sm:block"
+                    onClick={(event) => {
+                      event.preventDefault()
+                      openResult(result.url)
+                    }}
+                    aria-label={`${COPY.openResultLabel} ${result.title}`}
+                  >
+                    <CornerDownLeft className="h-4 w-4" />
+                  </Button>
+                </div>
+              </Link>
+            ))}
+          </div>
+        )}
+      </div>
+    </SiteSearchDialogFrame>
+  )
+}
+
+export function SiteSearchLoadingPanel() {
+  return (
+    <SiteSearchDialogFrame>
+      <div className="border-b border-[rgba(var(--border),0.7)] px-4 py-3">
+        <div className="relative flex items-center">
+          <Search className="pointer-events-none absolute left-3 h-5 w-5 text-muted-foreground" />
+          <div className="flex h-12 w-full items-center rounded-md bg-transparent pl-11 pr-28 text-base text-[rgba(var(--foreground),0.4)]">
+            {COPY.placeholder}
+          </div>
+
+          <div className="absolute right-1.5 flex items-center gap-1.5">
+            <LoaderCircle className="h-4 w-4 animate-spin text-primary" />
+            <span className="hidden items-center gap-1 rounded-full border border-border bg-white px-2 py-1 text-[11px] font-semibold text-[rgba(var(--foreground),0.7)] sm:inline-flex">
+              <Command className="h-3.5 w-3.5" />K
+            </span>
+          </div>
         </div>
-      </DialogContent>
-    </Dialog>
+      </div>
+
+      <div className="max-h-[65vh] min-h-[18rem] overflow-y-auto p-2">
+        <SearchState title={COPY.shellLoadingTitle} description={COPY.shellLoadingDescription} />
+      </div>
+    </SiteSearchDialogFrame>
+  )
+}
+
+function SiteSearchDialogFrame({ children }: { children: ReactNode }) {
+  return (
+    <>
+      <DialogHeader className="border-b border-[rgba(var(--border),0.7)] bg-gradient-soft px-5 py-4 text-left">
+        <DialogTitle className="text-lg font-black text-foreground">{COPY.title}</DialogTitle>
+      </DialogHeader>
+      {children}
+    </>
   )
 }
 

@@ -10,10 +10,7 @@ const HOME_HERO_DESCRIPTION =
 export function HomePageLoading() {
   return (
     <>
-      <section
-        className="relative min-h-[100svh] overflow-hidden"
-        style={{ minHeight: "100vh" }}
-      >
+      <section className="hero-viewport-height relative overflow-hidden">
         <Image
           src={collegePhoto3}
           alt=""
@@ -29,13 +26,10 @@ export function HomePageLoading() {
 
         <FloatingPromos />
 
-        <div className="glow-orb glow-primary-30 animate-float-slow absolute -left-24 -top-24 h-96 w-96" />
+        <div className="glow-orb glow-primary-30 absolute -left-24 -top-24 h-96 w-96" />
 
-        <div
-          className="relative container mx-auto flex min-h-[100svh] flex-col items-center justify-center px-4 pb-20 pt-28 md:px-6"
-          style={{ minHeight: "100vh" }}
-        >
-          <div className="animate-fade-up flex max-w-[900px] flex-col items-center text-center">
+        <div className="hero-viewport-height relative container mx-auto flex flex-col items-center justify-center px-4 pb-20 pt-28 md:px-6">
+          <div className="flex max-w-[900px] flex-col items-center text-center">
             <h1
               style={{
                 fontFamily: '"Inter", ui-sans-serif, system-ui, sans-serif',

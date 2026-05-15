@@ -116,10 +116,7 @@ export function HomeHeroSection({ hero }: { hero: HomePageViewModel["hero"] }) {
   }, [isAnnouncementDialogOpen, isPageVisible, totalAnnouncements]);
 
   return (
-    <section
-      className="relative min-h-[100svh] overflow-hidden"
-      style={{ minHeight: "100vh" }}
-    >
+    <section className="hero-viewport-height relative overflow-hidden">
       <Image
         src={heroBaseImage.src}
         alt=""
@@ -148,10 +145,7 @@ export function HomeHeroSection({ hero }: { hero: HomePageViewModel["hero"] }) {
 
       <div className="glow-orb glow-primary-30 animate-float-slow absolute -left-24 -top-24 h-96 w-96" />
 
-      <div
-        className="relative container mx-auto flex min-h-[100svh] flex-col items-center justify-center px-4 pb-20 pt-28 md:px-6"
-        style={{ minHeight: "100vh" }}
-      >
+      <div className="hero-viewport-height relative container mx-auto flex flex-col items-center justify-center px-4 pb-20 pt-28 md:px-6">
         <div className="flex max-w-[900px] flex-col items-center text-center">
           <h1
             style={{

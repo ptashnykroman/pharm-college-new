@@ -321,6 +321,11 @@
     max-width: var(--site-container-max);
   }
 
+  .hero-viewport-height {
+    min-height: 100vh;
+    min-height: 100dvh;
+  }
+
   .bg-gradient-hero {
     background-image: var(--gradient-hero);
   }
