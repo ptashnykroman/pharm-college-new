@@ -6,6 +6,7 @@ import { ArrowRight } from "lucide-react";
 import { useEffect, useState } from "react";
 
 import { FloatingPromos } from "./floating-promos";
+import collegePhoto3 from "@/shared/assets/images/homepage/college_photo3.webp";
 import type { HomePageViewModel } from "@/widgets/home/model";
 import { buildHeroSlides } from "@/widgets/home/hero/hero-utils";
 import { HeroBackgroundSlider } from "@/widgets/home/hero/hero-background-slider";
@@ -13,8 +14,8 @@ import { HeroAnnouncementStrip } from "@/widgets/home/hero/hero-announcement-str
 
 const DESKTOP_HERO_QUERY = "(min-width: 768px)";
 const SLIDE_INTERVAL_MS = 10000;
-const HERO_BASE_QUALITY = 80;
-const HERO_SLIDER_QUALITY = 80;
+const HERO_BASE_QUALITY = 90;
+const HERO_SLIDER_QUALITY = 90;
 
 type SliderState = {
   activeIndex: number;
@@ -118,13 +119,23 @@ export function HomeHeroSection({ hero }: { hero: HomePageViewModel["hero"] }) {
   return (
     <section className="hero-viewport-height relative overflow-hidden">
       <Image
+        src={collegePhoto3}
+        alt=""
+        fill
+        preload
+        quality={HERO_BASE_QUALITY}
+        sizes="100vw"
+        className="object-cover object-center md:hidden"
+      />
+
+      <Image
         src={heroBaseImage.src}
         alt=""
         fill
         preload
         quality={HERO_BASE_QUALITY}
         sizes="100vw"
-        className="object-cover object-center"
+        className="hidden object-cover object-center md:block"
       />
 
       {isDesktopHero && desktopSlides.length > 0 ? (
