@@ -3,6 +3,7 @@ import Image from "next/image";
 import collegePhoto3 from "@/shared/assets/images/homepage/college_photo3.webp";
 import { FloatingPromos } from "@/widgets/home/hero/floating-promos";
 import { HomeMainSectionsFallback } from "@/widgets/home/home-page";
+import { ArrowRight } from "lucide-react";
 
 const HOME_HERO_DESCRIPTION =
   "Готуємо майбутніх фахівців з фармації та лабораторної діагностики. Якісна освіта, досвідчені викладачі та практична підготовка для успішного старту професійної діяльності.";
@@ -49,6 +50,7 @@ export function HomePageLoading() {
             <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
               <div className="inline-flex h-10 2xs:h-11 xs:h-12 items-center rounded-md bg-accent-gold px-4 xs:px-6 text-[12px] 2xs:text-sm font-bold text-accent-gold-foreground shadow-elegant">
                 Вступ 2026
+                <ArrowRight className="ml-2 h-4 w-4" />
               </div>
               <div className="inline-flex h-10 2xs:h-11 xs:h-12 items-center rounded-md border border-[rgba(255,255,255,0.3)] bg-[rgba(255,255,255,0.1)] px-4 xs:px-6 text-[12px] 2xs:text-sm font-bold text-primary-foreground backdrop-blur-[1px]">
                 Переглянути розклад
