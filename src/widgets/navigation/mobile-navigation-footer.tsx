@@ -28,18 +28,11 @@ export function MobileNavigationFooter({ quickLinks, socialLinks, onClose }: Mob
                 key={item.id}
                 href={item.href}
                 onClick={onClose}
-                /* text-muted-foreground */
                 className="inline-flex items-center gap-2 rounded-lg px-3 py-2 text-xs font-medium text-white transition-smooth hover:bg-[rgba(var(--accent),0.2)]"
               >
                 {item.iconSrc ? (
                   <img src={item.iconSrc} alt="" width={20} height={20} className="h-6 w-6 object-contain" />
                 ) : null}
-                {/* {quickLinkIcon.kind === 'image' ? (
-                  <Image src={quickLinkIcon.src} alt="" width={20} height={20} className="h-5 w-5 object-contain" />
-                ) : (
-                  <quickLinkIcon.icon className="h-5 w-5" aria-hidden="true" />
-                )} */}
-
                 {item.label}
               </SmartLink>
             )
@@ -53,7 +46,7 @@ export function MobileNavigationFooter({ quickLinks, socialLinks, onClose }: Mob
             key={item.id}
             href={item.href}
             ariaLabel={item.label}
-            className="inline-flex h-8 w-8 items-center justify-center rounded-md text-muted-foreground transition-smooth hover:bg-accent hover:text-foreground"
+            className="inline-flex h-8 w-8 items-center justify-center rounded-md text-muted-foreground transition-smooth hover:bg-[rgba(var(--accent),0.2)] hover:text-foreground"
           >
             {item.iconSrc ? (
               <img src={item.iconSrc} alt={item.label} width={16} height={16} className="h-6 w-6 object-contain" />

@@ -3,6 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "packageManager": "pnpm@10.28.0",
+  "browserslist": [
+    "Chrome >= 65",
+    "Firefox >= 60",
+    "Safari >= 11"
+  ],
   "scripts": {
     "codegen": "graphql-codegen --config codegen.ts",
     "dev": "next dev",
@@ -24,6 +29,7 @@
     "radix-ui": "^1.4.3",
     "react": "19.2.4",
     "react-dom": "19.2.4",
+    "regenerator-runtime": "^0.14.1",
     "shadcn": "^4.6.0",
     "tailwind-merge": "^3.5.0",
     "yet-another-react-lightbox": "^3.32.0"

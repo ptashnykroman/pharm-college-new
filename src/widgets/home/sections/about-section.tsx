@@ -8,7 +8,7 @@ import buildingImg from '@/shared/assets/images/homepage/college_photo2.webp'
 
 const aboutFeatures = [
   'Сучасна навчально-матеріальна база',
-  'Висококваліфікований професорсько-викладацький склад',
+  'Висококваліфікований викладацький склад',
   'Практика в провідних мережах аптек',
 ]
 
@@ -46,9 +46,9 @@ export function AboutSection({ about }: { about: HomePageViewModel['about'] }) {
 
             <ul className="mt-8 space-y-3">
               {aboutFeatures.map((feature) => (
-                <li key={feature} className="flex items-start gap-3">
+                <li key={feature} className="flex items-start gap-1.5 xs:gap-3">
                   <CheckCircle2 className="mt-0.5 h-5 w-5 flex-shrink-0 text-primary" />
-                  <span className="text-[rgba(var(--foreground),0.9)]">{feature}</span>
+                  <span className="text-[rgba(var(--foreground),0.9)] !text-[14px] !xs:text-sm">{feature}</span>
                 </li>
               ))}
             </ul>

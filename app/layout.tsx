@@ -77,7 +77,7 @@ export default async function RootLayout({
         <script id="header-scroll-state" dangerouslySetInnerHTML={{ __html: HEADER_SCROLL_BOOTSTRAP }} />
       </head>
       <body className="min-h-full">
-        <div className="flex min-h-[100dvh] flex-col bg-background text-foreground">
+        <div className="flex min-h-screen min-h-[100dvh] flex-col bg-background text-foreground">
           <SiteHeader data={chrome.header} />
           <main className="flex-1">{children}</main>
           <SiteFooter data={chrome.footer} />

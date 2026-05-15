@@ -1,28 +1,25 @@
-"use client";
+'use client'
 
-import Link from "next/link";
-import { ArrowLeft, X } from "lucide-react";
-import type { Dispatch, SetStateAction } from "react";
+import Link from 'next/link'
+import { ArrowLeft, X } from 'lucide-react'
+import type { Dispatch, SetStateAction } from 'react'
 
-import type { NavigationNode } from "@/shared/lib/navigation";
-import { cn } from "@/shared/lib/utils";
-import { MobileNavigationFooter } from "@/widgets/navigation/mobile-navigation-footer";
-import { MobileNavigationList } from "@/widgets/navigation/mobile-navigation-list";
-import { SmartLink } from "@/widgets/navigation/smart-link";
-import type {
-  NavigationQuickLinkItem,
-  NavigationSocialLinkItem,
-} from "@/widgets/navigation/types";
+import type { NavigationNode } from '@/shared/lib/navigation'
+import { cn } from '@/shared/lib/utils'
+import { MobileNavigationFooter } from '@/widgets/navigation/mobile-navigation-footer'
+import { MobileNavigationList } from '@/widgets/navigation/mobile-navigation-list'
+import { SmartLink } from '@/widgets/navigation/smart-link'
+import type { NavigationQuickLinkItem, NavigationSocialLinkItem } from '@/widgets/navigation/types'
 
 type MobileNavigationProps = {
-  open: boolean;
-  onClose: () => void;
-  nav: NavigationNode[];
-  quickLinks: NavigationQuickLinkItem[];
-  socialLinks: NavigationSocialLinkItem[];
-  stack: NavigationNode[];
-  setStack: Dispatch<SetStateAction<NavigationNode[]>>;
-};
+  open: boolean
+  onClose: () => void
+  nav: NavigationNode[]
+  quickLinks: NavigationQuickLinkItem[]
+  socialLinks: NavigationSocialLinkItem[]
+  stack: NavigationNode[]
+  setStack: Dispatch<SetStateAction<NavigationNode[]>>
+}
 
 export function MobileNavigation({
   open,
@@ -33,24 +30,24 @@ export function MobileNavigation({
   stack,
   setStack,
 }: MobileNavigationProps) {
-  const level = stack.length;
-  const current = stack[level - 1];
+  const level = stack.length
+  const current = stack[level - 1]
 
   return (
     <div
       className={cn(
-        "fixed inset-0 z-[60] xl:hidden",
-        "transition-opacity duration-300",
-        open ? "pointer-events-auto opacity-100" : "pointer-events-none opacity-0",
+        'fixed inset-0 z-[60] xl:hidden',
+        'transition-opacity duration-300',
+        open ? 'pointer-events-auto opacity-100' : 'pointer-events-none opacity-0',
       )}
     >
       <div onClick={onClose} className="absolute inset-0 bg-[rgba(var(--foreground),0.4)] backdrop-blur-sm" />
 
       <div
         className={cn(
-          "absolute right-0 top-0 flex h-full w-full max-w-md flex-col bg-background shadow-elegant",
-          "transition-transform duration-300",
-          open ? "translate-x-0" : "translate-x-full",
+          'absolute right-0 top-0 flex h-full w-full max-w-md flex-col bg-background shadow-elegant',
+          'transition-transform duration-300',
+          open ? 'translate-x-0' : 'translate-x-full',
         )}
       >
         <div className="flex h-16 shrink-0 items-center justify-between border-b border-border px-4">
@@ -81,11 +78,9 @@ export function MobileNavigation({
               {stack
                 .slice(0, -1)
                 .map((item) => item.label)
-                .join(" / ") || "Меню"}
+                .join(' / ') || 'Меню'}
             </div>
-            <div className="mt-0.5 text-xl font-bold text-foreground">
-              {current?.label}
-            </div>
+            <div className="mt-0.5 text-xl font-bold text-foreground">{current?.label}</div>
           </div>
         ) : null}
 
@@ -98,20 +93,18 @@ export function MobileNavigation({
             }}
           >
             {Array.from({ length: level + 1 }).map((_, index) => {
-              const isActive = index === level;
-              const panelItems = index === 0 ? nav : (stack[index - 1]?.children ?? []);
+              const isActive = index === level
+              const panelItems = index === 0 ? nav : (stack[index - 1]?.children ?? [])
 
               return (
                 <div
                   key={index}
-                  className="h-full overflow-y-auto pt-2"
+                  className="h-full overflow-y-auto pt-2 flex flex-col"
                   style={{ width: `${100 / (level + 1)}%` }}
                   aria-hidden={!isActive}
                 >
                   {index === 0 && level === 0 ? (
-                    <div className="px-2 pb-2 text-[11px] uppercase tracking-wider text-muted-foreground">
-                      Розділи
-                    </div>
+                    <div className="px-2 pb-2 text-[11px] uppercase tracking-wider text-muted-foreground">Розділи</div>
                   ) : null}
 
                   <MobileNavigationList
@@ -123,18 +116,14 @@ export function MobileNavigation({
                   />
 
                   {index === 0 ? (
-                    <MobileNavigationFooter
-                      quickLinks={quickLinks}
-                      socialLinks={socialLinks}
-                      onClose={onClose}
-                    />
+                    <MobileNavigationFooter quickLinks={quickLinks} socialLinks={socialLinks} onClose={onClose} />
                   ) : null}
                 </div>
-              );
+              )
             })}
           </div>
         </div>
       </div>
     </div>
-  );
+  )
 }

@@ -1,3 +1,4 @@
+import './polyfills'
 import * as Sentry from '@sentry/nextjs'
 
 Sentry.init({
