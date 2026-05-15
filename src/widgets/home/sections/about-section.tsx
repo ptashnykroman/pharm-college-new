@@ -25,7 +25,7 @@ export function AboutSection({ about }: { about: HomePageViewModel['about'] }) {
                 alt={about.image?.alt || about.title}
                 width={about.image?.width || buildingImg.width}
                 height={about.image?.height || buildingImg.height}
-                quality={95}
+                quality={80}
                 className="aspect-[5/4] w-full object-cover transition-bounce hover:scale-105"
                 sizes="(max-width: 1024px) 100vw, 50vw"
               />

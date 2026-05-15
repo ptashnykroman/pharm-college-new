@@ -9,6 +9,7 @@ type SmartLinkProps = {
   children: ReactNode;
   onClick?: () => void;
   ariaLabel?: string;
+  prefetch?: boolean;
 };
 
 export function SmartLink({
@@ -17,6 +18,7 @@ export function SmartLink({
   children,
   onClick,
   ariaLabel,
+  prefetch,
 }: SmartLinkProps) {
   if (isExternalHref(href) || href.startsWith("#")) {
     return (
@@ -34,7 +36,7 @@ export function SmartLink({
   }
 
   return (
-    <Link href={href} className={className} onClick={onClick} aria-label={ariaLabel}>
+    <Link href={href} prefetch={prefetch} className={className} onClick={onClick} aria-label={ariaLabel}>
       {children}
     </Link>
   );

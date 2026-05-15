@@ -27,9 +27,9 @@ export function PartnersSection({
                     alt={item.image.alt || item.name}
                     width={item.image.width}
                     height={item.image.height}
-                    quality={95}
+                    quality={80}
                     className="max-h-16 w-auto object-contain"
-                    sizes="(max-width: 768px) 50vw, 25vw"
+                    sizes="(max-width: 639px) 50vw, (max-width: 767px) 33vw, 20vw"
                   />
                 ) : (
                   item.name

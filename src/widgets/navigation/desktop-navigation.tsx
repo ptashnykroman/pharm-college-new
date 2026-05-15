@@ -54,7 +54,7 @@ function DesktopNavigationItem({ item }: { item: NavigationNode }) {
 
   if (!hasChildren) {
     return (
-      <SmartLink href={item.href} className={linkClassName}>
+      <SmartLink href={item.href} prefetch={false} className={linkClassName}>
         {item.label}
       </SmartLink>
     )
@@ -62,7 +62,7 @@ function DesktopNavigationItem({ item }: { item: NavigationNode }) {
 
   return (
     <div ref={itemRef} className="group relative" onMouseEnter={updatePlacement} onFocusCapture={updatePlacement}>
-      <SmartLink href={item.href} className={linkClassName}>
+      <SmartLink href={item.href} prefetch={false} className={linkClassName}>
         {item.label}
         <ChevronDown className="h-3.5 w-3.5 opacity-70 transition-transform group-hover:rotate-180" />
       </SmartLink>
@@ -119,7 +119,7 @@ function DesktopSubNavigationItem({ item }: { item: NavigationNode }) {
 
   if (item.children.length === 0) {
     return (
-      <SmartLink href={item.href} className="block rounded-lg px-3 py-2 transition-smooth hover:bg-accent">
+      <SmartLink href={item.href} prefetch={false} className="block rounded-lg px-3 py-2 transition-smooth hover:bg-accent">
         <div className="text-sm font-medium text-foreground">{item.label}</div>
       </SmartLink>
     )
@@ -129,6 +129,7 @@ function DesktopSubNavigationItem({ item }: { item: NavigationNode }) {
     <div ref={itemRef} className="group/sub relative" onMouseEnter={updatePlacement} onFocusCapture={updatePlacement}>
       <SmartLink
         href={item.href}
+        prefetch={false}
         className="flex w-full items-center justify-between gap-2 rounded-lg px-3 py-2 text-left transition-smooth hover:bg-accent"
       >
         <div className="text-sm font-medium text-foreground">{item.label}</div>
@@ -155,6 +156,7 @@ function DesktopSubNavigationItem({ item }: { item: NavigationNode }) {
             <SmartLink
               key={leaf.id}
               href={leaf.href}
+              prefetch={false}
               className="block rounded-lg px-3 py-2 text-sm font-medium text-foreground transition-smooth hover:bg-accent"
             >
               {leaf.label}

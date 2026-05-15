@@ -18,6 +18,7 @@ export function HeaderTopBar({ quickLinks, socialLinks }: HeaderTopBarProps) {
               <SmartLink
                 key={item.id}
                 href={item.href}
+                prefetch={false}
                 className={`header-quick-link inline-flex items-center gap-1.5 rounded-md px-2.5 py-1 text-[12px] ${
                   index > 2 ? '!hidden sm:!inline-flex' : ''
                 }`}
@@ -36,6 +37,7 @@ export function HeaderTopBar({ quickLinks, socialLinks }: HeaderTopBarProps) {
             <SmartLink
               key={item.id}
               href={item.href}
+              prefetch={false}
               ariaLabel={item.label}
               className="header-social-link inline-flex h-7 w-7 items-center justify-center rounded-md"
             >

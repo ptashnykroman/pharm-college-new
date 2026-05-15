@@ -24,8 +24,8 @@ export function GallerySection({ gallery }: { gallery: HomePageViewModel['galler
                 src={item.image.src}
                 alt={item.image.alt || item.title}
                 fill
-                quality={95}
-                sizes="(max-width: 768px) 50vw, 33vw"
+                quality={80}
+                sizes="(max-width: 767px) 50vw, 25vw"
                 className="object-cover transition-bounce group-hover:scale-110"
               />
               <div className="absolute inset-0 bg-gradient-gallery-overlay" />

@@ -23,6 +23,7 @@ export function MobileNavigationList({ items, isActive, onClose, stack, setStack
             <div className="flex items-stretch gap-2">
               <SmartLink
                 href={node.href}
+                prefetch={false}
                 onClick={onClose}
                 className="min-w-0 flex-1 rounded-xl px-3 py-3 text-[15px] font-medium text-foreground transition-smooth hover:bg-accent"
               >

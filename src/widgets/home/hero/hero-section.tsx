@@ -6,7 +6,6 @@ import { ArrowRight } from 'lucide-react'
 import { useEffect, useState } from 'react'
 
 import { FloatingPromos } from './floating-promos'
-import collegePhoto3 from '@/shared/assets/images/homepage/college_photo3.webp'
 import type { HomePageViewModel } from '@/widgets/home/model'
 import { buildHeroSlides } from '@/widgets/home/hero/hero-utils'
 import { HeroAnnouncementStrip } from '@/widgets/home/hero/hero-announcement-strip'
@@ -14,6 +13,8 @@ import { HeroBackgroundSlider } from '@/widgets/home/hero/hero-background-slider
 
 const DESKTOP_HERO_QUERY = '(min-width: 768px)'
 const SLIDE_INTERVAL_MS = 10000
+const HERO_BASE_QUALITY = 82
+const HERO_SLIDER_QUALITY = 80
 
 type SliderState = {
   activeIndex: number
@@ -31,6 +32,10 @@ export function HomeHeroSection({ hero }: { hero: HomePageViewModel['hero'] }) {
   })
 
   const slides = buildHeroSlides(hero)
+  const heroBaseImage = slides[0]
+  const desktopSlides = slides.slice(1)
+  const desktopActiveIndex = sliderState.activeIndex === 0 ? -1 : sliderState.activeIndex - 1
+  const desktopRenderedIndexes = sliderState.renderedIndexes.filter((index) => index > 0).map((index) => index - 1)
   const totalAnnouncements = hero.announcements.length
   const currentAnnouncement = totalAnnouncements > 0 ? hero.announcements[announcementIndex % totalAnnouncements] : null
 
@@ -90,22 +95,22 @@ export function HomeHeroSection({ hero }: { hero: HomePageViewModel['hero'] }) {
   return (
     <section className="relative min-h-[100svh] overflow-hidden" style={{ minHeight: '100vh' }}>
       <Image
-        src={collegePhoto3}
+        src={heroBaseImage.src}
         alt=""
         fill
         preload
-        quality={90}
+        quality={HERO_BASE_QUALITY}
         sizes="100vw"
         className="object-cover object-center"
       />
 
-      {isDesktopHero ? (
+      {isDesktopHero && desktopSlides.length > 0 ? (
         <HeroBackgroundSlider
-          slides={slides}
-          activeIndex={sliderState.activeIndex}
+          slides={desktopSlides}
+          activeIndex={desktopActiveIndex}
           preloadFirst={false}
-          quality={90}
-          renderedIndexes={sliderState.renderedIndexes}
+          quality={HERO_SLIDER_QUALITY}
+          renderedIndexes={desktopRenderedIndexes}
           showOverlays={false}
         />
       ) : null}
@@ -126,10 +131,7 @@ export function HomeHeroSection({ hero }: { hero: HomePageViewModel['hero'] }) {
             style={{ fontFamily: '"Inter", ui-sans-serif, system-ui, sans-serif' }}
             className="text-2xl 2xs:text-3xl xs:text-4xl sm:text-5xl lg:text-6xl 3xl:text-7xl leading-[1.05] font-black tracking-tight text-primary-foreground"
           >
-            Житомирський базовий{' '}
-            <span className="hero-gradient-text block">
-              фармацевтичний фаховий коледж
-            </span>
+            Житомирський базовий <span className="hero-gradient-text block">фармацевтичний фаховий коледж</span>
           </h1>
 
           <p className="text-sm 2xs:text-base xs:text-lg sm:text-xl mt-6 max-w-2xl text-[rgba(var(--primary-foreground),0.85)]">

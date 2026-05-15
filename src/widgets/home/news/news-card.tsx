@@ -23,13 +23,13 @@ export function NewsCard({ item, index, page, isHomePage }: NewsCardProps) {
     >
       <div className="pointer-events-none absolute inset-0 rounded-3xl ring-1 ring-border transition-smooth group-hover:ring-[rgba(var(--primary),0.3)]" />
 
-      <Link href={item.href}>
+      <Link href={item.href} prefetch={false}>
         <div className="relative aspect-[16/11] overflow-hidden">
           <Image
             src={item.image.src}
             alt={item.image.alt || item.title}
             fill
-            quality={95}
+            quality={80}
             sizes="(max-width: 768px) 100vw, 33vw"
             className="object-cover transition-bounce duration-500 group-hover:scale-110"
           />
@@ -37,7 +37,7 @@ export function NewsCard({ item, index, page, isHomePage }: NewsCardProps) {
           <div className="absolute inset-0 bg-gradient-news-overlay" />
 
           <div className="absolute left-5 top-5 flex flex-col items-center justify-center rounded-2xl bg-[rgba(var(--card),0.95)] px-3 py-2 text-center shadow-card backdrop-blur transition-bounce group-hover:-rotate-3 group-hover:scale-105">
-            <span className="text-xl font-extrabold leading-none text-primary">
+            <span className="text-xl font-black leading-none text-primary">
               {item.date.day}
             </span>
             <span className="mt-0.5 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">
@@ -63,11 +63,11 @@ export function NewsCard({ item, index, page, isHomePage }: NewsCardProps) {
           "relative flex flex-1 flex-col " + (isHomePage ? "p-6" : "p-4")
         }
       >
-        <Link href={item.href}>
+        <Link href={item.href} prefetch={false}>
           <h3
             className={
               "text-lg leading-snug text-foreground transition-smooth line-clamp-3 group-hover:text-primary " +
-              (isHomePage ? "font-extrabold" : "font-bold leading-tight")
+              (isHomePage ? "font-black" : "font-bold leading-tight")
             }
           >
             {item.title}
@@ -79,6 +79,7 @@ export function NewsCard({ item, index, page, isHomePage }: NewsCardProps) {
         </p>
         <Link
           href={item.href}
+          prefetch={false}
           className="mt-5 inline-flex items-center justify-between gap-2 rounded-xl border border-border px-4 py-2.5 text-sm font-semibold text-foreground transition-smooth group-hover:border-[rgba(var(--primary),0.3)] group-hover:bg-[rgba(var(--primary),0.05)] group-hover:text-primary"
         >
           Читати далі

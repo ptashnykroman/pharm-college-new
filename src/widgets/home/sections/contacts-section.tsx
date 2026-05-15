@@ -1,15 +1,12 @@
-import { Send } from "lucide-react";
-
 import type { HomePageViewModel } from "@/widgets/home/model";
 import { ContactPersonCard } from "@/widgets/home/sections/contacts/contact-person-card";
+import { HomeContactsMap } from "@/widgets/home/sections/contacts/home-contacts-map";
 
 export function ContactsSection({
   contacts,
 }: {
   contacts: HomePageViewModel["contacts"];
 }) {
-  const primaryEmail = contacts.people[0]?.email;
-
   return (
     <section id="contacts" className="bg-gradient-soft py-20 md:py-28">
       <div className="container mx-auto px-4 md:px-6">
@@ -35,15 +32,7 @@ export function ContactsSection({
               Якщо вам зручніше, скористайтеся мапою або напишіть на офіційну пошту коледжу.
             </p> */}
 
-            <div className="mt-6 overflow-hidden rounded-2xl border border-border">
-              <iframe
-                src={contacts.mapUrl}
-                title={contacts.title}
-                className="h-[400px] w-full"
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-              />
-            </div>
+            <HomeContactsMap title={contacts.title} mapUrl={contacts.mapUrl} />
 
             {/* {primaryEmail ? (
               <a

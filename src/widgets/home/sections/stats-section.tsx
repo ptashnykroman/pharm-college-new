@@ -14,7 +14,7 @@ export function StatsSection({
           <div className="relative grid grid-cols-2 gap-8 md:grid-cols-4">
             {stats.map((item) => (
               <div key={item.id} className="text-center">
-                <div className="text-3xl font-extrabold text-primary-foreground sm:text-4xl lg:text-5xl">
+                <div className="text-3xl font-black text-primary-foreground sm:text-4xl lg:text-5xl">
                   {item.value}
                 </div>
                 <div className="mt-2 text-xs text-[rgba(var(--primary-foreground),0.8)] sm:text-sm">

@@ -173,7 +173,7 @@ export function EventsSection({
                         src={item.image.src}
                         alt={item.image.alt || item.title}
                         fill
-                        quality={95}
+                        quality={80}
                         sizes="(max-width: 767px) 100vw, (max-width: 1279px) 50vw, 33vw"
                         className="object-cover transition-bounce duration-500 group-hover:scale-110"
                       />
@@ -185,7 +185,7 @@ export function EventsSection({
                     </span>
 
                     <div className="absolute -bottom-2 left-5 flex h-20 w-20 flex-col items-center justify-center rounded-t-2xl bg-card text-center shadow-elegant ring-4 ring-card transition-bounce group-hover:-rotate-3">
-                      <span className="text-2xl font-extrabold leading-none text-primary">
+                      <span className="text-2xl font-black leading-none text-primary">
                         {item.date.day}
                       </span>
                       <span className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground">

@@ -27,6 +27,7 @@ export function MobileNavigationFooter({ quickLinks, socialLinks, onClose }: Mob
               <SmartLink
                 key={item.id}
                 href={item.href}
+                prefetch={false}
                 onClick={onClose}
                 className="inline-flex items-center gap-2 rounded-lg px-3 py-2 text-xs font-medium text-white transition-smooth hover:bg-[rgba(var(--accent),0.2)]"
               >
@@ -45,6 +46,7 @@ export function MobileNavigationFooter({ quickLinks, socialLinks, onClose }: Mob
           <SmartLink
             key={item.id}
             href={item.href}
+            prefetch={false}
             ariaLabel={item.label}
             className="inline-flex h-8 w-8 items-center justify-center rounded-md text-muted-foreground transition-smooth hover:bg-[rgba(var(--accent),0.2)] hover:text-foreground"
           >
