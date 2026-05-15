@@ -98,8 +98,6 @@ export function EventsSection({
   };
 
   const translateX = `translateX(calc(-${clampedStartIndex} * ((100% - ${(visibleCards - 1) * CARD_GAP}px) / ${visibleCards} + ${CARD_GAP}px)))`;
-  const cardBasis = `calc((100% - ${(visibleCards - 1) * CARD_GAP}px) / ${visibleCards})`;
-
   return (
     <section id="events" className="relative overflow-hidden py-20 md:py-28">
       <div className="absolute inset-0 -z-10 bg-primary-deep">
@@ -165,9 +163,9 @@ export function EventsSection({
                   key={item.id}
                   style={{
                     animationDelay: `${index * 100}ms`,
-                    flex: `0 0 ${cardBasis}`,
+                    transitionProperty: "transform, box-shadow",
                   }}
-                  className="group relative flex min-w-0 flex-col animate-fade-up overflow-hidden rounded-3xl bg-[rgba(var(--card),0.95)] shadow-card backdrop-blur transition-bounce hover:-translate-y-2 hover:shadow-elegant"
+                  className="group relative flex min-w-0 grow-0 shrink-0 basis-full flex-col animate-fade-up overflow-hidden rounded-3xl bg-[rgba(var(--card),0.95)] shadow-card backdrop-blur transition-bounce md:basis-[calc((100%_-_24px)/2)] lg:basis-[calc((100%_-_48px)/3)] hover:-translate-y-2 hover:shadow-elegant"
                 >
                   <div className="relative h-44 overflow-hidden">
                     {item.image ? (

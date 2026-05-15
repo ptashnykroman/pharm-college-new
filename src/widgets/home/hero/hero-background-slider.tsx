@@ -45,7 +45,7 @@ export function HeroBackgroundSlider({
             preload={shouldPreload}
             quality={quality}
             sizes="100vw"
-            className={`${imageClassName} transition-opacity duration-[2000ms] ease-in-out ${
+            className={`${imageClassName} transition-opacity [transition-duration:2000ms] ease-in-out ${
               isActive ? "opacity-100" : "opacity-0"
             }`}
           />

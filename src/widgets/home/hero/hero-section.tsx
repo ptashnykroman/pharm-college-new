@@ -24,6 +24,7 @@ export function HomeHeroSection({ hero }: { hero: HomePageViewModel['hero'] }) {
   const [announcementIndex, setAnnouncementIndex] = useState(0)
   const [isAnnouncementDialogOpen, setIsAnnouncementDialogOpen] = useState(false)
   const [isDesktopHero, setIsDesktopHero] = useState(false)
+  const [isPageVisible, setIsPageVisible] = useState(true)
   const [sliderState, setSliderState] = useState<SliderState>({
     activeIndex: 0,
     renderedIndexes: [0],
@@ -44,7 +45,16 @@ export function HomeHeroSection({ hero }: { hero: HomePageViewModel['hero'] }) {
   }, [])
 
   useEffect(() => {
-    if (!isDesktopHero || slides.length <= 1) {
+    const syncPageVisibility = () => setIsPageVisible(document.visibilityState === 'visible')
+
+    syncPageVisibility()
+    document.addEventListener('visibilitychange', syncPageVisibility)
+
+    return () => document.removeEventListener('visibilitychange', syncPageVisibility)
+  }, [])
+
+  useEffect(() => {
+    if (!isDesktopHero || !isPageVisible || slides.length <= 1) {
       return
     }
 
@@ -63,10 +73,10 @@ export function HomeHeroSection({ hero }: { hero: HomePageViewModel['hero'] }) {
     }, SLIDE_INTERVAL_MS)
 
     return () => window.clearInterval(id)
-  }, [isDesktopHero, slides.length])
+  }, [isDesktopHero, isPageVisible, slides.length])
 
   useEffect(() => {
-    if (totalAnnouncements <= 1 || isAnnouncementDialogOpen) {
+    if (totalAnnouncements <= 1 || isAnnouncementDialogOpen || !isPageVisible) {
       return
     }
 
@@ -75,7 +85,7 @@ export function HomeHeroSection({ hero }: { hero: HomePageViewModel['hero'] }) {
     }, 5000)
 
     return () => window.clearInterval(id)
-  }, [isAnnouncementDialogOpen, totalAnnouncements])
+  }, [isAnnouncementDialogOpen, isPageVisible, totalAnnouncements])
 
   return (
     <section className="relative min-h-[100svh] overflow-hidden" style={{ minHeight: '100vh' }}>
