@@ -3,6 +3,8 @@ import { notFound, redirect } from 'next/navigation'
 import { buildNewsArticleBreadcrumbs } from '@/shared/lib/breadcrumbs'
 import { buildPageMetadata } from '@/shared/lib/metadata'
 import { buildNewsUrl } from '@/shared/lib/navigation'
+import { buildNewsArticleJsonLd } from '@/shared/lib/seo'
+import { SeoJsonLd } from '@/shared/ui/seo-json-ld'
 import {
   getNewsArticleMetadata,
   getNewsArticlePageData,
@@ -30,8 +32,8 @@ export async function generateMetadata({ params }: FullNewsPageProps) {
 
   if (!metadata) {
     return buildPageMetadata({
-      title: 'Новина не знайдена',
-      description: 'Запитана новина не знайдена.',
+      title: 'Новину не знайдено',
+      description: 'Запитану новину не знайдено.',
       pathname: `/novina/${resolved.year}/${resolved.month}/${resolved.day}/${resolved.id}`,
       indexable: false,
     })
@@ -59,6 +61,17 @@ export default async function FullNewsPage({ params }: FullNewsPageProps) {
 
   return (
     <>
+      <SeoJsonLd
+        data={buildNewsArticleJsonLd({
+          title: data.article.title,
+          description: data.article.excerpt,
+          pathname: canonicalPath,
+          publishedTime: data.article.date.iso,
+          modifiedTime: data.article.date.iso,
+          imageUrl: data.article.image?.src ?? null,
+          keywords: data.article.tags,
+        })}
+      />
       <InnerPageHero title={data.article.title} breadcrumbs={breadcrumbs} />
       <NewsArticlePageView article={data.article} recentItems={data.recentItems} archive={data.archive} />
     </>

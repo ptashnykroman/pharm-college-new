@@ -198,6 +198,11 @@ type CmsPagePathsPageQuery = {
   } | null;
 };
 
+export type CmsPageEntry = {
+  pathname: string;
+  updatedAt: string | null;
+};
+
 function normalizeCmsPath(path: string | null | undefined) {
   const trimmed = path?.trim();
 
@@ -217,6 +222,25 @@ function collectCmsPagePaths(page: CmsPagePathsPageQuery) {
   return page.pages?.data
     .map((entry) => normalizeCmsPath(entry.attributes?.page_url))
     .filter((path): path is string => Boolean(path)) ?? [];
+}
+
+function collectCmsPageEntries(page: CmsPagePathsPageQuery) {
+  return (
+    page.pages?.data.flatMap((entry) => {
+      const pathname = normalizeCmsPath(entry.attributes?.page_url);
+
+      if (!pathname) {
+        return [];
+      }
+
+      return [
+        {
+          pathname,
+          updatedAt: entry.attributes?.updatedAt ?? entry.attributes?.publishedAt ?? null,
+        } satisfies CmsPageEntry,
+      ];
+    }) ?? []
+  );
 }
 
 export function getShellData() {
@@ -370,6 +394,14 @@ export async function getHomePartners(): Promise<GetHomePartnersQuery> {
 export async function getAllCmsPagePaths(
   pageSize = CMS_PAGE_PATHS_PAGE_SIZE,
 ): Promise<string[]> {
+  const entries = await getAllCmsPageEntries(pageSize);
+
+  return entries.map((entry) => entry.pathname);
+}
+
+export async function getAllCmsPageEntries(
+  pageSize = CMS_PAGE_PATHS_PAGE_SIZE,
+): Promise<CmsPageEntry[]> {
   const options = {
     revalidate: DEFAULT_REVALIDATE_SECONDS,
     tags: [CACHE_TAGS.page, CACHE_TAGS.routes],
@@ -388,7 +420,11 @@ export async function getAllCmsPagePaths(
   );
 
   const pageCount = firstPage.pages?.meta.pagination.pageCount ?? 0;
-  const pathSet = new Set(collectCmsPagePaths(firstPage));
+  const entryMap = new Map<string, CmsPageEntry>();
+
+  collectCmsPageEntries(firstPage).forEach((entry) => {
+    entryMap.set(entry.pathname, entry);
+  });
 
   if (pageCount > 1) {
     const remainingPages = await Promise.all(
@@ -405,11 +441,15 @@ export async function getAllCmsPagePaths(
     );
 
     remainingPages.forEach((page) => {
-      collectCmsPagePaths(page).forEach((path) => pathSet.add(path));
+      collectCmsPageEntries(page).forEach((entry) => {
+        entryMap.set(entry.pathname, entry);
+      });
     });
   }
 
-  return Array.from(pathSet).sort((left, right) => left.localeCompare(right, "uk"));
+  return Array.from(entryMap.values()).sort((left, right) =>
+    left.pathname.localeCompare(right.pathname, "uk"),
+  );
 }
 
 export function getPageSeo(pageUrl: string) {

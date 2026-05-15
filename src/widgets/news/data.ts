@@ -540,5 +540,9 @@ export async function getNewsArticleMetadata(newsId: string) {
     description: article.excerpt,
     pathname: article.href,
     image: article.image?.src ?? null,
+    openGraphType: 'article' as const,
+    publishedTime: article.date.iso,
+    modifiedTime: article.date.iso,
+    keywords: article.tags,
   };
 }

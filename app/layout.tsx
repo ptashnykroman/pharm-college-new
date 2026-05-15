@@ -1,12 +1,24 @@
-import type { Metadata } from 'next'
+import type { Metadata, Viewport } from 'next'
+import Script from 'next/script'
 
-import { SITE_DESCRIPTION, SITE_FULL_NAME, SITE_NAME, SITE_URL } from '@/shared/lib/site-config'
+import { cn } from '@/lib/utils'
+import { buildOrganizationJsonLd, buildWebsiteJsonLd } from '@/shared/lib/seo'
+import {
+  SITE_DESCRIPTION,
+  SITE_FULL_NAME,
+  SITE_NAME,
+  SITE_OG_IMAGE,
+  SITE_THEME_COLOR,
+  SITE_URL,
+} from '@/shared/lib/site-config'
+import { SeoJsonLd } from '@/shared/ui/seo-json-ld'
 import { SiteFooter } from '@/widgets/footer/site-footer'
 import { getSiteChromeData } from '@/widgets/header/data'
 import { SiteHeader } from '@/widgets/header/site-header'
 
 import './globals.css'
-import { cn } from '@/lib/utils'
+
+const GA_MEASUREMENT_ID = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID
 
 const HEADER_SCROLL_BOOTSTRAP = `(() => {
   const root = document.documentElement;
@@ -51,11 +63,46 @@ export const metadata: Metadata = {
   },
   description: SITE_DESCRIPTION,
   applicationName: SITE_NAME,
-  icons: {
-    icon: '/favicon.ico',
-    shortcut: '/favicon.ico',
-    apple: '/favicon.ico',
+  manifest: '/site.webmanifest',
+  alternates: {
+    canonical: '/',
   },
+  icons: {
+    icon: [
+      { url: '/favicon.ico' },
+      { url: '/favicon-32x32.png', sizes: '32x32', type: 'image/png' },
+      { url: '/favicon-16x16.png', sizes: '16x16', type: 'image/png' },
+    ],
+    shortcut: ['/favicon.ico'],
+    apple: [{ url: '/apple-touch-icon.png', sizes: '180x180' }],
+  },
+  openGraph: {
+    type: 'website',
+    siteName: SITE_NAME,
+    title: SITE_FULL_NAME,
+    description: SITE_DESCRIPTION,
+    url: SITE_URL,
+    images: [
+      {
+        url: SITE_OG_IMAGE,
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: SITE_FULL_NAME,
+    description: SITE_DESCRIPTION,
+    images: [SITE_OG_IMAGE],
+  },
+  verification: {
+    google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION,
+  },
+}
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  themeColor: SITE_THEME_COLOR,
 }
 
 export default async function RootLayout({
@@ -75,7 +122,9 @@ export default async function RootLayout({
     >
       <head>
         <script id="header-scroll-state" dangerouslySetInnerHTML={{ __html: HEADER_SCROLL_BOOTSTRAP }} />
+        <SeoJsonLd data={[buildOrganizationJsonLd(), buildWebsiteJsonLd()]} />
       </head>
+
       <body className="min-h-full">
         <div className="flex min-h-screen min-h-[100dvh] flex-col bg-background text-foreground">
           <SiteHeader data={chrome.header} />
@@ -83,6 +132,23 @@ export default async function RootLayout({
           <SiteFooter data={chrome.footer} />
         </div>
       </body>
+
+      {GA_MEASUREMENT_ID ? (
+        <>
+          <Script
+            src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
+            strategy="afterInteractive"
+          />
+          <Script id="google-analytics" strategy="afterInteractive">
+            {`
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', '${GA_MEASUREMENT_ID}');
+            `}
+          </Script>
+        </>
+      ) : null}
     </html>
   )
 }

@@ -30,8 +30,3 @@ async function HomePageContent({ heroPromise, sectionsPromise }: HomePageContent
     </HomePageView>
   )
 }
-
-// TODO:
-// Адаптація під старі браузери
-// Налаштувати SEO
-// lighthouse performance 90+
