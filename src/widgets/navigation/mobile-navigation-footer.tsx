@@ -58,13 +58,7 @@ export function MobileNavigationFooter({ quickLinks, socialLinks, onClose }: Mob
           </SmartLink>
         ))}
       </div>
-      {/* <Link
-        href={HERO_PRIMARY_LINK}
-        onClick={onClose}
-        className="mt-3 inline-flex w-full items-center justify-center rounded-md bg-gradient-primary px-4 py-2.5 text-sm font-semibold text-primary-foreground shadow-soft"
-      >
-        Вступ 2026
-      </Link> */}
+
       <AppButton href={HERO_PRIMARY_LINK} variant="glass" className="w-full">
         Вступ 2026
       </AppButton>
