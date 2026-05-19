@@ -9,7 +9,7 @@ const PATHNAME = '/novina'
 export async function generateMetadata() {
   return buildPageMetadata({
     title: 'Всі новини',
-    description: 'Актуальні новини, події та оголошення ЖБФФК.',
+    description: 'Актуальні новини та оголошення ЖБФФК.',
     pathname: PATHNAME,
   })
 }

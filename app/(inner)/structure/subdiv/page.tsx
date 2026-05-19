@@ -24,7 +24,7 @@ export default async function SubdivisionsPage() {
       <StructureSectionListPageView
         badge="Підрозділи"
         title="Підрозділи"
-        description="Оберіть підрозділ, щоб перейти до його окремої сторінки з описом, матеріалами та структурою."
+        description="Оберіть підрозділ, щоб перейти до його окремої сторінки."
         items={items}
       />
     </>

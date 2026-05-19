@@ -9,7 +9,7 @@ const PATHNAME = '/pro-zhbphc/video-and-3d'
 export async function generateMetadata() {
   return buildPageMetadata({
     title: 'Відео та 3D-панорами',
-    description: 'Добірка відео та 3D-панорам коледжу з повноекранним переглядом.',
+    description: 'Добірка відео та 3D-панорам коледжу.',
     pathname: PATHNAME,
   })
 }

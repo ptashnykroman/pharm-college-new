@@ -20,14 +20,19 @@ function GroupDirectorySection({ section }: { section: ScheduleDepartmentSection
         <div>
           <h2 className="text-lg leading-tight font-black text-foreground sm:text-xl md:text-2xl">{section.title}</h2>
           {section.subtitle ? (
-            <p className="mt-0.5 text-xs text-[rgba(var(--foreground),0.7)] sm:text-sm md:text-md">{section.subtitle}</p>
+            <p className="mt-0.5 text-xs text-[rgba(var(--foreground),0.7)] sm:text-sm md:text-md">
+              {section.subtitle}
+            </p>
           ) : null}
         </div>
       </div>
 
       <div className="mt-6 space-y-6">
         {section.specialties.map((specialty) => (
-          <div key={specialty.id} className="rounded-[1.5rem] border border-[rgba(var(--border),0.7)] bg-[rgba(var(--muted),0.2)] px-3 py-5 sm:p-5">
+          <div
+            key={specialty.id}
+            className="rounded-[1.5rem] border border-[rgba(var(--border),0.7)] bg-[rgba(var(--muted),0.2)] px-3 py-5 sm:p-5"
+          >
             <h3 className="text-base leading-tight font-black text-foreground sm:text-lg">{specialty.title}</h3>
             <div className="mt-4 grid gap-4">
               {specialty.degrees.map((degree) => (
@@ -140,9 +145,6 @@ export function ScheduleLandingPageView({
 }) {
   return (
     <section className="relative overflow-hidden bg-gradient-soft py-12 md:py-16">
-      <div className="absolute inset-x-0 top-0 h-px bg-gradient-divider" />
-      <div className="glow-orb glow-primary-10 absolute top-12 left-0 h-72 w-72" />
-
       <div className="container relative mx-auto px-2 sm:px-4 md:px-6">
         <div className="mx-auto max-w-4xl text-center">
           <h1 className="mt-5 text-3xl font-black text-foreground sm:text-4xl">Групи</h1>
@@ -176,8 +178,6 @@ export function GroupScheduleDirectoryPageView({ sections }: { sections: Schedul
   return (
     <section className="relative overflow-hidden bg-gradient-soft py-12 md:py-16">
       <div className="absolute inset-x-0 top-0 h-px bg-gradient-divider" />
-      <div className="glow-orb glow-primary-10 absolute top-12 left-0 h-72 w-72" />
-      <div className="glow-orb glow-gold-10 absolute right-0 bottom-0 h-72 w-72" />
 
       <div className="container relative mx-auto px-0 sm:px-4 md:px-6">
         <div className="mx-auto max-w-4xl text-center">
@@ -198,8 +198,6 @@ export function TeacherScheduleDirectoryPageView({ sections }: { sections: Sched
   return (
     <section className="relative overflow-hidden bg-gradient-soft py-12 md:py-16">
       <div className="absolute inset-x-0 top-0 h-px bg-gradient-divider" />
-      <div className="glow-orb glow-primary-10 absolute top-12 left-0 h-72 w-72" />
-      <div className="glow-orb glow-gold-10 absolute right-0 bottom-0 h-72 w-72" />
 
       <div className="container relative mx-auto px-4 md:px-6">
         <div className="mx-auto max-w-4xl text-center">
@@ -244,8 +242,6 @@ export function EmbeddedSchedulePageView({ item }: { item: EmbeddedScheduleViewM
   return (
     <section className="relative overflow-hidden bg-gradient-soft py-12 md:py-16">
       <div className="absolute inset-x-0 top-0 h-px bg-gradient-divider" />
-      <div className="glow-orb glow-primary-10 absolute top-12 left-0 h-72 w-72" />
-      <div className="glow-orb glow-gold-10 absolute right-0 bottom-0 h-72 w-72" />
 
       <div className="container relative mx-auto sm:px-4 md:px-6">
         <div className="mx-auto max-w-4xl text-center">

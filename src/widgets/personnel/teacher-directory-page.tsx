@@ -92,8 +92,6 @@ export function TeacherDirectoryPageView({
   return (
     <section className="relative overflow-hidden bg-gradient-soft py-12 md:py-16">
       <div className="absolute inset-x-0 top-0 h-px bg-gradient-divider" />
-      <div className="glow-orb glow-primary-10 absolute left-0 top-12 h-72 w-72" />
-      <div className="glow-orb glow-gold-10 absolute bottom-0 right-0 h-72 w-72" />
 
       <div className="container relative mx-auto px-4 md:px-6">
         <h1 className="mt-5 text-3xl font-black text-center text-foreground sm:text-4xl">Кадровий склад</h1>
@@ -105,7 +103,7 @@ export function TeacherDirectoryPageView({
               <SelectValue placeholder="Усі ЦМК" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value={ALL_COMMISSIONS_VALUE}>Усі ЦМК</SelectItem>
+              <SelectItem value={ALL_COMMISSIONS_VALUE}>Усі ЦК</SelectItem>
               {commissions.map((commission) => (
                 <SelectItem key={commission.id} value={commission.slug} className="cursor-pointer">
                   {commission.name}

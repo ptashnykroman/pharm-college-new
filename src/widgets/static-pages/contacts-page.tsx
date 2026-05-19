@@ -1,64 +1,46 @@
-import { Mail, MapPin, Phone } from "lucide-react";
+import { Mail, MapPin, Phone } from 'lucide-react'
 
-import { MessageForm } from "@/widgets/static-pages/message-form";
-import type { AdministrationCardViewModel } from "@/widgets/personnel/model";
-import { normalizePhone } from "@/widgets/page/cms-page/lib";
+import { MessageForm } from '@/widgets/static-pages/message-form'
+import type { AdministrationCardViewModel } from '@/widgets/personnel/model'
+import { normalizePhone } from '@/widgets/page/cms-page/lib'
 
-const CONTACT_TOPICS = [
-  "Загальне питання",
-  "Питання до адміністрації",
-  "Питання про вступ",
-];
+const CONTACT_TOPICS = ['Загальне питання', 'Питання до адміністрації', 'Питання про вступ']
 
 function ContactCard({ person }: { person: AdministrationCardViewModel }) {
   return (
     <article className="rounded-[1.5rem] border border-[rgba(var(--border),0.7)] bg-white p-5 shadow-soft transition-smooth hover:-translate-y-1 hover:shadow-card">
       <p className="text-xs font-bold uppercase tracking-[0.2em] text-primary">
-        {person.position || "Контактна особа"}
+        {person.position || 'Контактна особа'}
       </p>
       <h3 className="mt-3 text-xl font-black text-foreground">{person.name}</h3>
 
       <div className="mt-4 space-y-3 text-sm text-[rgba(var(--foreground),0.8)]">
         {person.phone ? (
-          <a
-            href={`tel:${normalizePhone(person.phone)}`}
-            className="flex items-center gap-2 hover:text-primary"
-          >
+          <a href={`tel:${normalizePhone(person.phone)}`} className="flex items-center gap-2 hover:text-primary">
             <Phone className="h-4 w-4" />
             <span>{person.phone}</span>
           </a>
         ) : null}
 
         {person.email ? (
-          <a
-            href={`mailto:${person.email}`}
-            className="flex items-center gap-2 break-all hover:text-primary"
-          >
+          <a href={`mailto:${person.email}`} className="flex items-center gap-2 break-all hover:text-primary">
             <Mail className="h-4 w-4" />
             <span>{person.email}</span>
           </a>
         ) : null}
       </div>
     </article>
-  );
+  )
 }
 
-export function ContactsPageView({
-  people,
-}: {
-  people: AdministrationCardViewModel[];
-}) {
+export function ContactsPageView({ people }: { people: AdministrationCardViewModel[] }) {
   return (
     <section className="relative overflow-hidden bg-gradient-soft py-12 md:py-16">
       <div className="absolute inset-x-0 top-0 h-px bg-gradient-divider" />
-      <div className="glow-orb glow-primary-10 absolute left-0 top-20 h-64 w-64" />
-      <div className="glow-orb glow-gold-10 absolute bottom-0 right-0 h-72 w-72" />
 
       <div className="container relative mx-auto px-4 md:px-6">
         <div className="mx-auto max-w-4xl text-center">
-          <h1 className="mt-5 text-3xl font-black text-foreground sm:text-4xl">
-            Контакти
-          </h1>
+          <h1 className="mt-5 text-3xl font-black text-foreground sm:text-4xl">Контакти</h1>
         </div>
 
         <div className="mt-10 grid gap-6 xl:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)]">
@@ -70,24 +52,18 @@ export function ContactsPageView({
                     <MapPin className="h-4 w-4" />
                     Основна адреса
                   </div>
-                  <h2 className="mt-4 text-2xl font-black text-foreground">
+                  <h2 className="mt-4 text-2xl lg:text-3xl font-black text-foreground">
                     Житомирський базовий фармацевтичний фаховий коледж
                   </h2>
                   <div className="mt-4 space-y-2 text-base leading-7 text-[rgba(var(--foreground),0.8)]">
                     <p>10005, м. Житомир, вул. Чуднівська, 99</p>
                     <p>
-                      <a
-                        href="tel:+380412242547"
-                        className="hover:text-primary"
-                      >
+                      <a href="tel:+380412242547" className="hover:text-primary">
                         (0412) 24-25-47
                       </a>
                     </p>
                     <p>
-                      <a
-                        href="mailto:college@pharm.zt.ua"
-                        className="hover:text-primary"
-                      >
+                      <a href="mailto:college@pharm.zt.ua" className="hover:text-primary">
                         college@pharm.zt.ua
                       </a>
                     </p>
@@ -122,5 +98,5 @@ export function ContactsPageView({
         </div>
       </div>
     </section>
-  );
+  )
 }

@@ -24,7 +24,7 @@ export default async function VidilenyaPage() {
       <StructureSectionListPageView
         badge="Відділення"
         title="Відділення"
-        description="Оберіть відділення, щоб перейти до його окремої сторінки з описом, матеріалами та структурою."
+        description="Оберіть відділення, щоб перейти до його окремої сторінки."
         items={items}
       />
     </>

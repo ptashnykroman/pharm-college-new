@@ -1,8 +1,8 @@
-import Image from "next/image";
-import { ArrowRight } from "lucide-react";
+import Image from 'next/image'
+import { ArrowRight } from 'lucide-react'
 
-import { SmartLink } from "@/widgets/navigation/smart-link";
-import type { CycleCommissionCardViewModel } from "@/widgets/cycle-commissions/model";
+import { SmartLink } from '@/widgets/navigation/smart-link'
+import type { CycleCommissionCardViewModel } from '@/widgets/cycle-commissions/model'
 
 function CycleCommissionCard({ item }: { item: CycleCommissionCardViewModel }) {
   return (
@@ -28,9 +28,7 @@ function CycleCommissionCard({ item }: { item: CycleCommissionCardViewModel }) {
 
       <div className="relative flex min-h-[260px] flex-col justify-end p-6">
         <div className="mt-4 flex items-end justify-between gap-4">
-          <h2 className="text-balance text-lg font-black leading-tight text-white">
-            {item.title}
-          </h2>
+          <h2 className="text-balance text-lg font-black leading-tight text-white">{item.title}</h2>
 
           <span className="absolute right-4 top-4 inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-[rgba(255,255,255,0.9)] text-primary shadow-soft transition group-hover:translate-x-1">
             <ArrowRight className="h-5 w-5" />
@@ -38,25 +36,17 @@ function CycleCommissionCard({ item }: { item: CycleCommissionCardViewModel }) {
         </div>
       </div>
     </SmartLink>
-  );
+  )
 }
 
-export function CycleCommissionsListPageView({
-  items,
-}: {
-  items: CycleCommissionCardViewModel[];
-}) {
+export function CycleCommissionsListPageView({ items }: { items: CycleCommissionCardViewModel[] }) {
   return (
     <section className="relative overflow-hidden bg-gradient-soft py-12 md:py-16">
       <div className="absolute inset-x-0 top-0 h-px bg-gradient-divider" />
-      <div className="glow-orb glow-primary-10 absolute left-0 top-14 h-72 w-72" />
-      <div className="glow-orb glow-gold-10 absolute bottom-0 right-0 h-72 w-72" />
 
       <div className="container relative mx-auto px-4 md:px-6">
         <div className="mx-auto max-w-3xl text-center">
-          <h1 className="mt-5 text-3xl font-black text-foreground sm:text-4xl">
-            Циклові комісії
-          </h1>
+          <h1 className="mt-5 text-3xl font-black text-foreground sm:text-4xl">Циклові комісії</h1>
         </div>
 
         <div className="mt-10 grid gap-3 md:gap-5 md:grid-cols-2 xl:grid-cols-4">
@@ -66,5 +56,5 @@ export function CycleCommissionsListPageView({
         </div>
       </div>
     </section>
-  );
+  )
 }

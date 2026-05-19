@@ -1,20 +1,20 @@
-import type { Metadata, Viewport } from 'next'
 import Script from 'next/script'
+import type { Metadata, Viewport } from 'next'
 
-import { cn } from '@/lib/utils'
-import { buildOrganizationJsonLd, buildWebsiteJsonLd } from '@/shared/lib/seo'
 import {
-  SITE_DESCRIPTION,
-  SITE_FULL_NAME,
+  SITE_URL,
   SITE_NAME,
   SITE_OG_IMAGE,
+  SITE_FULL_NAME,
+  SITE_DESCRIPTION,
   SITE_THEME_COLOR,
-  SITE_URL,
 } from '@/shared/lib/site-config'
+import { cn } from '@/lib/utils'
 import { SeoJsonLd } from '@/shared/ui/seo-json-ld'
 import { SiteFooter } from '@/widgets/footer/site-footer'
 import { getSiteChromeData } from '@/widgets/header/data'
 import { SiteHeader } from '@/widgets/header/site-header'
+import { buildOrganizationJsonLd, buildWebsiteJsonLd } from '@/shared/lib/seo'
 
 import './globals.css'
 

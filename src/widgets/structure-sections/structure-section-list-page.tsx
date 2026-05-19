@@ -1,5 +1,5 @@
-import { StructureSectionCard } from "./structure-section-card";
-import type { StructureSectionCardViewModel } from "@/widgets/structure-sections/model";
+import { StructureSectionCard } from './structure-section-card'
+import type { StructureSectionCardViewModel } from '@/widgets/structure-sections/model'
 
 export function StructureSectionListPageView({
   badge,
@@ -7,22 +7,18 @@ export function StructureSectionListPageView({
   description,
   items,
 }: {
-  badge: string;
-  title: string;
-  description: string;
-  items: StructureSectionCardViewModel[];
+  badge: string
+  title: string
+  description: string
+  items: StructureSectionCardViewModel[]
 }) {
   return (
     <section className="relative overflow-hidden bg-gradient-soft py-12 md:py-16">
       <div className="absolute inset-x-0 top-0 h-px bg-gradient-divider" />
-      <div className="glow-orb glow-primary-10 absolute left-0 top-14 h-72 w-72" />
-      <div className="glow-orb glow-gold-10 absolute bottom-0 right-0 h-72 w-72" />
 
       <div className="container relative mx-auto px-4 md:px-6">
         <div className="mx-auto max-w-3xl text-center">
-          <h1 className="mt-5 text-3xl font-black text-foreground sm:text-4xl">
-            {title}
-          </h1>
+          <h1 className="mt-5 text-3xl font-black text-foreground sm:text-4xl">{title}</h1>
         </div>
 
         <div className="mt-10 grid gap-6 md:grid-cols-2 xl:grid-cols-4">
@@ -32,5 +28,5 @@ export function StructureSectionListPageView({
         </div>
       </div>
     </section>
-  );
+  )
 }
