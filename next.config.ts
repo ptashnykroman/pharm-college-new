@@ -12,6 +12,18 @@ const nextConfig: NextConfig = {
         pathname: '/uploads/**',
       },
       {
+        protocol: 'https',
+        hostname: 's3.pharm.zt.ua',
+        port: '9000',
+        pathname: '/main/uploads/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'cms.pharm.zt.ua',
+        port: '1337',
+        pathname: '/uploads/**',
+      },
+      {
         protocol: 'http',
         hostname: 'localhost',
         port: '1337',
